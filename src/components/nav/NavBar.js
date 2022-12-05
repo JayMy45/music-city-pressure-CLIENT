@@ -33,12 +33,12 @@ export const NavBar = () => {
                             </div>
                             <div className="navbar-item">
                                 <li className="navbar__item">
-                                    <Link to="/games">Games</Link>
+                                    <Link to="/Appointments">Appointments</Link>
                                 </li>
                             </div>
                             <div className="navbar-item">
                                 <li className="navbar__item">
-                                    <Link to="/events">Events</Link>
+                                    <Link to="/Services">Services</Link>
                                 </li>
                             </div>
 
