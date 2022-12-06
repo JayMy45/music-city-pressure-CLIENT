@@ -9,7 +9,7 @@ export const getServices = () => {
 }
 
 // GET single service by Id
-export const getEventById = (serviceId) => {
+export const getServiceById = (serviceId) => {
     return fetch(`http://localhost:8000/services/${serviceId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("mc_token")}`
