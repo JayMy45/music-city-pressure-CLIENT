@@ -43,11 +43,11 @@ export const NavBar = () => {
                             </div>
 
                             {
-                                (localStorage.getItem("lu_token") !== null) ?
+                                (localStorage.getItem("mc_token") !== null) ?
                                     <li className="navbar-item">
                                         <button className="nav-link fakeLink is-link"
                                             onClick={() => {
-                                                localStorage.removeItem("lu_token")
+                                                localStorage.removeItem("mc_token")
                                                 navigate('/login')
                                             }}
                                         >Logout</button>
