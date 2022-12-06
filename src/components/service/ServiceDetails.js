@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { getServiceById } from "../../managers/ServiceManager"
 
 export const ServiceDetails = () => {
@@ -8,6 +8,7 @@ export const ServiceDetails = () => {
     const [service, setCurrentService] = useState({
         details: "",
     })
+    const navigate = useNavigate()
 
     // function uses serviceId to set State
     const renderService = () => {
@@ -30,6 +31,9 @@ export const ServiceDetails = () => {
                         <div><h2><span className="">More About: </span></h2></div>
                         <div>{service.details}</div>
                     </section>
+                </div>
+                <div>
+                    <button onClick={() => navigate("/services")}>Back To Services</button>
                 </div>
             </div>
         </article>

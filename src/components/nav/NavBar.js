@@ -28,7 +28,7 @@ export const NavBar = () => {
                         <ul className="navbar-item">
                             <div className="navbar-item">
                                 <li className="navbar__item">
-                                    Navigation link
+                                    <Link to="/appointments">Make an Appointment</Link>
                                 </li>
                             </div>
                             <div className="navbar-item">
