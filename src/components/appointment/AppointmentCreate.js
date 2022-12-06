@@ -40,7 +40,7 @@ export const AppointmentCreate = () => {
             </div>
             <div>
                 <label>Choose a service</label>
-                <select name="serviceTypeId" className="drop__down" onClick={changeAppointmentState}>
+                <select name="serviceTypeId" className="drop__down" onChange={changeAppointmentState} value={newAppointment.serviceTypeId}>
                     <option value={0}>Select Service Type</option>
                     {
                         services.map(service => {
