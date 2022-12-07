@@ -11,16 +11,11 @@ export const ServiceDetails = () => {
     const navigate = useNavigate()
 
     // function uses serviceId to set State
-    const renderService = () => {
-        if (serviceId) {
-            getServiceById(serviceId).then((res) => {
-                setCurrentService(res)
-            })
-        }
-    }
+    useEffect(() => {
+        getServiceById(serviceId).then(data => setCurrentService(data))
+    }, [])
 
     // whenever serviceId changes renderServe is called usually entire function contains: {renderGame()}, [gameId])
-    useEffect(() => { renderService() })
 
     return <>
         <article>

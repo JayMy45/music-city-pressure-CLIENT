@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
+import { createAppointment } from "../../managers/AppointmentManager";
 import { getServices } from "../../managers/ServiceManager"
 
 export const AppointmentCreate = () => {
 
+    const navigate = useNavigate()
     const [services, setServices] = useState([])
     const [newAppointment, setNewAppointment] = useState({
         requestDetails: "",
@@ -49,6 +52,34 @@ export const AppointmentCreate = () => {
                     }
                 </select>
             </div>
+            <div>
+                <div>
+                    <label>Date Services Needed</label>
+                </div>
+                <input type="date" name="requestDate" required autoFocus className=""
+                    value={newAppointment.requestDate}
+                    onChange={changeAppointmentState} />
+            </div>
+            <div>
+                <button type="submit" onClick={evt => {
+                    // Prevent form from being submitted
+                    evt.preventDefault()
+
+                    const appointment = {
+                        request_details: newAppointment.requestDetails,
+                        service_type_id: parseInt(newAppointment.serviceTypeId),
+                        request_date: newAppointment.requestDate,
+                        date_completed: "",
+                        consultation: false
+                    }
+
+                    // Send POST request to your API
+                    createAppointment(appointment)
+                        .then(() => navigate("/appointments"))
+                }}
+                    className="">Create Appointment</button>
+            </div>
+
         </form>
     </>
 }
