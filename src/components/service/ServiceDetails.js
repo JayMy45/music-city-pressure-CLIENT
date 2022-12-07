@@ -13,7 +13,7 @@ export const ServiceDetails = () => {
     // function uses serviceId to set State
     useEffect(() => {
         getServiceById(serviceId).then(data => setCurrentService(data))
-    }, [])
+    }, [serviceId])
 
     // whenever serviceId changes renderServe is called usually entire function contains: {renderGame()}, [gameId])
 
