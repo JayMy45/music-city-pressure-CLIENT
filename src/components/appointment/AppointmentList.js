@@ -25,6 +25,9 @@ export const AppointmentList = () => {
                                 <div className="appointment__description has-text-left"><span><strong>Description: </strong><em>{appointment.service_type.description}</em></span></div>
                                 <div><footer>{appointment.request_date}</footer></div>
                             </section>
+                            <div>
+                                <button onClick={() => navigate(`/appointments/update/${appointment.id}`)}>Update Appointment</button>
+                            </div>
                             {/* <div>
                                 <div className="">
                                     <button className="btn__appointments button is-link is-small" onClick={() => navigate(`/appointments/${appointment.id}`)}>Update</button>

@@ -29,3 +29,15 @@ export const createAppointment = (appointment) => {
         body: JSON.stringify(appointment)
     })
 }
+
+// PUT edit appointments
+export const saveEditedAppointment = (appointment) => {
+    return fetch(`http://localhost:8000/appointments/${appointment.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("mc_token")}`
+        },
+        body: JSON.stringify(appointment)
+    })
+}

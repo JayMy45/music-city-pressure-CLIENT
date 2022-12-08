@@ -30,7 +30,7 @@ export const AppointmentCreate = () => {
 
 
     return <>
-        <h2>Hellow Appointment Worldie</h2>
+        <h2>Hellow Creation Worldie</h2>
         <form>
             <div>
                 <div>
