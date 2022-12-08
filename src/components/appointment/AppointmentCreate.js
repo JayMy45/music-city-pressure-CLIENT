@@ -11,7 +11,6 @@ export const AppointmentCreate = () => {
         requestDetails: "",
         serviceTypeId: 0,
         requestDate: "",
-        dateCompleted: "",
         consultation: false
     })
 
@@ -66,10 +65,10 @@ export const AppointmentCreate = () => {
                     evt.preventDefault()
 
                     const appointment = {
+                        customer_id: newAppointment.customer,
                         request_details: newAppointment.requestDetails,
-                        service_type_id: parseInt(newAppointment.serviceTypeId),
+                        service_type: parseInt(newAppointment.serviceTypeId),
                         request_date: newAppointment.requestDate,
-                        date_completed: "",
                         consultation: false
                     }
 
