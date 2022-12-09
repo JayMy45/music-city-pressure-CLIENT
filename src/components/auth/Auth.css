@@ -1,4 +1,5 @@
-.h1, h1 {
+.h1,
+h1 {
     font-size: 2.5rem;
 }
 
@@ -15,8 +16,8 @@ fieldset {
     text-align: left;
 }
 
-.form--login > fieldset > input[type="email"],
-.form--login > fieldset > input[type="password"] {
+.form--login>fieldset>input[type="email"],
+.form--login>fieldset>input[type="password"] {
     width: 25em;
 }
 
@@ -38,8 +39,8 @@ fieldset {
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: .25rem;
-    -webkit-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    -webkit-transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .container--login {
@@ -49,12 +50,12 @@ fieldset {
 .form--login {
     background-size: cover;
     background-position-x: center;
-    background-image: url('./logo.png');
+    background-image: url('./MusicCity.png');
     z-index: 1;
     min-height: 25rem;
     min-width: 45rem;
     padding: 0 5rem;
-    background-color: hsla(0,0%,100%,0.75);
+    background-color: hsla(0, 0%, 100%, 0.608);
     background-blend-mode: overlay;
     background-repeat: no-repeat;
 }
