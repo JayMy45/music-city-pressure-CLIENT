@@ -6,6 +6,8 @@ import { getServices } from "../../managers/ServiceManager"
 export const UpdateAppointment = () => {
 
     const { appointmentId } = useParams()
+
+    const navigate = useNavigate()
     const [services, setServices] = useState([])
     const [currentAppt, setCurrentAppt] = useState({
         serviceTypeId: 0,
@@ -15,39 +17,17 @@ export const UpdateAppointment = () => {
         requestDetails: "",
         consultation: false,
         completed: false
-
     })
-    const [newAppointment, setNewAppointment] = useState({
-        serviceTypeId: 0,
-        progress: 0,
-        requestDate: "",
-        dateCompletion: "",
-        requestDetails: "",
-        consultation: false,
-        completed: false
-
-    })
-
-    const navigate = useNavigate()
 
     useEffect(() => {
         getServices()
-            .then(data => { setServices(data) })
+            .then(setServices)
     }, [])
 
-    // Whenever appointmentId changes useEffect invokes this function
-    const renderAppointment = () => {
-        if (appointmentId) {
-            // A single appointment is GET and currentAppointments is set to response
-            getAppointmentById(appointmentId).then((res) => {
-                setCurrentAppt(res)
-            })
-        }
-    }
-
-    //  Whenever appointmentId changes renderAppointment() function is invoked
+    //  Whenever appointmentId changes set CurrentAppt state
     useEffect(() => {
-        renderAppointment()
+        getAppointmentById(appointmentId)
+            .then(setCurrentAppt)
     }, [appointmentId])
 
     const changeAppointmentState = (domEvent) => {
@@ -63,9 +43,11 @@ export const UpdateAppointment = () => {
         <form>
             <h2>Hellow UPDATE Worldie</h2>
             <div>
-                <label>Update Service Needed:</label>
+                <div>
+                    <label>Update Service Needed:  Current Selection <span>{currentAppt?.service_type?.name}</span></label>
+                </div>
                 <select name="serviceTypeId" className="drop__down" onChange={changeAppointmentState} value={currentAppt.serviceTypeId}>
-                    <option value={0}>{currentAppt?.service_type?.name}</option>
+                    <option value={0}>Change Service Type</option>
                     {
                         services.map(service => {
                             return <option value={`${service.id}`} key={`service--${service.id}`}>{service.name}</option>
@@ -76,8 +58,6 @@ export const UpdateAppointment = () => {
             <div>
                 <label>Update Request Date</label>
                 <input type="date" name="requestDate" required autoFocus className=""
-                    value={newAppointment.request_date}
-                    placeholder={currentAppt.request_date}
                     onChange={changeAppointmentState} />
             </div>
 
