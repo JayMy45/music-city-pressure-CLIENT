@@ -58,6 +58,7 @@ export const UpdateAppointment = () => {
             <div>
                 <label>Update Request Date</label>
                 <input type="date" name="request_date" required autoFocus className=""
+                    value={currentAppt.request_date}
                     onChange={changeAppointmentState} />
             </div>
 

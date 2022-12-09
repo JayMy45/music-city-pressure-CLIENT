@@ -10,8 +10,13 @@ export const Register = () => {
     const bio = useRef()
     const password = useRef()
     const verifyPassword = useRef()
+    const email = useRef()
+    const address = useRef()
+    const phone_number = useRef()
     const passwordDialog = useRef()
     const navigate = useNavigate()
+
+
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -21,8 +26,12 @@ export const Register = () => {
                 "username": username.current.value,
                 "first_name": firstName.current.value,
                 "last_name": lastName.current.value,
+                "address": address.current.value,
+                "phone_number": phone_number.current.value,
                 "bio": bio.current.value,
-                "password": password.current.value
+                "password": password.current.value,
+                "account_type": "customer",
+                "email": email.current.value
             }
 
             registerUser(newUser)
@@ -66,6 +75,18 @@ export const Register = () => {
                 <fieldset>
                     <label htmlFor="verifyPassword"> Verify Password </label>
                     <input ref={verifyPassword} type="password" name="verifyPassword" className="form-control" placeholder="Verify password" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="email"> Email </label>
+                    <input ref={email} type="text" name="email" className="form-control" placeholder="Email" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="address"> Address </label>
+                    <input ref={address} type="text" name="address" className="form-control" placeholder="Address" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="phone_number"> Phone </label>
+                    <input ref={phone_number} type="text" name="phone_number" className="form-control" placeholder="Phone Number" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="verifyPassword"> Bio </label>
