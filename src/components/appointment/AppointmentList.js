@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { getAppointments } from "../../managers/AppointmentManager"
+import { deleteAppointment, getAppointments } from "../../managers/AppointmentManager"
 
 export const AppointmentList = () => {
     const [appointments, setAppointments] = useState([])
@@ -9,6 +9,17 @@ export const AppointmentList = () => {
     useEffect(() => {
         getAppointments().then(data => setAppointments(data))
     }, [])
+
+    //  handles confirmation of deletion via a popup
+    const confirmDelete = (evt, appointment) => {
+        // whenever confirmed by clicking OK/Cancel window.confirm() returns boolean 
+        let text = 'Are you sure you want to delete'
+        window.confirm(text)
+            ? deleteAppointment(appointment.id)
+                .then(() => getAppointments()
+                    .then(data => setAppointments(data)))
+            : <></>
+    }
     // 'id', 'service_type','completed', 'consultation', 'request_details',
     return <>
         <header>
@@ -27,6 +38,7 @@ export const AppointmentList = () => {
                             </section>
                             <div>
                                 <button onClick={() => navigate(`/appointments/update/${appointment.id}`)}>Update Appointment</button>
+                                <button onClick={(evt) => confirmDelete(evt, appointment)}>Delete</button>
                             </div>
                             {/* <div>
                                 <div className="">

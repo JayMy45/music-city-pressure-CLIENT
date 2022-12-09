@@ -41,3 +41,11 @@ export const saveEditedAppointment = (appointment) => {
         body: JSON.stringify(appointment)
     })
 }
+
+// DELETE single appointment
+export const deleteAppointment = (appointmentId) => {
+    return fetch(`http://localhost:8000/appointments/${appointmentId}`, {
+        method: "DELETE",
+        headers: { "Authorization": `Token ${localStorage.getItem("mc_token")}` },
+    })
+}
