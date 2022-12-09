@@ -13,7 +13,7 @@ export const ServiceList = () => {
     return <>
         <header>
             <h1>Services</h1>
-            <button className="" onClick={() => { navigate({ pathname: "/" }) }}><span className="">Schedule Appointment</span></button>
+            <button className="" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
         </header>
         <article className="services">
             {
