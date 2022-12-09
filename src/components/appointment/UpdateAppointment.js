@@ -7,7 +7,16 @@ export const UpdateAppointment = () => {
 
     const { appointmentId } = useParams()
     const [services, setServices] = useState([])
-    const [currentAppt, setCurrentAppt] = useState([])
+    const [currentAppt, setCurrentAppt] = useState({
+        serviceTypeId: 0,
+        progress: 0,
+        requestDate: "",
+        dateCompletion: "",
+        requestDetails: "",
+        consultation: false,
+        completed: false
+
+    })
     const [newAppointment, setNewAppointment] = useState({
         serviceTypeId: 0,
         progress: 0,
@@ -44,8 +53,8 @@ export const UpdateAppointment = () => {
     const changeAppointmentState = (domEvent) => {
         // TODO: Complete the onChange function
         const value = domEvent.target.value
-        setNewAppointment({
-            ...newAppointment,
+        setCurrentAppt({
+            ...currentAppt,
             [domEvent.target.name]: value
         })
     }
@@ -74,7 +83,7 @@ export const UpdateAppointment = () => {
 
             <div>
                 <label>consultation</label>
-                <input />
+                <input type="checkbox" />
             </div>
 
 
@@ -93,11 +102,11 @@ export const UpdateAppointment = () => {
                     evt.preventDefault()
 
                     const appointment = {
-                        id: newAppointment.id,
-                        service_type: newAppointment.serviceTypeId,
-                        request_date: newAppointment.requestDate,
-                        consultation: newAppointment.consultation,
-                        request_details: newAppointment.request_details
+                        id: currentAppt.id,
+                        service_type: currentAppt.serviceTypeId,
+                        request_date: currentAppt.requestDate,
+                        consultation: currentAppt.consultation,
+                        request_details: currentAppt.requestDetails
                     }
 
                     // Send POST request to your API
