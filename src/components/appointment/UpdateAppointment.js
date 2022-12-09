@@ -10,13 +10,13 @@ export const UpdateAppointment = () => {
     const navigate = useNavigate()
     const [services, setServices] = useState([])
     const [currentAppt, setCurrentAppt] = useState({
-        serviceTypeId: 0,
+        service_type_id: 0,
         progress: 0,
-        requestDate: "",
-        dateCompletion: "",
-        requestDetails: "",
+        request_date: "",
+        date_completion: "",
+        request_details: "",
         consultation: false,
-        completed: false
+        completed: false,
     })
 
     useEffect(() => {
@@ -44,9 +44,9 @@ export const UpdateAppointment = () => {
             <h2>Hellow UPDATE Worldie</h2>
             <div>
                 <div>
-                    <label>Update Service Needed:  Current Selection <span>{currentAppt?.service_type?.name}</span></label>
+                    <label>Update Service Needed: <span><em>Current Service Selection</em> {currentAppt?.service_type?.name}</span></label>
                 </div>
-                <select name="serviceTypeId" className="drop__down" onChange={changeAppointmentState} value={currentAppt.serviceTypeId}>
+                <select name="service_type_id" className="drop__down" onChange={changeAppointmentState} value={currentAppt.service_type_id}>
                     <option value={0}>Change Service Type</option>
                     {
                         services.map(service => {
@@ -57,7 +57,7 @@ export const UpdateAppointment = () => {
             </div>
             <div>
                 <label>Update Request Date</label>
-                <input type="date" name="requestDate" required autoFocus className=""
+                <input type="date" name="request_date" required autoFocus className=""
                     onChange={changeAppointmentState} />
             </div>
 
@@ -69,8 +69,8 @@ export const UpdateAppointment = () => {
 
             <div>
                 <label>Request Details</label>
-                <input type="text" name="requestDetails" required autoFocus className=""
-                    value={currentAppt.requestDetails}
+                <input type="text" name="request_details" required autoFocus className=""
+                    value={currentAppt.request_details}
                     placeholder={currentAppt.request_details}
                     onChange={changeAppointmentState} />
             </div>
@@ -83,10 +83,10 @@ export const UpdateAppointment = () => {
 
                     const appointment = {
                         id: currentAppt.id,
-                        service_type: currentAppt.serviceTypeId,
-                        request_date: currentAppt.requestDate,
+                        service_type: currentAppt.service_type_id,
+                        request_date: currentAppt.request_date,
                         consultation: currentAppt.consultation,
-                        request_details: currentAppt.requestDetails
+                        request_details: currentAppt.request_details
                     }
 
                     // Send POST request to your API
@@ -97,6 +97,12 @@ export const UpdateAppointment = () => {
             </div>
 
             <div>
+                {
+                    currentAppt?.user?.is_staff
+                        ? <>work</>
+                        : <>workit</>
+                }
+
                 <button onClick={() => navigate(`/appointments`)} >Back to Appointments</button>
             </div>
         </form>
