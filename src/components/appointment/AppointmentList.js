@@ -29,51 +29,54 @@ export const AppointmentList = () => {
     }
     // 'id', 'service_type','completed', 'consultation', 'request_details',
     return <>
-        <header>
-            <h1>Appointments</h1>
-            <h3>{appointments.id}</h3>
-            <button className="" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
-        </header>
+        <section>
+            <h1 className="is-title mb-3">Appointments</h1>
+            <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
+        </section>
         <article className="appointments">
-            {
-                customers.map(customer => {
-                    return <h3 key={`customer--${customer.id}`}>Welcome back {customer.full_name}</h3>
-                })
-            }
+            <section className="mt-5">
+                {
+                    customers.map(customer => {
+                        return <h3 key={`customer--${customer.id}`}>Welcome back {customer.full_name}</h3>
+                    })
+                }
+            </section>
+            <section className="">
+                <div className="columns mt-5 is-3 is-variable is-centered">
+                    {
+                        appointments.map(appointment => {
+                            return <React.Fragment key={`appointment--${appointment.id}`}>
+                                <div className="appointment__request column is-4-tablet is-3-desktop">
+                                    <div className="card">
+                                        <div className="card-image has-text-centered px-6">
+                                            <img src="" alt="" />
+                                        </div>
+                                        {
+                                            customers.map(customer => {
+                                                return <div className="card-content" key={`customer--${customer.id}`}>
 
-            {
-                appointments.map(appointment => {
-                    return <React.Fragment key={`appointment--${appointment.id}`}>
-                        <div className="" id="appointment__list" >
-                            <section className="appointment__request">
-                                <div></div>
-                                {
-                                    customers.map(customer => {
-                                        return <header key={`customer--${customer.id}`}>
-                                            <div>Service: <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></div>
-                                            <div>Details: {appointment.request_details}</div>
-                                            <div>Address: {customer.address}</div>
-                                        </header>
-                                    })
-                                }
-                                <div><footer>Request Date: {appointment.request_date}</footer></div>
-                                <div>
-                                    <button onClick={() => navigate(`/appointments/update/${appointment.id}`)}>Update Appointment</button>
-                                    <button onClick={(evt) => confirmDelete(evt, appointment)}>Delete</button>
+                                                    <div className="">Service: <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></div>
+                                                    <div>Details: {appointment.request_details}</div>
+                                                    <div>Address: {customer.address}</div>
+                                                    <div className="mb-3"><footer>Request Date: {appointment.request_date}</footer></div>
+
+                                                </div>
+                                            })
+                                        }
+                                        <footer className="card-footer">
+                                            <div className="card-footer-item">
+                                                <button className="button btn__appt-list is-inverted is-black is-small" onClick={() => navigate(`/appointments/update/${appointment.id}`)}>Update</button>
+                                                <button className="button btn__appt-list is-inverted is-black is-small" onClick={(evt) => confirmDelete(evt, appointment)}>Delete</button>
+                                            </div>
+                                        </footer>
+                                    </div>
                                 </div>
-                            </section>
-                            {/* <div>
-                                <div className="">
-                                    <button className="btn__appointments button is-link is-small" onClick={() => navigate(`/appointments/${appointment.id}`)}>Update</button>
-                                </div>
-                                <div className="mt-1">
-                                    <button className="btn__appointments button is-small is-danger" onClick={(evt) => { confirmDelete(evt, appointment) }}>Delete</button>
-                                </div>
-                            </div> */}
-                        </div>
-                    </React.Fragment>
-                })
-            }
+
+                            </React.Fragment>
+                        })
+                    }
+                </div>
+            </section>
         </article>
 
         {/* a way to distinguish if a persons a staff member  (???)

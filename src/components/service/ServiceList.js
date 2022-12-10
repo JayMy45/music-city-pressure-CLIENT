@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { getServices } from "../../managers/ServiceManager"
+import "./Service.css"
 
 export const ServiceList = () => {
     const [services, setServices] = useState([])
@@ -19,7 +20,7 @@ export const ServiceList = () => {
             {
                 services.map(service => {
                     return <React.Fragment key={`service--${service.id}`}>
-                        <div className="columns box columns" id="service__list" >
+                        <div className="columns box" id="service__list" >
                             <section className="service column">
                                 <div><h2><Link to={`/services/${service.id}`}>{service.name}</Link></h2></div>
                                 <div className="service__description has-text-left">Description: {service.description}</div>
