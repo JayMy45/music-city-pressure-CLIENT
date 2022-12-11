@@ -66,7 +66,12 @@ export const AppointmentList = () => {
                                         <footer className="card-footer">
                                             <div className="card-footer-item">
                                                 <button className="button btn__appt-list is-inverted is-black is-small" onClick={() => navigate(`/appointments/update/${appointment.id}`)}>Update</button>
-                                                <button className="button btn__appt-list is-inverted is-black is-small" onClick={(evt) => confirmDelete(evt, appointment)}>Delete</button>
+                                                <button className="button btn__appt-list is-inverted is-black is-small" onClick={(evt) => confirmDelete(evt, appointment)}>
+                                                    <span className="icon">
+                                                        <ion-icon name="trash-outline"></ion-icon>
+                                                    </span>
+                                                    <span>DELETE</span>
+                                                </button>
                                             </div>
                                         </footer>
                                     </div>
