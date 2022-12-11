@@ -30,7 +30,7 @@ export const AppointmentList = () => {
     // 'id', 'service_type','completed', 'consultation', 'request_details',
     return <>
         <section>
-            <h1 className="is-title mb-3">Appointments</h1>
+            <h1 className="is-title mb-2">Appointments</h1>
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
         </section>
         <article className="appointments">
@@ -52,35 +52,40 @@ export const AppointmentList = () => {
                                         {
                                             customers.map(customer => {
                                                 return <div className="card-content" key={`customer--${customer.id}`}>
-                                                    <div className="card-image has-text-centered px-6 mb-3">
+                                                    <div className="card-image has-text-centered px-7 mb-3">
                                                         <figure className="image is-5by4">
                                                             <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRCDeAQKGIjC916XeJAnv7JuDFj6GHoduUGKAZoFVVWJ4IkzHj0nRNvcdt_PjZ1tReaksMyOORmIwZwA_hBJr72xq9QP3Je&usqp=CAE" alt="" />
                                                         </figure>
                                                     </div>
                                                     <div className="media">
-                                                        <div className="media-content mr-3 mt-5">
-                                                            <p className="">Service: <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
-                                                            <p>Details: {appointment.request_details}</p>
-                                                            <p>Address: {customer.address}</p>
-                                                            <p className="mb-3">Request Date: {appointment.request_date}</p>
+                                                        <div className="media-content mr-3 mt-5" >
+                                                            <p className=""><strong>Service:</strong> <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
+                                                            <div className="paragraph">
+                                                                <p><strong>Details:</strong> {appointment.request_details}</p>
+                                                            </div>
+                                                            <p><strong>Address:</strong> {customer.address}</p>
+                                                            <footer className="mb-3 mt-2"><em>Request Date:</em> {appointment.request_date}</footer>
                                                         </div>
-                                                        <div className="media-left ml-3 mt-1">
+                                                        <div className="media-left ml-3 mt-5">
                                                             <div>
-                                                                <button className="button  mb-2 " onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
+                                                                <button className="button  mb-1" onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
                                                                     <span className="icon">
                                                                         <ion-icon name="repeat-outline"></ion-icon>
                                                                     </span>
                                                                     <span>Update</span>
                                                                 </button>
                                                             </div>
-                                                            <div className="appointment__progress ml-5">
-                                                                <p>progress</p>
+                                                            <div className="appt__progress">
+                                                                <h4>Progress</h4>
                                                             </div>
-                                                            <button className="button is-inverted is-black is-large ml-5" onClick={(evt) => confirmDelete(evt, appointment)}>
-                                                                <span className="icon">
-                                                                    <ion-icon name="trash-outline"></ion-icon>
-                                                                </span>
-                                                            </button>
+
+                                                            <div>
+                                                                <button className="button is-inverted is-black is-large ml-5" onClick={(evt) => confirmDelete(evt, appointment)}>
+                                                                    <span className="icon">
+                                                                        <ion-icon name="trash-outline"></ion-icon>
+                                                                    </span>
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -95,6 +100,7 @@ export const AppointmentList = () => {
                 </div>
             </section>
         </article>
+
 
         {/* a way to distinguish if a persons a staff member  (???)
         {
