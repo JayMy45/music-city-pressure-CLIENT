@@ -16,11 +16,11 @@ export const ServiceList = () => {
             <h1>Services</h1>
             <button className="" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
         </header>
-        <article className="services">
+        <article className="">
             {
                 services.map(service => {
                     return <React.Fragment key={`service--${service.id}`}>
-                        <div className="columns box" id="service__list" >
+                        <div className="columns box mt-2" id="service__list--details" >
                             <section className="service column">
                                 <div><h2><Link to={`/services/${service.id}`}>{service.name}</Link></h2></div>
                                 <div className="service__description has-text-left">Description: {service.description}</div>
