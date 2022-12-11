@@ -46,30 +46,42 @@ export const AppointmentList = () => {
                     {
                         appointments.map(appointment => {
                             return <React.Fragment key={`appointment--${appointment.id}`}>
-                                <div className="appointment__request is-4-tablet is-3-desktop">
+                                <div className="appointment__request is-4-tablet is-3-desktop mb-6">
                                     <div className="card">
-                                        <div className="card-image has-text-centered px-6">
-                                            <img src="" alt="" />
-                                        </div>
+
                                         {
                                             customers.map(customer => {
-                                                return <div className="card-content " key={`customer--${customer.id}`}>
+                                                return <div className="card-content" key={`customer--${customer.id}`}>
+                                                    <div className="card-image has-text-centered px-6 mb-3">
+                                                        <figure className="image is-5by4">
+                                                            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRCDeAQKGIjC916XeJAnv7JuDFj6GHoduUGKAZoFVVWJ4IkzHj0nRNvcdt_PjZ1tReaksMyOORmIwZwA_hBJr72xq9QP3Je&usqp=CAE" alt="" />
+                                                        </figure>
+                                                    </div>
                                                     <div className="media">
-                                                        <div className="media-content mr-2">
+                                                        <div className="media-content mr-3 mt-5">
                                                             <p className="">Service: <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
                                                             <p>Details: {appointment.request_details}</p>
                                                             <p>Address: {customer.address}</p>
                                                             <p className="mb-3">Request Date: {appointment.request_date}</p>
                                                         </div>
-                                                        <div className="media-left ml-3">
-                                                            <button className="button btn__appt-list mb-3 is-inverted is-black is-small column" onClick={() => navigate(`/appointments/update/${appointment.id}`)}>Update</button>
-                                                            <button className="button btn__appt-list is-inverted is-black is-large" onClick={(evt) => confirmDelete(evt, appointment)}>
+                                                        <div className="media-left ml-3 mt-1">
+                                                            <div>
+                                                                <button className="button  mb-2 " onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
+                                                                    <span className="icon">
+                                                                        <ion-icon name="repeat-outline"></ion-icon>
+                                                                    </span>
+                                                                    <span>Update</span>
+                                                                </button>
+                                                            </div>
+                                                            <div className="appointment__progress ml-5">
+                                                                <p>progress</p>
+                                                            </div>
+                                                            <button className="button is-inverted is-black is-large ml-5" onClick={(evt) => confirmDelete(evt, appointment)}>
                                                                 <span className="icon">
                                                                     <ion-icon name="trash-outline"></ion-icon>
                                                                 </span>
                                                             </button>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             })
