@@ -29,52 +29,73 @@ export const AppointmentList = () => {
     }
     // 'id', 'service_type','completed', 'consultation', 'request_details',
     return <>
-        <header>
-            <h1>Appointments</h1>
-            <h3>{appointments.id}</h3>
-            <button className="" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
-        </header>
+        <section>
+            <h1 className="is-title mb-2">Appointments</h1>
+            <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
+        </section>
         <article className="appointments">
-            {
-                customers.map(customer => {
-                    return <h3 key={`customer--${customer.id}`}>Welcome back {customer.full_name}</h3>
-                })
-            }
+            <section className="mt-5">
+                {
+                    customers.map(customer => {
+                        return <h3 key={`customer--${customer.id}`}>Welcome back {customer.full_name}</h3>
+                    })
+                }
+            </section>
+            <section className="">
+                <div className="columns is-multiline mt-5 is-3 is-variable is-centered">
+                    {
+                        appointments.map(appointment => {
+                            return <React.Fragment key={`appointment--${appointment.id}`}>
+                                <div className="appointment__request is-4-tablet is-6-desktop mx-1 mb-6 column">
+                                    <div className="card ">
 
-            {
-                appointments.map(appointment => {
-                    return <React.Fragment key={`appointment--${appointment.id}`}>
-                        <div className="" id="appointment__list" >
-                            <section className="appointment__request">
-                                <div></div>
-                                {
-                                    customers.map(customer => {
-                                        return <header key={`customer--${customer.id}`}>
-                                            <div>Service: <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></div>
-                                            <div>Details: {appointment.request_details}</div>
-                                            <div>Address: {customer.address}</div>
-                                        </header>
-                                    })
-                                }
-                                <div><footer>Request Date: {appointment.request_date}</footer></div>
-                                <div>
-                                    <button onClick={() => navigate(`/appointments/update/${appointment.id}`)}>Update Appointment</button>
-                                    <button onClick={(evt) => confirmDelete(evt, appointment)}>Delete</button>
+                                        {
+                                            customers.map(customer => {
+                                                return <div className="card-content" key={`customer--${customer.id}`}>
+                                                    <div className="card-image has-text-centered px-0">
+                                                        <figure className="image is-4by3">
+                                                            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRCDeAQKGIjC916XeJAnv7JuDFj6GHoduUGKAZoFVVWJ4IkzHj0nRNvcdt_PjZ1tReaksMyOORmIwZwA_hBJr72xq9QP3Je&usqp=CAE" alt="" />
+                                                        </figure>
+                                                    </div>
+                                                    <div className="ml-5 mt-5 is-centered">
+                                                        <button className="button" onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
+                                                            <span className="icon">
+                                                                <ion-icon name="repeat-outline"></ion-icon>
+                                                            </span>
+                                                            <span className="is-uppercase is-small">Update</span>
+                                                        </button>
+                                                        <button className="button" onClick={(evt) => confirmDelete(evt, appointment)}>
+                                                            <span className="icon">
+                                                                <ion-icon name="trash-outline"></ion-icon>
+                                                            </span>
+                                                            <span className="is-uppercase is-small">Delete</span>
+                                                        </button>
+                                                    </div>
+                                                    <div className="">
+                                                        <div className="mt-5" >
+                                                            <p className=""><strong>Service:</strong> <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
+                                                            <div className="paragraph">
+                                                                <p><strong>Details:</strong></p>
+                                                                <p>{appointment.request_details}</p>
+                                                            </div>
+                                                            <p><strong>Address:</strong> {customer.address}</p>
+                                                            <footer className="card-footer mt-2 is-vcenter has-text-grey"><em>Request Date:  </em>{appointment.request_date}</footer>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            })
+                                        }
+                                    </div>
                                 </div>
-                            </section>
-                            {/* <div>
-                                <div className="">
-                                    <button className="btn__appointments button is-link is-small" onClick={() => navigate(`/appointments/${appointment.id}`)}>Update</button>
-                                </div>
-                                <div className="mt-1">
-                                    <button className="btn__appointments button is-small is-danger" onClick={(evt) => { confirmDelete(evt, appointment) }}>Delete</button>
-                                </div>
-                            </div> */}
-                        </div>
-                    </React.Fragment>
-                })
-            }
+
+                            </React.Fragment>
+                        })
+                    }
+                </div>
+            </section>
         </article>
+
 
         {/* a way to distinguish if a persons a staff member  (???)
         {
