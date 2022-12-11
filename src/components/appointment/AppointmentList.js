@@ -46,34 +46,34 @@ export const AppointmentList = () => {
                     {
                         appointments.map(appointment => {
                             return <React.Fragment key={`appointment--${appointment.id}`}>
-                                <div className="appointment__request column is-4-tablet is-3-desktop">
+                                <div className="appointment__request is-4-tablet is-3-desktop">
                                     <div className="card">
                                         <div className="card-image has-text-centered px-6">
                                             <img src="" alt="" />
                                         </div>
                                         {
                                             customers.map(customer => {
-                                                return <div className="card-content" key={`customer--${customer.id}`}>
+                                                return <div className="card-content " key={`customer--${customer.id}`}>
+                                                    <div className="media">
+                                                        <div className="media-content mr-2">
+                                                            <p className="">Service: <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
+                                                            <p>Details: {appointment.request_details}</p>
+                                                            <p>Address: {customer.address}</p>
+                                                            <p className="mb-3">Request Date: {appointment.request_date}</p>
+                                                        </div>
+                                                        <div className="media-left ml-3">
+                                                            <button className="button btn__appt-list mb-3 is-inverted is-black is-small column" onClick={() => navigate(`/appointments/update/${appointment.id}`)}>Update</button>
+                                                            <button className="button btn__appt-list is-inverted is-black is-large" onClick={(evt) => confirmDelete(evt, appointment)}>
+                                                                <span className="icon">
+                                                                    <ion-icon name="trash-outline"></ion-icon>
+                                                                </span>
+                                                            </button>
+                                                        </div>
 
-                                                    <div className="">Service: <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></div>
-                                                    <div>Details: {appointment.request_details}</div>
-                                                    <div>Address: {customer.address}</div>
-                                                    <div className="mb-3"><footer>Request Date: {appointment.request_date}</footer></div>
-
+                                                    </div>
                                                 </div>
                                             })
                                         }
-                                        <footer className="card-footer">
-                                            <div className="card-footer-item">
-                                                <button className="button btn__appt-list is-inverted is-black is-small" onClick={() => navigate(`/appointments/update/${appointment.id}`)}>Update</button>
-                                                <button className="button btn__appt-list is-inverted is-black is-small" onClick={(evt) => confirmDelete(evt, appointment)}>
-                                                    <span className="icon">
-                                                        <ion-icon name="trash-outline"></ion-icon>
-                                                    </span>
-                                                    <span>DELETE</span>
-                                                </button>
-                                            </div>
-                                        </footer>
                                     </div>
                                 </div>
 
