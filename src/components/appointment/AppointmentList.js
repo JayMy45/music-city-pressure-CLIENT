@@ -42,11 +42,11 @@ export const AppointmentList = () => {
                 }
             </section>
             <section className="">
-                <div className="columns mt-5 is-3 is-variable is-centered">
+                <div className="columns is-multiline mt-5 is-3 is-variable is-centered">
                     {
                         appointments.map(appointment => {
                             return <React.Fragment key={`appointment--${appointment.id}`}>
-                                <div className="appointment__request is-4-tablet is-3-desktop mb-6 column">
+                                <div className="appointment__request is-4-tablet is-6-desktop mx-1 mb-6 column">
                                     <div className="card ">
 
                                         {
@@ -74,12 +74,12 @@ export const AppointmentList = () => {
                                                     <div className="">
                                                         <div className="mt-5" >
                                                             <p className=""><strong>Service:</strong> <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
-                                                            <p><strong>Details:</strong></p>
                                                             <div className="paragraph">
+                                                                <p><strong>Details:</strong></p>
                                                                 <p>{appointment.request_details}</p>
                                                             </div>
                                                             <p><strong>Address:</strong> {customer.address}</p>
-                                                            <footer className="mb-3 mt-2"><em>Request Date:</em> {appointment.request_date}</footer>
+                                                            <footer className="card-footer mt-2 is-vcenter has-text-grey"><em>Request Date:  </em>{appointment.request_date}</footer>
                                                         </div>
 
                                                     </div>
