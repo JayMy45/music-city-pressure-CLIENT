@@ -19,7 +19,8 @@ export const Login = () => {
         loginUser(user)
             .then(res => {
                 if ("valid" in res && res.valid && "token" in res) {
-                    localStorage.setItem("mc_token", res.token)
+                    localStorage.setItem("mc_token", res.token);
+                    localStorage.setItem("is_staff", res.staff)
                     navigate("/")
                 }
                 else {

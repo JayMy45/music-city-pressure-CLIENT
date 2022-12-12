@@ -46,7 +46,7 @@ export const AppointmentList = () => {
                     {
                         appointments.map(appointment => {
                             return <React.Fragment key={`appointment--${appointment.id}`}>
-                                <div className="appointment__request is-4-tablet is-6-desktop mx-1 mb-6 column">
+                                <div className="appointment__request is-4-tablet is-3-desktop mx-1 mb-6 column">
                                     <div className="card ">
 
                                         {
@@ -57,19 +57,20 @@ export const AppointmentList = () => {
                                                             <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRCDeAQKGIjC916XeJAnv7JuDFj6GHoduUGKAZoFVVWJ4IkzHj0nRNvcdt_PjZ1tReaksMyOORmIwZwA_hBJr72xq9QP3Je&usqp=CAE" alt="" />
                                                         </figure>
                                                     </div>
-                                                    <div className="ml-5 mt-5 is-centered">
-                                                        <button className="button" onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
+                                                    <div className="mt-5 is-centered">
+                                                        <button className="button is-small" onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
                                                             <span className="icon">
                                                                 <ion-icon name="repeat-outline"></ion-icon>
                                                             </span>
                                                             <span className="is-uppercase is-small">Update</span>
                                                         </button>
-                                                        <button className="button" onClick={(evt) => confirmDelete(evt, appointment)}>
+                                                        <button className="button is-small" onClick={(evt) => confirmDelete(evt, appointment)}>
                                                             <span className="icon">
                                                                 <ion-icon name="trash-outline"></ion-icon>
                                                             </span>
                                                             <span className="is-uppercase is-small">Delete</span>
                                                         </button>
+                                                        <div className="ml-5">Progress</div>
                                                     </div>
                                                     <div className="">
                                                         <div className="mt-5" >
