@@ -4,7 +4,7 @@ import { deleteAppointment, getAppointments } from "../../managers/AppointmentMa
 import { getCustomers } from "../../managers/CustomerManager"
 import "./Appointment.css"
 
-export const AppointmentList = () => {
+export const AppointmentList = ({ service }) => {
     const [appointments, setAppointments] = useState([])
     const [customers, setCustomer] = useState([])
     const navigate = useNavigate()
@@ -46,7 +46,7 @@ export const AppointmentList = () => {
                     {
                         appointments.map(appointment => {
                             return <React.Fragment key={`appointment--${appointment.id}`}>
-                                <div className="appointment__request is-4-tablet is-6-desktop mx-1 mb-6 column">
+                                <div className="appointment__request is-4-tablet is-3-desktop mx-1 mb-6 column">
                                     <div className="card ">
 
                                         {
@@ -73,7 +73,7 @@ export const AppointmentList = () => {
                                                     </div>
                                                     <div className="">
                                                         <div className="mt-5" >
-                                                            <p className=""><strong>Service:</strong> <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
+                                                            <p className=""><strong>Service:</strong> <Link to={`/apppointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
                                                             <div className="paragraph">
                                                                 <p><strong>Details:</strong></p>
                                                                 <p>{appointment.request_details}</p>
