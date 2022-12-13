@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getEquipments } from "../../managers/EquipmentManager"
-import { getServiceById, getServices, saveEditedService } from "../../managers/ServiceManager"
+import { getServiceById, saveEditedService } from "../../managers/ServiceManager"
 
 export const UpdateService = () => {
 

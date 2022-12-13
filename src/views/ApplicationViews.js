@@ -1,6 +1,4 @@
-import { Outlet, Route, Routes } from "react-router-dom"
-import { AppointmentCreate } from "../components/appointment/AppointmentCreate"
-import { AppointmentList } from "../components/appointment/AppointmentList"
+import { Route, Routes } from "react-router-dom"
 import { Login } from "../components/auth/Login"
 import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
