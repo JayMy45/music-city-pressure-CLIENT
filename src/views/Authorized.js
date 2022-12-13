@@ -4,6 +4,7 @@ import { EmployeeViews } from "./EmployeeViews"
 
 
 export const Authorized = () => {
+
     // get is_staff value from local storage
     const mCStaffUser = localStorage.getItem("is_staff")
     const mCStaff = JSON.parse(mCStaffUser)

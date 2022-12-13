@@ -6,7 +6,6 @@ import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
 
 
-
 export const ApplicationViews = () => {
     return <>
         <Routes>
