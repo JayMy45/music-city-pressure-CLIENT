@@ -4,6 +4,7 @@ import { deleteService, getServices } from "../../managers/ServiceManager"
 import "./Service.css"
 
 export const ServiceList = () => {
+
     const [services, setServices] = useState([])
     const navigate = useNavigate()
 
@@ -40,7 +41,8 @@ export const ServiceList = () => {
                             </section>
                             {
                                 mCPressure
-                                    ? <><button className="button is-uppercase is-small">Update</button>
+                                    ? <>
+                                        <button className="button is-uppercase is-small" onClick={() => navigate(`/services/update/${service.id}`)}>Update</button>
                                         <button className="button is-uppercase is-small is-danger" onClick={(evt) => confirmDelete(evt, service)}>Delete</button>
                                     </>
                                     : <></>
