@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { getServices } from "../../managers/ServiceManager"
+import { deleteService, getServices } from "../../managers/ServiceManager"
 import "./Service.css"
 
 export const ServiceList = () => {
     const [services, setServices] = useState([])
     const navigate = useNavigate()
 
+    const localMCUser = localStorage.getItem("is_staff")
+    const mCPressure = JSON.parse(localMCUser)
+
     useEffect(() => {
         getServices().then(data => setServices(data))
     }, [])
+
+    const confirmDelete = (evt, service) => {
+        // whenever confirmed by clicking OK/Cancel window.confirm() returns boolean 
+        let text = 'Are you sure you want to delete'
+        window.confirm(text)
+            ? deleteService(service.id)
+                .then(() => getServices()
+                    .then(data => setServices(data)))
+            : <></>
+    }
 
     return <>
         <header>
@@ -25,14 +38,13 @@ export const ServiceList = () => {
                                 <div><h2><Link to={`/services/${service.id}`}>{service.name}</Link></h2></div>
                                 <div className="service__description has-text-left">Description: {service.description}</div>
                             </section>
-                            {/* <div>
-                                <div className="">
-                                    <button className="btn__services button is-link is-small" onClick={() => navigate(`/services/${service.id}`)}>Update</button>
-                                </div>
-                                <div className="mt-1">
-                                    <button className="btn__services button is-small is-danger" onClick={(evt) => { confirmDelete(evt, service) }}>Delete</button>
-                                </div>
-                            </div> */}
+                            {
+                                mCPressure
+                                    ? <><button className="button is-uppercase is-small">Update</button>
+                                        <button className="button is-uppercase is-small is-danger" onClick={(evt) => confirmDelete(evt, service)}>Delete</button>
+                                    </>
+                                    : <></>
+                            }
                         </div>
                     </React.Fragment>
                 })

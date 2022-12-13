@@ -6,12 +6,11 @@ import { Login } from "../components/auth/Login"
 import { Register } from "../components/auth/Register"
 import { ServiceDetails } from "../components/service/ServiceDetails"
 import { ServiceList } from "../components/service/ServiceList"
-import { UpdateService } from "../components/service/UpdateService"
 import { Authorized } from "./Authorized"
 
 
 
-export const ApplicationViews = () => {
+export const EmployeeViews = () => {
     return <>
         <Routes>
             <Route path="/login" element={<Login />} />
@@ -20,7 +19,6 @@ export const ApplicationViews = () => {
                 <Route path="/" element={<></>} />
                 <Route path="/services" element={<ServiceList />} />
                 <Route path="/services/:serviceId" element={<ServiceDetails />} />
-                <Route path="/services/update/:serviceId" element={<UpdateService />} />
                 <Route path="/appointments" element={<AppointmentList />} />
                 <Route path="/appointments/create" element={<AppointmentCreate />} />
                 <Route path="/appointments/update/:appointmentId" element={<UpdateAppointment />} />
