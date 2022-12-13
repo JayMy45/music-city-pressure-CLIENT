@@ -10,7 +10,7 @@ import { Authorized } from "./Authorized"
 
 
 
-export const ApplicationViews = () => {
+export const CustomerViews = () => {
     return <>
         <Routes>
             <Route path="/login" element={<Login />} />
