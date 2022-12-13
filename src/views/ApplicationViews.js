@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Outlet, Route, Routes } from "react-router-dom"
 import { AppointmentCreate } from "../components/appointment/AppointmentCreate"
 import { AppointmentList } from "../components/appointment/AppointmentList"
 import { UpdateAppointment } from "../components/appointment/UpdateAppointment"
@@ -16,14 +16,14 @@ export const ApplicationViews = () => {
         <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route element={<Authorized />}>
-                <Route path="/" element={<></>} />
-                <Route path="/services" element={<ServiceList />} />
+            <Route path="/*" element={<Authorized />}>
+                {/* <Route path="/" element={<></>} /> */}
+                {/* <Route path="/services" element={<ServiceList />} />
                 <Route path="/services/:serviceId" element={<ServiceDetails />} />
                 <Route path="/services/update/:serviceId" element={<UpdateService />} />
                 <Route path="/appointments" element={<AppointmentList />} />
                 <Route path="/appointments/create" element={<AppointmentCreate />} />
-                <Route path="/appointments/update/:appointmentId" element={<UpdateAppointment />} />
+                <Route path="/appointments/update/:appointmentId" element={<UpdateAppointment />} /> */}
             </Route>
         </Routes>
     </>
