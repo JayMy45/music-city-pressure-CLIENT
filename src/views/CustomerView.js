@@ -7,7 +7,6 @@ import { ServiceList } from "../components/service/ServiceList"
 import { UpdateService } from "../components/service/UpdateService"
 
 
-
 export const CustomerViews = () => {
 
     return <>
