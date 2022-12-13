@@ -17,3 +17,11 @@ export const getServiceById = (serviceId) => {
     })
         .then(response => response.json())
 }
+
+// DELETE single service
+export const deleteService = (serviceId) => {
+    return fetch(`http://localhost:8000/services/${serviceId}`, {
+        method: "DELETE",
+        headers: { "Authorization": `Token ${localStorage.getItem("mc_token")}` },
+    })
+}
