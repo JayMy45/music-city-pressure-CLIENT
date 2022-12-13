@@ -18,6 +18,18 @@ export const getServiceById = (serviceId) => {
         .then(response => response.json())
 }
 
+// PUT edit services
+export const saveEditedService = (service) => {
+    return fetch(`http://localhost:8000/services/${service.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("mc_token")}`
+        },
+        body: JSON.stringify(service)
+    })
+}
+
 // DELETE single service
 export const deleteService = (serviceId) => {
     return fetch(`http://localhost:8000/services/${serviceId}`, {

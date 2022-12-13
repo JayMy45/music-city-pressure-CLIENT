@@ -8,11 +8,11 @@ import { UpdateService } from "../components/service/UpdateService"
 
 
 
-export const EmployeeViews = () => {
+export const CustomerViews = () => {
 
     return <>
         <Routes>
-            <Route path="/" element={<AppointmentList />} />
+            <Route path="/" element={<ServiceList />} />
             <Route path="/services" element={<ServiceList />} />
             <Route path="/services/:serviceId" element={<ServiceDetails />} />
             <Route path="/services/update/:serviceId" element={<UpdateService />} />
