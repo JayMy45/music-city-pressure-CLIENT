@@ -29,7 +29,11 @@ export const ServiceList = () => {
         <header>
             <h1>Services</h1>
             <div><button className="" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button></div>
-            <div><button className="" onClick={() => { navigate({ pathname: "/services/create" }) }}><span className="">Create Service</span></button></div>
+            {
+                mCPressure
+                    ? <div><button className="" onClick={() => { navigate({ pathname: "/services/create" }) }}><span className="">Create Service</span></button></div>
+                    : <></>
+            }
         </header>
         <article className="">
             {
