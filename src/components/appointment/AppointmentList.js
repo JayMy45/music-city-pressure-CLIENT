@@ -72,25 +72,26 @@ export const AppointmentList = () => {
                                             </figure>
                                         </div>
                                         <div className="card-content">
-                                            <div className="mt-5 is-centered media">
-                                                <div className="media-left mr-6 ml-5">
+                                            <section className="is-centered media py-3">
+                                                <div className="media-left mr-2 ml-5">
                                                     <div>
-                                                        <button className="button is-small" onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
+                                                        <button className="btn__appt-list button is-small " onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
                                                             <span className="icon">
                                                                 <ion-icon name="repeat-outline"></ion-icon>
                                                             </span>
+                                                            <span>Update</span>
                                                         </button>
                                                     </div>
                                                     <div className="mt-1">
-                                                        <button className="button is-small" onClick={(evt) => confirmDelete(evt, appointment)}>
+                                                        <button className="btn__appt-list button is-small" onClick={(evt) => confirmDelete(evt, appointment)}>
                                                             <span className="icon">
                                                                 <ion-icon name="trash-outline"></ion-icon>
                                                             </span>
-
+                                                            <span>Delete</span>
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div className="notification ml-6">
+                                                <div className="notification ml-2">
                                                     {
                                                         mCPressure
                                                             ? <>
@@ -98,10 +99,10 @@ export const AppointmentList = () => {
 
                                                                 }
                                                             </>
-                                                            : <div className="">Progress</div>
+                                                            : <h3 className="">Progress</h3>
                                                     }
                                                 </div>
-                                            </div>
+                                            </section>
                                             <div className="">
                                                 <div className="mt-5" >
                                                     <p className=""><strong>Service:</strong> <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
