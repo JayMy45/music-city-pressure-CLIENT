@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom"
 import { AppointmentCreate } from "../components/appointment/AppointmentCreate"
 import { AppointmentList } from "../components/appointment/AppointmentList"
 import { UpdateAppointment } from "../components/appointment/UpdateAppointment"
+import { ServiceCreate } from "../components/service/ServiceCreate"
 import { ServiceDetails } from "../components/service/ServiceDetails"
 import { ServiceList } from "../components/service/ServiceList"
 import { UpdateService } from "../components/service/UpdateService"
@@ -13,6 +14,7 @@ export const EmployeeViews = () => {
         <Routes>
             <Route path="/" element={<AppointmentList />} />
             <Route path="/services" element={<ServiceList />} />
+            <Route path="/services/create" element={<ServiceCreate />} />
             <Route path="/services/:serviceId" element={<ServiceDetails />} />
             <Route path="/services/update/:serviceId" element={<UpdateService />} />
             <Route path="/appointments" element={<AppointmentList />} />
