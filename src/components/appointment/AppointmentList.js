@@ -90,7 +90,7 @@ export const AppointmentList = () => {
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div className="box ml-6">
+                                                <div className="notification ml-6">
                                                     {
                                                         mCPressure
                                                             ? <>

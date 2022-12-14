@@ -24,58 +24,61 @@ export const NavBar = () => {
 
             <div className="navbar-end nav-links">
                 <div className="navbar-menu">
-                    <div>
-                        <ul className="navbar-item">
-                            <div className="navbar-item">
-                                <li className="navbar__item">
-                                    <Link to="/appointments/create">Make an Appointment</Link>
-                                </li>
-                            </div>
-                            <div className="navbar-item">
-                                <li className="navbar__item">
-                                    <Link to="/appointments">Appointments</Link>
-                                </li>
-                            </div>
-                            <div className="navbar-item">
-                                <li className="navbar__item">
-                                    <Link to="/services">Services</Link>
-                                </li>
+                    {
+                        (localStorage.getItem("mc_token") !== null) ?
+                            <div>
+                                <ul className="navbar-item">
+                                    <div className="navbar-item">
+                                        <li className="navbar__item">
+                                            <Link to="/appointments/create">Make an Appointment</Link>
+                                        </li>
+                                    </div>
+                                    <div className="navbar-item">
+                                        <li className="navbar__item">
+                                            <Link to="/appointments">Appointments</Link>
+                                        </li>
+                                    </div>
+                                    <div className="navbar-item">
+                                        <li className="navbar__item">
+                                            <Link to="/services">Services</Link>
+                                        </li>
+                                    </div>
+                                </ul>
                             </div>
 
-                            {
-                                (localStorage.getItem("mc_token") !== null) ?
-                                    <li className="navbar-item">
-                                        <button className="nav-link fakeLink is-link"
-                                            onClick={() => {
-                                                localStorage.removeItem("mc_token");
-                                                localStorage.removeItem("is_staff")
-                                                navigate('/login')
-                                            }}
-                                        >Logout</button>
-                                    </li> :
-                                    <>
-                                        <div>
-                                            <div className="navbar-item">
-                                                <div className="navbar-item">
-                                                    <li className="nav-item">
-                                                        <Link className="nav-link is-link" to="/login">Login</Link>
-                                                    </li>
-                                                </div>
-                                                <div className="navbar-item">
-                                                    <li className="nav-item">
-                                                        <Link className="nav-link is-link" to="/register">Register</Link>
-                                                    </li>
-                                                </div>
-                                            </div>
+                            : <></>
+                    }
+                    {
+
+                        (localStorage.getItem("mc_token") !== null) ?
+                            <li className="navbar-item">
+                                <button className="nav-link fakeLink is-link"
+                                    onClick={() => {
+                                        localStorage.removeItem("mc_token");
+                                        localStorage.removeItem("is_staff")
+                                        navigate('/login')
+                                    }}
+                                >Logout</button>
+                            </li> :
+                            <>
+                                <div>
+                                    <div className="navbar-item">
+                                        <div className="navbar-item">
+                                            <li className="nav-item">
+                                                <Link className="nav-link is-link" to="/login">Login</Link>
+                                            </li>
                                         </div>
-                                    </>
-                            }
-                        </ul>
-                    </div>
+                                        <div className="navbar-item">
+                                            <li className="nav-item">
+                                                <Link className="nav-link is-link" to="/register">Register</Link>
+                                            </li>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                    }
                 </div>
             </div>
-
-
         </nav >
     )
 }
