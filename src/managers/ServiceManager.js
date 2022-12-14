@@ -18,6 +18,19 @@ export const getServiceById = (serviceId) => {
         .then(response => response.json())
 }
 
+
+// POST new services
+export const createService = (service) => {
+    return fetch("http://localhost:8000/services", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("mc_token")}`
+        },
+        body: JSON.stringify(service)
+    })
+}
+
 // PUT edit services
 export const saveEditedService = (service) => {
     return fetch(`http://localhost:8000/services/${service.id}`, {

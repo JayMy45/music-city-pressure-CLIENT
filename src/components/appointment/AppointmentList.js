@@ -63,7 +63,7 @@ export const AppointmentList = () => {
                                     <div className="card ">
                                         {
                                             mCPressure
-                                                ? <div className="mt-1 ml-1"><header>Customer: {appointment.customer.full_name}</header></div>
+                                                ? <div className="mt-1 ml-1"><header><em>Customer Name:</em> {appointment.customer.full_name}</header></div>
                                                 : <></>
                                         }
                                         <div className="card-image has-text-centered px-0">
@@ -72,8 +72,8 @@ export const AppointmentList = () => {
                                             </figure>
                                         </div>
                                         <div className="card-content">
-                                            <section className="is-centered media py-3">
-                                                <div className="media-left mr-2 ml-5">
+                                            <section className="is-centered media columns py-4">
+                                                <div className="media-left column mr-2 ml-5">
                                                     <div>
                                                         <button className="btn__appt-list button is-small " onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
                                                             <span className="icon">
@@ -85,26 +85,33 @@ export const AppointmentList = () => {
                                                     <div className="mt-1">
                                                         <button className="btn__appt-list button is-small" onClick={(evt) => confirmDelete(evt, appointment)}>
                                                             <span className="icon">
-                                                                <ion-icon name="trash-outline"></ion-icon>
+                                                                <i className="fa-regular fa-trash-can"></i>
                                                             </span>
                                                             <span>Delete</span>
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div className="notification ml-2">
+                                                <div className="notification column mr-5 ml-1 mt-3 appt__progress">
                                                     {
                                                         mCPressure
                                                             ? <>
                                                                 {
-
+                                                                    <div></div>
                                                                 }
                                                             </>
-                                                            : <h3 className="">Progress</h3>
+                                                            : <>
+                                                                <div className="appt__media--width is-centered">
+                                                                    <span>Progress</span>
+                                                                </div>
+                                                                <div>
+                                                                    <progress className="progress" value="17" max="100">15%</progress>
+                                                                </div>
+                                                            </>
                                                     }
                                                 </div>
                                             </section>
                                             <div className="">
-                                                <div className="mt-5" >
+                                                <div className="mt-1" >
                                                     <p className=""><strong>Service:</strong> <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
                                                     <div className="paragraph">
                                                         <p><strong>Details:</strong></p>
@@ -127,18 +134,5 @@ export const AppointmentList = () => {
                 </div>
             </section>
         </article>
-
-
-        {/* a way to distinguish if a persons a staff member  (???)
-        {
-            customers.map((c => {
-                return <>
-                    {c.user.is_staff
-                        ? <h2>and you know this</h2>
-                        : <h2>man</h2>}
-                </>
-            }))
-        } */}
-
     </>
 }
