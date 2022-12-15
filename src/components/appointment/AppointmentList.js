@@ -126,11 +126,17 @@ export const AppointmentList = () => {
                                                             </>
                                                             : <>
                                                                 <div className="appt__media--width appt__progress grid">
-                                                                    <span className="">Progress</span>
+                                                                    {
+                                                                        appointment.progress.id === 1 || appointment.progress.id === 2
+                                                                            ? <span>Progress</span>
+                                                                            : <span>{appointment.progress.label}</span>
+
+                                                                    }
                                                                 </div>
-                                                                {/* <div className="grid mb-1"><span>en-Route</span></div> */}
                                                                 <div>
-                                                                    <progress className="progress" value="17" max="100">15%</progress>
+                                                                    {
+                                                                        <progress className="progress" value="17" max="100">15%</progress>
+                                                                    }
                                                                 </div>
                                                             </>
                                                     }
