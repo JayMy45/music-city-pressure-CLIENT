@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { deleteAppointment, getAppointments } from "../../managers/AppointmentManager"
+import { deleteAppointment, getAppointments, saveEditedAppointment } from "../../managers/AppointmentManager"
 import { getCustomers } from "../../managers/CustomerManager"
 import { getProgressions } from "../../managers/ProgressManager"
 import "./Appointment.css"
 
 export const AppointmentList = () => {
     const [appointments, setAppointments] = useState([])
-    const [currentAppointment, setCurrentAppointment] = useState({ progress: 0 })
     const [progression, setProgression] = useState([])
     const [customers, setCustomer] = useState([])
     const navigate = useNavigate()
 
+    const [currentAppointment, setCurrentAppointment] = useState({
+        progress: 0
+    })
+
+
+    // store is_staff value for differential display
     const localMCUser = localStorage.getItem("is_staff")
     const mCPressure = JSON.parse(localMCUser)
 
@@ -112,7 +117,8 @@ export const AppointmentList = () => {
                                                         mCPressure
                                                             ? <>
                                                                 <div>
-                                                                    <select name="label" className="drop__down" onChange={changeProgressState} value={currentAppointment.progress.label}>
+                                                                    <span className="is-size-8">Current Progress: <strong className="is-capitalized">{appointment.progress.label}</strong></span>
+                                                                    <select name="progress" className="drop__down" onChange={changeProgressState} value={currentAppointment.progress.label}>
                                                                         <option value={0}>Update Progress</option>
                                                                         {
                                                                             progression.map(progress => {
@@ -121,6 +127,25 @@ export const AppointmentList = () => {
                                                                             })
                                                                         }
                                                                     </select>
+                                                                    <button className="is-small is-warning" onClick={evt => {
+                                                                        // Prevent form from being submitted
+                                                                        evt.preventDefault()
+
+                                                                        const progressionChange = {
+                                                                            id: appointment.id,
+                                                                            service_type: appointment.service_type.id,
+                                                                            progress: currentAppointment.progress,
+                                                                            request_date: appointment.request_date,
+                                                                            consultation: appointment.consultation,
+                                                                            request_details: appointment.request_details,
+                                                                            completed: appointment.completed
+                                                                        }
+
+                                                                        // Send POST request to your API
+                                                                        saveEditedAppointment(progressionChange)
+                                                                            .then(() => getAppointments()
+                                                                                .then(data => setAppointments(data)))
+                                                                    }}>confirm</button>
                                                                 </div>
 
                                                             </>
@@ -129,14 +154,14 @@ export const AppointmentList = () => {
                                                                     {
                                                                         appointment.progress.id === 1 || appointment.progress.id === 2
                                                                             ? <span>Progress</span>
-                                                                            : <span>{appointment.progress.label}</span>
+                                                                            : <span className="is-capitalized">{appointment.progress.label}</span>
 
                                                                     }
                                                                 </div>
                                                                 <div>
                                                                     {
                                                                         appointment.progress.id !== 1
-                                                                            ? <progress className="progress" value={`${appointment.progress.percent}`} max="100">15%</progress>
+                                                                            ? <progress className={`${appointment.progress.class_name}`} value={`${appointment.progress.percent}`} max="100"></progress>
                                                                             : <></>
                                                                     }
                                                                 </div>

@@ -64,14 +64,14 @@ export const NavBar = () => {
                                 <div>
                                     <div className="navbar-item">
                                         <div className="navbar-item">
-                                            <li className="nav-item">
+                                            <ul className="nav-item">
                                                 <Link className="nav-link is-link" to="/login">Login</Link>
-                                            </li>
+                                            </ul>
                                         </div>
                                         <div className="navbar-item">
-                                            <li className="nav-item">
+                                            <ul className="nav-item">
                                                 <Link className="nav-link is-link" to="/register">Register</Link>
-                                            </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>

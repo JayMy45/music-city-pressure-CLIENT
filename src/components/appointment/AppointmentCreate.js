@@ -10,6 +10,7 @@ export const AppointmentCreate = () => {
     const [newAppointment, setNewAppointment] = useState({
         requestDetails: "",
         serviceTypeId: 0,
+        progress: 1,
         requestDate: "",
         consultation: false
     })
@@ -68,6 +69,7 @@ export const AppointmentCreate = () => {
                         customer_id: newAppointment.customer,
                         request_details: newAppointment.requestDetails,
                         service_type: parseInt(newAppointment.serviceTypeId),
+                        progress: parseInt(newAppointment.progress),
                         request_date: newAppointment.requestDate,
                         consultation: false
                     }
