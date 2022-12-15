@@ -135,7 +135,9 @@ export const AppointmentList = () => {
                                                                 </div>
                                                                 <div>
                                                                     {
-                                                                        <progress className="progress" value="17" max="100">15%</progress>
+                                                                        appointment.progress.id !== 1
+                                                                            ? <progress className="progress" value={`${appointment.progress.percent}`} max="100">15%</progress>
+                                                                            : <></>
                                                                     }
                                                                 </div>
                                                             </>
