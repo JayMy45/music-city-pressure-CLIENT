@@ -23,7 +23,7 @@ export const NavBar = () => {
             </div>
 
             <div className="navbar-end nav-links">
-                <div className="navbar-menu">
+                <div className="navbar-menu is">
                     {
                         (localStorage.getItem("mc_token") !== null) ?
                             <div>
