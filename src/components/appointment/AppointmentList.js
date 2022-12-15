@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteAppointment, getAppointments } from "../../managers/AppointmentManager"
 import { getCustomers } from "../../managers/CustomerManager"
+import { getProgressions } from "../../managers/ProgressManager"
 import "./Appointment.css"
 
 export const AppointmentList = () => {
     const [appointments, setAppointments] = useState([])
     const [progression, setProgression] = useState([])
+    const [currentProgress, setCurrentProgress] = useState({ label: "" })
     const [customers, setCustomer] = useState([])
-    const [employees, setEmployee] = useState([])
     const navigate = useNavigate()
 
     const localMCUser = localStorage.getItem("is_staff")
@@ -19,12 +20,25 @@ export const AppointmentList = () => {
     }, [])
 
     useEffect(() => {
+        getProgressions().then(data => setProgression(data))
+    }, [])
+
+    useEffect(() => {
         getCustomers().then(setCustomer)
     }, [])
 
     useEffect(() => {
         getCustomers().then(setCustomer)
     }, [])
+
+    const changeProgressState = (domEvent) => {
+        // TODO: Complete the onChange function
+        const value = domEvent.target.value
+        setCurrentProgress({
+            ...currentProgress,
+            [domEvent.target.name]: value
+        })
+    }
 
     //  handles confirmation of deletion via a popup
     const confirmDelete = (evt, appointment) => {
@@ -92,15 +106,22 @@ export const AppointmentList = () => {
                                                         </button>
                                                     </div>
                                                 </div>
+
                                                 <div className="notification column mr-5 ml-1 mt-3 ">
                                                     {
                                                         mCPressure
                                                             ? <>
                                                                 {
                                                                     <div>
-                                                                        {
+                                                                        <select name="label" className="drop__down" value={currentProgress.label}>
+                                                                            <option value={0}>Update Progress</option>
+                                                                            {
+                                                                                progression.map(progress => {
+                                                                                    return <option value={`${progress.id}`} key={`progress--${progress.id}`}>{progress.label}</option>
 
-                                                                        }
+                                                                                })
+                                                                            }
+                                                                        </select>
                                                                     </div>
                                                                 }
                                                             </>
