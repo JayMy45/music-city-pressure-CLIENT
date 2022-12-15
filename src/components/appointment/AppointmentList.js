@@ -7,8 +7,8 @@ import "./Appointment.css"
 
 export const AppointmentList = () => {
     const [appointments, setAppointments] = useState([])
+    const [currentAppointment, setCurrentAppointment] = useState({ progress: 0 })
     const [progression, setProgression] = useState([])
-    const [currentProgress, setCurrentProgress] = useState({ label: "" })
     const [customers, setCustomer] = useState([])
     const navigate = useNavigate()
 
@@ -34,8 +34,8 @@ export const AppointmentList = () => {
     const changeProgressState = (domEvent) => {
         // TODO: Complete the onChange function
         const value = domEvent.target.value
-        setCurrentProgress({
-            ...currentProgress,
+        setCurrentAppointment({
+            ...currentAppointment,
             [domEvent.target.name]: value
         })
     }
@@ -111,19 +111,18 @@ export const AppointmentList = () => {
                                                     {
                                                         mCPressure
                                                             ? <>
-                                                                {
-                                                                    <div>
-                                                                        <select name="label" className="drop__down" value={currentProgress.label}>
-                                                                            <option value={0}>Update Progress</option>
-                                                                            {
-                                                                                progression.map(progress => {
-                                                                                    return <option value={`${progress.id}`} key={`progress--${progress.id}`}>{progress.label}</option>
+                                                                <div>
+                                                                    <select name="label" className="drop__down" onChange={changeProgressState} value={currentAppointment.progress.label}>
+                                                                        <option value={0}>Update Progress</option>
+                                                                        {
+                                                                            progression.map(progress => {
+                                                                                return <option value={`${progress.id}`} key={`progress--${progress.id}`}>{progress.label}</option>
 
-                                                                                })
-                                                                            }
-                                                                        </select>
-                                                                    </div>
-                                                                }
+                                                                            })
+                                                                        }
+                                                                    </select>
+                                                                </div>
+
                                                             </>
                                                             : <>
                                                                 <div className="appt__media--width appt__progress grid">
