@@ -209,7 +209,7 @@ export const AppointmentList = () => {
                                                                                     .then(data => setAppointments(data)))
                                                                         }}
                                                                     >
-                                                                        <span><i class="fa-regular fa-calendar-days"></i></span>
+                                                                        <span><i className="fa-regular fa-calendar-days"></i></span>
                                                                         <span className="appt__font ml-2">Schedule</span>
                                                                     </button>
                                                                 </div>
