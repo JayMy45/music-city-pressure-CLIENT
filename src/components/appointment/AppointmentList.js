@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { deleteAppointment, getAppointments } from "../../managers/AppointmentManager"
+import { deleteAppointment, getAppointments, saveEditedAppointment } from "../../managers/AppointmentManager"
 import { getCustomers } from "../../managers/CustomerManager"
+import { getProgressions } from "../../managers/ProgressManager"
 import "./Appointment.css"
 
 export const AppointmentList = () => {
     const [appointments, setAppointments] = useState([])
+    const [progression, setProgression] = useState([])
     const [customers, setCustomer] = useState([])
-    const [employees, setEmployee] = useState([])
     const navigate = useNavigate()
 
+    const [currentAppointment, setCurrentAppointment] = useState({
+        progress: 0
+    })
+
+
+    // store is_staff value for differential display
     const localMCUser = localStorage.getItem("is_staff")
     const mCPressure = JSON.parse(localMCUser)
 
@@ -18,12 +25,25 @@ export const AppointmentList = () => {
     }, [])
 
     useEffect(() => {
+        getProgressions().then(data => setProgression(data))
+    }, [])
+
+    useEffect(() => {
         getCustomers().then(setCustomer)
     }, [])
 
     useEffect(() => {
         getCustomers().then(setCustomer)
     }, [])
+
+    const changeProgressState = (domEvent) => {
+        // TODO: Complete the onChange function
+        const value = domEvent.target.value
+        setCurrentAppointment({
+            ...currentAppointment,
+            [domEvent.target.name]: value
+        })
+    }
 
     //  handles confirmation of deletion via a popup
     const confirmDelete = (evt, appointment) => {
@@ -59,25 +79,25 @@ export const AppointmentList = () => {
                     {
                         appointments.map(appointment => {
                             return <React.Fragment key={`appointment--${appointment.id}`}>
-                                <div className="appointment__request is-4-tablet is-3-desktop mx-1 mb-6 column">
+                                <div className="appointment__request is-4-tablet is-3-desktop mx-1 column">
                                     <div className="card ">
                                         {
                                             mCPressure
-                                                ? <div className="mt-1 ml-1"><header><em>Customer Name:</em> {appointment.customer.full_name}</header></div>
+                                                ? <div className="pt-1 pl-1"><div className="mt-1 ml-1"><header><em>Customer Name:</em> {appointment.customer.full_name}</header></div></div>
                                                 : <></>
                                         }
-                                        <div className="card-image has-text-centered px-0">
+                                        <div className="card-image has-text-centered pt-2">
                                             <figure className="image is-4by3">
                                                 <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRCDeAQKGIjC916XeJAnv7JuDFj6GHoduUGKAZoFVVWJ4IkzHj0nRNvcdt_PjZ1tReaksMyOORmIwZwA_hBJr72xq9QP3Je&usqp=CAE" alt="" />
                                             </figure>
                                         </div>
-                                        <div className="card-content">
-                                            <section className="is-centered media columns py-4">
+                                        <div className="card-content pb-1">
+                                            <section className="is-centered media columns py-2">
                                                 <div className="media-left column mr-2 ml-5">
                                                     <div>
                                                         <button className="btn__appt-list button is-small " onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
                                                             <span className="icon">
-                                                                <ion-icon name="repeat-outline"></ion-icon>
+                                                                <i className="fa-solid fa-wrench"></i>
                                                             </span>
                                                             <span>Update</span>
                                                         </button>
@@ -91,37 +111,73 @@ export const AppointmentList = () => {
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div className="notification column mr-5 ml-1 mt-3 appt__progress">
+
+                                                <div className="notification column mr-5 ml-1 mt-3 ">
                                                     {
                                                         mCPressure
                                                             ? <>
-                                                                {
-                                                                    <div></div>
-                                                                }
+                                                                <div>
+                                                                    <span className="is-size-8">Current Progress: <strong className="is-capitalized">{appointment.progress.label}</strong></span>
+                                                                    <select name="progress" className="drop__down" onChange={changeProgressState} value={currentAppointment.progress.label}>
+                                                                        <option value={0}>Update Progress</option>
+                                                                        {
+                                                                            progression.map(progress => {
+                                                                                return <option value={`${progress.id}`} key={`progress--${progress.id}`}>{progress.label}</option>
+
+                                                                            })
+                                                                        }
+                                                                    </select>
+                                                                    <button className="is-small is-warning" onClick={evt => {
+                                                                        // Prevent form from being submitted
+                                                                        evt.preventDefault()
+
+                                                                        const progressionChange = {
+                                                                            id: appointment.id,
+                                                                            service_type: appointment.service_type.id,
+                                                                            progress: currentAppointment.progress,
+                                                                            request_date: appointment.request_date,
+                                                                            consultation: appointment.consultation,
+                                                                            request_details: appointment.request_details,
+                                                                            completed: appointment.completed
+                                                                        }
+
+                                                                        // Send POST request to your API
+                                                                        saveEditedAppointment(progressionChange)
+                                                                            .then(() => getAppointments()
+                                                                                .then(data => setAppointments(data)))
+                                                                    }}>confirm</button>
+                                                                </div>
+
                                                             </>
                                                             : <>
-                                                                <div className="appt__media--width is-centered">
-                                                                    <span>Progress</span>
+                                                                <div className="appt__media--width appt__progress grid">
+                                                                    {
+                                                                        appointment.progress.id === 1 || appointment.progress.id === 2
+                                                                            ? <span>Progress</span>
+                                                                            : <span className="is-capitalized">{appointment.progress.label}</span>
+
+                                                                    }
                                                                 </div>
                                                                 <div>
-                                                                    <progress className="progress" value="17" max="100">15%</progress>
+                                                                    {
+                                                                        appointment.progress.id !== 1
+                                                                            ? <progress className={`${appointment.progress.class_name}`} value={`${appointment.progress.percent}`} max="100"></progress>
+                                                                            : <></>
+                                                                    }
                                                                 </div>
                                                             </>
                                                     }
                                                 </div>
                                             </section>
-                                            <div className="">
-                                                <div className="mt-1" >
-                                                    <p className=""><strong>Service:</strong> <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
-                                                    <div className="paragraph">
-                                                        <p><strong>Details:</strong></p>
-                                                        <p>{appointment.request_details}</p>
-                                                    </div>
-                                                    <p><strong>Address:</strong> {appointment.customer.address}</p>
-                                                    <footer className="card-footer mt-2 is-vcenter has-text-grey"><em>Request Date:  </em>{appointment.request_date}</footer>
+                                            <section className="">
+                                                <p className=""><strong>Service:</strong> <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
+                                                <div className="paragraph">
+                                                    <p><strong>Details:</strong></p>
+                                                    <p>{appointment.request_details}</p>
                                                 </div>
-
-                                            </div>
+                                                <p><strong>Address:</strong> {appointment.customer.address}</p>
+                                                <footer className="card-footer py-2 mt-2 has-text-grey"><em>Request Date:</em><div className="ml-3">{appointment.request_date}</div></footer>
+                                            </section>
                                         </div>
 
 
@@ -133,6 +189,6 @@ export const AppointmentList = () => {
                     }
                 </div>
             </section>
-        </article>
+        </article >
     </>
 }

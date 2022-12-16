@@ -3,10 +3,26 @@
     width: 100%;
 }
 
+.appt__progress {
+    width: 100%;
+}
 
+/* add grid to child elements */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1r;
+}
 
+.grid * {
+    grid-column: 2 / 3;
+}
 
-
+/* center elements hv */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .paragraph {
     /* width: 300px; */

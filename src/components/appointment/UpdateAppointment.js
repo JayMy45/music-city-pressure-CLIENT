@@ -7,6 +7,7 @@ export const UpdateAppointment = () => {
 
     const { appointmentId } = useParams()
 
+
     const navigate = useNavigate()
     const [services, setServices] = useState([])
     const [currentAppt, setCurrentAppt] = useState({
