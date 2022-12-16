@@ -116,7 +116,7 @@ export const AppointmentList = () => {
                                                     {
                                                         mCPressure
                                                             ? <>
-                                                                <div>
+                                                                <div className="ml-4">
                                                                     <div className="is-size-8">Current Progress:</div>
                                                                     <div><strong className="is-capitalized">{appointment.progress.label}</strong></div>
                                                                     <select name="progress" className="drop__down" onChange={changeProgressState} value={currentAppointment.progress.label}>
@@ -128,7 +128,7 @@ export const AppointmentList = () => {
                                                                             })
                                                                         }
                                                                     </select>
-                                                                    <button className="is-small is-warning" onClick={evt => {
+                                                                    <button className="has-background-primary-light has-text-black-dark" onClick={evt => {
                                                                         // Prevent form from being submitted
                                                                         evt.preventDefault()
 
@@ -146,7 +146,7 @@ export const AppointmentList = () => {
                                                                         saveEditedAppointment(progressionChange)
                                                                             .then(() => getAppointments()
                                                                                 .then(data => setAppointments(data)))
-                                                                    }}>confirm</button>
+                                                                    }}><strong>confirm</strong></button>
                                                                 </div>
 
                                                             </>
