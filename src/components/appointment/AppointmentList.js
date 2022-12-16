@@ -12,6 +12,7 @@ export const AppointmentList = () => {
     const navigate = useNavigate()
 
     const [currentAppointment, setCurrentAppointment] = useState({
+        request_date: "",
         progress: 0
     })
 
@@ -184,13 +185,34 @@ export const AppointmentList = () => {
                                                     {
                                                         mCPressure
                                                             ? <div>
+                                                                <input type="date" name="request_date" required autoFocus className="center__text appt__calendar"
+                                                                    onChange={changeProgressState} />
                                                                 <div>
-                                                                    <button className="btn__appt-list button is-small is-black">
+                                                                    <button className="btn__appt-list button is-small is-black appt__calendar"
+                                                                        onClick={evt => {
+                                                                            // Prevent form from being submitted
+                                                                            evt.preventDefault()
+
+                                                                            const scheduleChange = {
+                                                                                id: appointment.id,
+                                                                                service_type: appointment.service_type.id,
+                                                                                progress: appointment.progress.id,
+                                                                                request_date: currentAppointment.request_date,
+                                                                                consultation: appointment.consultation,
+                                                                                request_details: appointment.request_details,
+                                                                                completed: appointment.completed
+                                                                            }
+
+                                                                            // Send POST request to your API
+                                                                            saveEditedAppointment(scheduleChange)
+                                                                                .then(() => getAppointments()
+                                                                                    .then(data => setAppointments(data)))
+                                                                        }}
+                                                                    >
                                                                         <span><i class="fa-regular fa-calendar-days"></i></span>
                                                                         <span className="appt__font ml-2">Schedule</span>
                                                                     </button>
                                                                 </div>
-                                                                <input type="date" name="request_date" required autoFocus className="center__text" />
                                                             </div>
                                                             : <></>
                                                     }

@@ -44,6 +44,12 @@
     padding-left: 3%;
 }
 
+/* center text */
 .center__text {
     text-align: center;
+}
+
+/* sets height */
+.appt__calendar {
+    height: 1.5rem;
 }
