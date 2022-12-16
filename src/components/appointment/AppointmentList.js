@@ -79,7 +79,7 @@ export const AppointmentList = () => {
                     {
                         appointments.map(appointment => {
                             return <React.Fragment key={`appointment--${appointment.id}`}>
-                                <div className="appointment__request is-4-tablet is-3-desktop mx-1 column">
+                                <div className="appointment__request is-4-tablet is-4-desktop mx-1 column">
                                     <div className="card ">
                                         {
                                             mCPressure
@@ -117,12 +117,13 @@ export const AppointmentList = () => {
                                                         mCPressure
                                                             ? <>
                                                                 <div>
-                                                                    <span className="is-size-8">Current Progress: <strong className="is-capitalized">{appointment.progress.label}</strong></span>
+                                                                    <div className="is-size-8">Current Progress:</div>
+                                                                    <div><strong className="is-capitalized">{appointment.progress.label}</strong></div>
                                                                     <select name="progress" className="drop__down" onChange={changeProgressState} value={currentAppointment.progress.label}>
                                                                         <option value={0}>Update Progress</option>
                                                                         {
                                                                             progression.map(progress => {
-                                                                                return <option value={`${progress.id}`} key={`progress--${progress.id}`}>{progress.label}</option>
+                                                                                return <option value={`${progress.id}`} className="center__text" key={`progress--${progress.id}`}>{progress.label}</option>
 
                                                                             })
                                                                         }
@@ -153,8 +154,8 @@ export const AppointmentList = () => {
                                                                 <div className="appt__media--width appt__progress grid">
                                                                     {
                                                                         appointment.progress.id === 1 || appointment.progress.id === 2
-                                                                            ? <span>Progress</span>
-                                                                            : <span className="is-capitalized">{appointment.progress.label}</span>
+                                                                            ? <span className="mb-3">Progress</span>
+                                                                            : <span className="is-capitalized mb-3 is-size-8">{appointment.progress.label}</span>
 
                                                                     }
                                                                 </div>
@@ -176,7 +177,24 @@ export const AppointmentList = () => {
                                                     <p>{appointment.request_details}</p>
                                                 </div>
                                                 <p><strong>Address:</strong> {appointment.customer.address}</p>
-                                                <footer className="card-footer py-2 mt-2 has-text-grey"><em>Request Date:</em><div className="ml-3">{appointment.request_date}</div></footer>
+                                                <footer className="card-footer py-2 mt-2 has-text-grey item">
+
+                                                    <div className="center"><em>Request Date:</em><span className="ml-2">{appointment.request_date}</span></div>
+
+                                                    {
+                                                        mCPressure
+                                                            ? <div>
+                                                                <div>
+                                                                    <button className="btn__appt-list button is-small is-black">
+                                                                        <span><i class="fa-regular fa-calendar-days"></i></span>
+                                                                        <span className="appt__font ml-2">Schedule</span>
+                                                                    </button>
+                                                                </div>
+                                                                <input type="date" name="request_date" required autoFocus className="center__text" />
+                                                            </div>
+                                                            : <></>
+                                                    }
+                                                </footer>
                                             </section>
                                         </div>
 
