@@ -185,7 +185,7 @@ export const AppointmentList = () => {
                                                     {
                                                         mCPressure
                                                             ? <div>
-                                                                <input type="date" name="request_date" required autoFocus className="center__text appt__calendar"
+                                                                <input type="date" name="request_date" required className="center__text appt__calendar"
                                                                     onChange={changeProgressState} />
                                                                 <div>
                                                                     <button className="btn__appt-list button is-small is-black appt__calendar"
