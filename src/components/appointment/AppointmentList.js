@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { deleteAppointment, getAppointments, saveEditedAppointment } from "../../managers/AppointmentManager"
 import { getCustomers } from "../../managers/CustomerManager"
 import { getProgressions } from "../../managers/ProgressManager"
+import moment from "moment";
 import "./Appointment.css"
 
 export const AppointmentList = () => {
@@ -176,7 +177,7 @@ export const AppointmentList = () => {
                                                     <p>{appointment.request_details}</p>
                                                 </div>
                                                 <p><strong>Address:</strong> {appointment.customer.address}</p>
-                                                <footer className="card-footer py-2 mt-2 has-text-grey"><em>Request Date:</em><div className="ml-3">{appointment.request_date}</div></footer>
+                                                <footer className="card-footer py-2 mt-2 has-text-grey"><em>Request Date:</em><div className="ml-3">{moment(`${appointment.request_date}`).format("L")}</div></footer>
                                             </section>
                                         </div>
 
