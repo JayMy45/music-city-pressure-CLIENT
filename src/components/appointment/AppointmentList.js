@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { deleteAppointment, getAppointments, saveEditedAppointment } from "../../managers/AppointmentManager"
 import { getCustomers } from "../../managers/CustomerManager"
 import { getProgressions } from "../../managers/ProgressManager"
+import moment from "moment";
 import "./Appointment.css"
 
 export const AppointmentList = () => {
@@ -138,6 +139,7 @@ export const AppointmentList = () => {
                                                                             service_type: appointment.service_type.id,
                                                                             progress: currentAppointment.progress,
                                                                             request_date: appointment.request_date,
+                                                                            scheduled: appointment.scheduled,
                                                                             consultation: appointment.consultation,
                                                                             request_details: appointment.request_details,
                                                                             completed: appointment.completed
@@ -178,10 +180,48 @@ export const AppointmentList = () => {
                                                     <p>{appointment.request_details}</p>
                                                 </div>
                                                 <p><strong>Address:</strong> {appointment.customer.address}</p>
-                                                <footer className="card-footer py-2 mt-2 has-text-grey item">
+                                                {
+                                                    appointment.scheduled
+                                                        ? <>
+                                                            <div>
+                                                                <div>
 
-                                                    <div className="center"><em>Request Date:</em><span className="ml-2">{appointment.request_date}</span></div>
+                                                                    <footer className="card-footer py-2 mt-2 has-text-grey center"><strong>Service Date Scheduled for:</strong><div className="ml-3">{moment(`${appointment.request_date}`).format("L")}</div></footer>
+                                                                </div>
+                                                                <div>
+                                                                    <button className="btn__appt-list button is-small is-light appt__calendar"
+                                                                        onClick={evt => {
+                                                                            // Prevent form from being submitted
+                                                                            evt.preventDefault()
 
+                                                                            const reScheduleChange = {
+                                                                                id: appointment.id,
+                                                                                service_type: appointment.service_type.id,
+                                                                                progress: appointment.progress.id,
+                                                                                request_date: appointment.request_date,
+                                                                                scheduled: false,
+                                                                                consultation: appointment.consultation,
+                                                                                request_details: appointment.request_details,
+                                                                                completed: appointment.completed
+                                                                            }
+
+                                                                            // Send POST request to your API
+                                                                            saveEditedAppointment(reScheduleChange)
+                                                                                .then(() => getAppointments()
+                                                                                    .then(data => setAppointments(data)))
+                                                                        }}
+                                                                    >
+                                                                        <span><i className="fa-regular fa-calendar-days"></i></span>
+                                                                        <span className="appt__font ml-2">Reschedule Service Date</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                        : <footer className="card-footer py-2 mt-2 has-text-grey center"><em>Request Date:</em><div className="ml-3">{moment(`${appointment.request_date}`).format("L")}</div></footer>
+
+                                                }
+
+                                                <footer className="card-footer py-2 mt-2 has-text-grey item center">
                                                     {
                                                         mCPressure
                                                             ? <div>
@@ -198,6 +238,7 @@ export const AppointmentList = () => {
                                                                                 service_type: appointment.service_type.id,
                                                                                 progress: appointment.progress.id,
                                                                                 request_date: currentAppointment.request_date,
+                                                                                scheduled: true,
                                                                                 consultation: appointment.consultation,
                                                                                 request_details: appointment.request_details,
                                                                                 completed: appointment.completed
