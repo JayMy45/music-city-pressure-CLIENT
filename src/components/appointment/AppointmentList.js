@@ -174,7 +174,7 @@ export const AppointmentList = () => {
                                                 </div>
                                             </section>
                                             <section className="">
-                                                <p className=""><strong>Service:</strong> <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
+                                                <p className=""><strong>Service:</strong> <Link to={`/services/${appointment.service_type.id}`}>{appointment.service_type.name}</Link></p>
                                                 <div className="paragraph">
                                                     <p><strong>Details:</strong></p>
                                                     <p>{appointment.request_details}</p>
