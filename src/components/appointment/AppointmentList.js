@@ -258,6 +258,41 @@ export const AppointmentList = () => {
                                                             : <></>
                                                     }
                                                 </footer>
+                                                {
+                                                    !appointment.confirm && appointment.schedule
+                                                        ? <footer>
+                                                            <div>
+                                                                <button className="btn__appt-list button is-fullwidth is-danger appt__calendar"
+                                                                    onClick={evt => {
+                                                                        // Prevent form from being submitted
+                                                                        evt.preventDefault()
+
+                                                                        const confirmDate = {
+                                                                            id: appointment.id,
+                                                                            service_type: appointment.service_type.id,
+                                                                            progress: appointment.progress.id,
+                                                                            request_date: appointment.request_date,
+                                                                            scheduled: appointment.scheduled,
+                                                                            consultation: appointment.consultation,
+                                                                            request_details: appointment.request_details,
+                                                                            completed: appointment.completed,
+                                                                            confirm: true
+                                                                        }
+
+                                                                        // Send POST request to your API
+                                                                        saveEditedAppointment(confirmDate)
+                                                                            .then(() => getAppointments()
+                                                                                .then(data => setAppointments(data)))
+                                                                    }}
+                                                                >
+                                                                    <span><i className="fa-regular fa-calendar-days"></i></span>
+                                                                    <span className="appt__font ml-2">Confirm Date</span>
+                                                                </button>
+                                                            </div>
+
+                                                        </footer>
+                                                        : <></>
+                                                }
                                             </section>
                                         </div>
 
