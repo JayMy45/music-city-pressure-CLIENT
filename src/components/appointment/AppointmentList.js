@@ -95,25 +95,49 @@ export const AppointmentList = () => {
                                         </div>
                                         <div className="card-content pb-1">
                                             <section className="is-centered media columns py-2">
-                                                <div className="media-left column mr-2 ml-5">
-                                                    <div>
-                                                        <button className="btn__appt-list button is-small " onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
-                                                            <span className="icon">
-                                                                <i className="fa-solid fa-wrench"></i>
-                                                            </span>
-                                                            <span>Update</span>
-                                                        </button>
-                                                    </div>
-                                                    <div className="mt-1">
-                                                        <button className="btn__appt-list button is-small" onClick={(evt) => confirmDelete(evt, appointment)}>
-                                                            <span className="icon">
-                                                                <i className="fa-regular fa-trash-can"></i>
-                                                            </span>
-                                                            <span>Delete</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                                {/* handles delete and update buttons */}
+                                                {
+                                                    (appointment.progress.id <= 2)
+                                                        ? <div className="media-left column mr-2 ml-5">
+                                                            <div>
+                                                                <button className="btn__appt-list button is-small " onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
+                                                                    <span className="icon">
+                                                                        <i className="fa-solid fa-wrench"></i>
+                                                                    </span>
+                                                                    <span>Update</span>
+                                                                </button>
+                                                            </div>
+                                                            <div className="mt-1">
+                                                                <button className="btn__appt-list button is-small" onClick={(evt) => confirmDelete(evt, appointment)}>
+                                                                    <span className="icon">
+                                                                        <i className="fa-regular fa-trash-can"></i>
+                                                                    </span>
+                                                                    <span>Delete</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        : !mCPressure
+                                                            ? <><h2 className="center mt-4">Your Service is ongoing</h2></>
+                                                            : <div className="media-left column mr-2 ml-5">
+                                                                <div>
+                                                                    <button className="btn__appt-list button is-small " onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
+                                                                        <span className="icon">
+                                                                            <i className="fa-solid fa-wrench"></i>
+                                                                        </span>
+                                                                        <span>Update</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div className="mt-1">
+                                                                    <button className="btn__appt-list button is-small" onClick={(evt) => confirmDelete(evt, appointment)}>
+                                                                        <span className="icon">
+                                                                            <i className="fa-regular fa-trash-can"></i>
+                                                                        </span>
+                                                                        <span>Delete</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
 
+                                                }
                                                 <div className="notification column mr-5 ml-1 mt-3 ">
                                                     {
                                                         mCPressure
@@ -125,7 +149,7 @@ export const AppointmentList = () => {
                                                                         <option value={0}>Update Progress</option>
                                                                         {
                                                                             progression.map(progress => {
-                                                                                return <option value={`${progress.id}`} className="center__text" key={`progress--${progress.id}`}>{progress.label}</option>
+                                                                                return <option value={`${progress.id}`} className="center" key={`progress--${progress.id}`}>{progress.label}</option>
 
                                                                             })
                                                                         }
@@ -140,6 +164,7 @@ export const AppointmentList = () => {
                                                                             progress: currentAppointment.progress,
                                                                             request_date: appointment.request_date,
                                                                             scheduled: appointment.scheduled,
+                                                                            confirm: appointment.confirm,
                                                                             consultation: appointment.consultation,
                                                                             request_details: appointment.request_details,
                                                                             completed: appointment.completed
@@ -154,7 +179,7 @@ export const AppointmentList = () => {
 
                                                             </>
                                                             : <>
-                                                                <div className="appt__media--width appt__progress grid">
+                                                                <div className="appt__media--width appt__progress grid center">
                                                                     {
                                                                         appointment.progress.id === 1 || appointment.progress.id === 2
                                                                             ? <span className="mb-3">Progress</span>
@@ -181,7 +206,7 @@ export const AppointmentList = () => {
                                                 </div>
                                                 <p><strong>Address:</strong> {appointment.customer.address}</p>
                                                 {
-                                                    appointment.scheduled
+                                                    (appointment.scheduled && appointment.progress.id <= 2)
                                                         ? <>
                                                             <div>
                                                                 <div>
@@ -218,7 +243,9 @@ export const AppointmentList = () => {
                                                                 </div>
                                                             </div>
                                                         </>
-                                                        : <footer className="card-footer py-2 mt-2 has-text-grey center"><em>Request Date:</em><div className="ml-3">{moment(`${appointment.request_date}`).format("L")}</div></footer>
+                                                        : appointment.progress.id <= 2
+                                                            ? <footer className="card-footer py-2 mt-2 has-text-grey center"><em>Request Date:</em><div className="ml-3">{moment(`${appointment.request_date}`).format("L")}</div></footer>
+                                                            : <></>
 
                                                 }
 
@@ -240,6 +267,7 @@ export const AppointmentList = () => {
                                                                                 progress: appointment.progress.id,
                                                                                 request_date: currentAppointment.request_date,
                                                                                 scheduled: true,
+                                                                                confirm: false,
                                                                                 consultation: appointment.consultation,
                                                                                 request_details: appointment.request_details,
                                                                                 completed: appointment.completed
@@ -262,7 +290,7 @@ export const AppointmentList = () => {
                                                 {
                                                     (!appointment.confirm && appointment.scheduled)
 
-                                                        ? <footer>
+                                                        ? <footer className="h-10">
                                                             <div>
                                                                 <button className="btn__appt-list button is-fullwidth is-danger appt__calendar"
                                                                     onClick={evt => {
