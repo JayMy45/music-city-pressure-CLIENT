@@ -189,7 +189,7 @@ export const AppointmentList = () => {
                                                                     <footer className="card-footer py-2 mt-2 has-text-grey center"><strong>Service Date Scheduled for:</strong><div className="ml-3">{moment(`${appointment.request_date}`).format("L")}</div></footer>
                                                                 </div>
                                                                 <div>
-                                                                    <button className="btn__appt-list button is-small is-light appt__calendar"
+                                                                    <button className="btn__appt-list button is-small is-light appt__calendar" type="submit"
                                                                         onClick={evt => {
                                                                             // Prevent form from being submitted
                                                                             evt.preventDefault()
@@ -197,10 +197,11 @@ export const AppointmentList = () => {
                                                                             const reScheduleChange = {
                                                                                 id: appointment.id,
                                                                                 service_type: appointment.service_type.id,
-                                                                                progress: appointment.progress.id,
+                                                                                progress: 1,
                                                                                 request_date: appointment.request_date,
                                                                                 scheduled: false,
                                                                                 consultation: appointment.consultation,
+                                                                                confirm: false,
                                                                                 request_details: appointment.request_details,
                                                                                 completed: appointment.completed
                                                                             }
@@ -259,7 +260,8 @@ export const AppointmentList = () => {
                                                     }
                                                 </footer>
                                                 {
-                                                    !appointment.confirm && appointment.schedule
+                                                    (!appointment.confirm && appointment.scheduled)
+
                                                         ? <footer>
                                                             <div>
                                                                 <button className="btn__appt-list button is-fullwidth is-danger appt__calendar"
@@ -270,7 +272,7 @@ export const AppointmentList = () => {
                                                                         const confirmDate = {
                                                                             id: appointment.id,
                                                                             service_type: appointment.service_type.id,
-                                                                            progress: appointment.progress.id,
+                                                                            progress: 2,
                                                                             request_date: appointment.request_date,
                                                                             scheduled: appointment.scheduled,
                                                                             consultation: appointment.consultation,
