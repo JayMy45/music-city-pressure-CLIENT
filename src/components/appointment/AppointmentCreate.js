@@ -69,6 +69,7 @@ export const AppointmentCreate = () => {
                         customer_id: newAppointment.customer,
                         request_details: newAppointment.requestDetails,
                         service_type: parseInt(newAppointment.serviceTypeId),
+                        scheduled: false,
                         progress: parseInt(newAppointment.progress),
                         request_date: newAppointment.requestDate,
                         consultation: false

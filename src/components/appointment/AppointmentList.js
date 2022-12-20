@@ -13,6 +13,7 @@ export const AppointmentList = () => {
     const navigate = useNavigate()
 
     const [currentAppointment, setCurrentAppointment] = useState({
+        request_date: "",
         progress: 0
     })
 
@@ -80,7 +81,7 @@ export const AppointmentList = () => {
                     {
                         appointments.map(appointment => {
                             return <React.Fragment key={`appointment--${appointment.id}`}>
-                                <div className="appointment__request is-4-tablet is-3-desktop mx-1 column">
+                                <div className="appointment__request is-4-tablet is-4-desktop mx-1 column">
                                     <div className="card ">
                                         {
                                             mCPressure
@@ -117,18 +118,19 @@ export const AppointmentList = () => {
                                                     {
                                                         mCPressure
                                                             ? <>
-                                                                <div>
-                                                                    <span className="is-size-8">Current Progress: <strong className="is-capitalized">{appointment.progress.label}</strong></span>
+                                                                <div className="ml-4">
+                                                                    <div className="is-size-8">Current Progress:</div>
+                                                                    <div><strong className="is-capitalized">{appointment.progress.label}</strong></div>
                                                                     <select name="progress" className="drop__down" onChange={changeProgressState} value={currentAppointment.progress.label}>
                                                                         <option value={0}>Update Progress</option>
                                                                         {
                                                                             progression.map(progress => {
-                                                                                return <option value={`${progress.id}`} key={`progress--${progress.id}`}>{progress.label}</option>
+                                                                                return <option value={`${progress.id}`} className="center__text" key={`progress--${progress.id}`}>{progress.label}</option>
 
                                                                             })
                                                                         }
                                                                     </select>
-                                                                    <button className="is-small is-warning" onClick={evt => {
+                                                                    <button className="has-background-primary-light has-text-black-dark" onClick={evt => {
                                                                         // Prevent form from being submitted
                                                                         evt.preventDefault()
 
@@ -137,6 +139,7 @@ export const AppointmentList = () => {
                                                                             service_type: appointment.service_type.id,
                                                                             progress: currentAppointment.progress,
                                                                             request_date: appointment.request_date,
+                                                                            scheduled: appointment.scheduled,
                                                                             consultation: appointment.consultation,
                                                                             request_details: appointment.request_details,
                                                                             completed: appointment.completed
@@ -146,7 +149,7 @@ export const AppointmentList = () => {
                                                                         saveEditedAppointment(progressionChange)
                                                                             .then(() => getAppointments()
                                                                                 .then(data => setAppointments(data)))
-                                                                    }}>confirm</button>
+                                                                    }}><strong>confirm</strong></button>
                                                                 </div>
 
                                                             </>
@@ -154,8 +157,8 @@ export const AppointmentList = () => {
                                                                 <div className="appt__media--width appt__progress grid">
                                                                     {
                                                                         appointment.progress.id === 1 || appointment.progress.id === 2
-                                                                            ? <span>Progress</span>
-                                                                            : <span className="is-capitalized">{appointment.progress.label}</span>
+                                                                            ? <span className="mb-3">Progress</span>
+                                                                            : <span className="is-capitalized mb-3 is-size-8">{appointment.progress.label}</span>
 
                                                                     }
                                                                 </div>
@@ -171,13 +174,127 @@ export const AppointmentList = () => {
                                                 </div>
                                             </section>
                                             <section className="">
-                                                <p className=""><strong>Service:</strong> <Link to={`/appointments/${appointment.id}`}>{appointment.service_type.name}</Link></p>
+                                                <p className=""><strong>Service:</strong> <Link to={`/services/${appointment.service_type.id}`}>{appointment.service_type.name}</Link></p>
                                                 <div className="paragraph">
                                                     <p><strong>Details:</strong></p>
                                                     <p>{appointment.request_details}</p>
                                                 </div>
                                                 <p><strong>Address:</strong> {appointment.customer.address}</p>
-                                                <footer className="card-footer py-2 mt-2 has-text-grey"><em>Request Date:</em><div className="ml-3">{moment(`${appointment.request_date}`).format("L")}</div></footer>
+                                                {
+                                                    appointment.scheduled
+                                                        ? <>
+                                                            <div>
+                                                                <div>
+
+                                                                    <footer className="card-footer py-2 mt-2 has-text-grey center"><strong>Service Date Scheduled for:</strong><div className="ml-3">{moment(`${appointment.request_date}`).format("L")}</div></footer>
+                                                                </div>
+                                                                <div>
+                                                                    <button className="btn__appt-list button is-small is-light appt__calendar" type="submit"
+                                                                        onClick={evt => {
+                                                                            // Prevent form from being submitted
+                                                                            evt.preventDefault()
+
+                                                                            const reScheduleChange = {
+                                                                                id: appointment.id,
+                                                                                service_type: appointment.service_type.id,
+                                                                                progress: 1,
+                                                                                request_date: appointment.request_date,
+                                                                                scheduled: false,
+                                                                                consultation: appointment.consultation,
+                                                                                confirm: false,
+                                                                                request_details: appointment.request_details,
+                                                                                completed: appointment.completed
+                                                                            }
+
+                                                                            // Send POST request to your API
+                                                                            saveEditedAppointment(reScheduleChange)
+                                                                                .then(() => getAppointments()
+                                                                                    .then(data => setAppointments(data)))
+                                                                        }}
+                                                                    >
+                                                                        <span><i className="fa-regular fa-calendar-days"></i></span>
+                                                                        <span className="appt__font ml-2">Reschedule Service Date</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                        : <footer className="card-footer py-2 mt-2 has-text-grey center"><em>Request Date:</em><div className="ml-3">{moment(`${appointment.request_date}`).format("L")}</div></footer>
+
+                                                }
+
+                                                <footer className="card-footer py-2 mt-2 has-text-grey item center">
+                                                    {
+                                                        mCPressure
+                                                            ? <div>
+                                                                <input type="date" name="request_date" required className="center__text appt__calendar"
+                                                                    onChange={changeProgressState} />
+                                                                <div>
+                                                                    <button className="btn__appt-list button is-small is-black appt__calendar"
+                                                                        onClick={evt => {
+                                                                            // Prevent form from being submitted
+                                                                            evt.preventDefault()
+
+                                                                            const scheduleChange = {
+                                                                                id: appointment.id,
+                                                                                service_type: appointment.service_type.id,
+                                                                                progress: appointment.progress.id,
+                                                                                request_date: currentAppointment.request_date,
+                                                                                scheduled: true,
+                                                                                consultation: appointment.consultation,
+                                                                                request_details: appointment.request_details,
+                                                                                completed: appointment.completed
+                                                                            }
+
+                                                                            // Send POST request to your API
+                                                                            saveEditedAppointment(scheduleChange)
+                                                                                .then(() => getAppointments()
+                                                                                    .then(data => setAppointments(data)))
+                                                                        }}
+                                                                    >
+                                                                        <span><i className="fa-regular fa-calendar-days"></i></span>
+                                                                        <span className="appt__font ml-2">Schedule</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            : <></>
+                                                    }
+                                                </footer>
+                                                {
+                                                    (!appointment.confirm && appointment.scheduled)
+
+                                                        ? <footer>
+                                                            <div>
+                                                                <button className="btn__appt-list button is-fullwidth is-danger appt__calendar"
+                                                                    onClick={evt => {
+                                                                        // Prevent form from being submitted
+                                                                        evt.preventDefault()
+
+                                                                        const confirmDate = {
+                                                                            id: appointment.id,
+                                                                            service_type: appointment.service_type.id,
+                                                                            progress: 2,
+                                                                            request_date: appointment.request_date,
+                                                                            scheduled: appointment.scheduled,
+                                                                            consultation: appointment.consultation,
+                                                                            request_details: appointment.request_details,
+                                                                            completed: appointment.completed,
+                                                                            confirm: true
+                                                                        }
+
+                                                                        // Send POST request to your API
+                                                                        saveEditedAppointment(confirmDate)
+                                                                            .then(() => getAppointments()
+                                                                                .then(data => setAppointments(data)))
+                                                                    }}
+                                                                >
+                                                                    <span><i className="fa-regular fa-calendar-days"></i></span>
+                                                                    <span className="appt__font ml-2">Confirm Date</span>
+                                                                </button>
+                                                            </div>
+
+                                                        </footer>
+                                                        : <></>
+                                                }
                                             </section>
                                         </div>
 
