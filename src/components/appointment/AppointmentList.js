@@ -88,9 +88,9 @@ export const AppointmentList = () => {
                                                 ? <div className="pt-1 pl-1"><div className="mt-1 ml-1"><header><em>Customer Name:</em> {appointment.customer.full_name}</header></div></div>
                                                 : <></>
                                         }
-                                        <div className="card-image has-text-centered pt-2">
+                                        <div className="card-image has-text-centered pt-2 px-2">
                                             <figure className="image is-4by3">
-                                                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRCDeAQKGIjC916XeJAnv7JuDFj6GHoduUGKAZoFVVWJ4IkzHj0nRNvcdt_PjZ1tReaksMyOORmIwZwA_hBJr72xq9QP3Je&usqp=CAE" alt="" />
+                                                <img src={appointment.image} alt="Customer House" />
                                             </figure>
                                         </div>
                                         <div className="card-content pb-1">
