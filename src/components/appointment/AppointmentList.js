@@ -60,7 +60,6 @@ export const AppointmentList = () => {
             </section>
             <section className="">
                 <div className="columns is-multiline mt-5 is-3 is-variable is-centered">
-                    {/* { tickets.map(ticket => <TicketCard key={`ticket--${ticket.id}`} ticket={ticket} toggle={toggle} />) } */}
                     {
                         appointments.map(appointment => <Appointment key={`appointment--${appointment.id}`}
                             appointment={appointment}
