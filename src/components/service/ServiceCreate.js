@@ -7,12 +7,12 @@ export const ServiceCreate = () => {
 
     const navigate = useNavigate()
     const [equipments, setEquipment] = useState([])
+    const [checkedOptions, setCheckedOptions] = useState(new Set())
     const [newService, setNewService] = useState({
         name: "",
         label: "",
         description: "",
         details: "",
-        equipment_id: 0,
         price: 0
     })
 
@@ -66,7 +66,7 @@ export const ServiceCreate = () => {
                     value={newService.details}
                     onChange={changeServiceState} />
             </div>
-            <div>
+            {/* <div>
                 <label>Equipment Needed</label>
                 <div>
                     <select name="equipment_id" className="drop__down" onChange={changeServiceState} value={newService.equipment_id}>
@@ -78,7 +78,29 @@ export const ServiceCreate = () => {
                         }
                     </select>
                 </div>
+            </div> */}
+
+            <div>
+                <label>Equipment Needed</label>
+                <div>
+
+                    {equipments.map(equip => (<div className="ml-2 mr-2" key={`equipment--${equip.id}`}>
+
+                        <input className="mr-2" value={equip.id}
+                            onChange={(e) => {
+                                const copy = new Set(checkedOptions)
+                                if (copy.has(equip.id)) {
+                                    copy.delete(equip.id)
+                                } else { copy.add(equip.id) }
+                                setCheckedOptions(copy)
+                            }
+                            } type="checkbox" />
+                        {equip.label}
+                    </div>))
+                    }
+                </div>
             </div>
+
             <div>
                 <div>
                     <label>Price</label>
@@ -97,7 +119,7 @@ export const ServiceCreate = () => {
                         label: newService.label,
                         description: newService.description,
                         details: newService.details,
-                        equipment_id: parseInt(newService.equipment_id),
+                        tools: Array.from(checkedOptions),
                         price: parseFloat(newService.price)
                     }
 
