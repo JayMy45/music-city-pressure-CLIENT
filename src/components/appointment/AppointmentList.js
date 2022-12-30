@@ -13,18 +13,20 @@ export const AppointmentList = () => {
     const navigate = useNavigate()
 
 
-    const [currentAppointment, setCurrentAppointment] = useState({
-        request_date: "",
-        progress: 1
-    })
+
 
 
     // store is_staff value for differential display
     const localMCUser = localStorage.getItem("is_staff")
     const mCPressure = JSON.parse(localMCUser)
 
+    const fetchAppointments = () => {
+        getAppointments()
+            .then(data => setAppointments(data))
+    }
+
     useEffect(() => {
-        getAppointments().then(data => setAppointments(data))
+        fetchAppointments()
     }, [])
 
     useEffect(() => {
@@ -63,10 +65,8 @@ export const AppointmentList = () => {
                     {
                         appointments.map(appointment => <Appointment key={`appointment--${appointment.id}`}
                             appointment={appointment}
-                            setAppointments={setAppointments}
+                            fetchAppointments={fetchAppointments}
                             progression={progression}
-                            currentAppointment={currentAppointment}
-                            setCurrentAppointment={setCurrentAppointment}
                             mCPressure={mCPressure}
                         />)
                     }
