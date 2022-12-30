@@ -1,11 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteAppointment, getAppointments, saveEditedAppointment } from "../../managers/AppointmentManager"
 import moment from "moment";
 
 
 
-export const Appointment = ({ appointment, setAppointments, progression, currentAppointment, setCurrentAppointment }) => {
+export const Appointment = ({ appointment, fetchAppointments, progression, }) => {
 
 
     const navigate = useNavigate()
@@ -13,14 +13,18 @@ export const Appointment = ({ appointment, setAppointments, progression, current
     const localMCUser = localStorage.getItem("is_staff")
     const mCPressure = JSON.parse(localMCUser)
 
+    const [currentAppointment, setCurrentAppointment] = useState({
+        request_date: "",
+        progress: parseInt(appointment.progress.id)
+    })
+
     //  handles confirmation of deletion via a popup
     const confirmDelete = (evt, appointment) => {
         // whenever confirmed by clicking OK/Cancel window.confirm() returns boolean 
         let text = 'Are you sure you want to delete'
         window.confirm(text)
             ? deleteAppointment(appointment.id)
-                .then(() => getAppointments()
-                    .then(data => setAppointments(data)))
+                .then(fetchAppointments)
             : <></>
     }
 
@@ -125,8 +129,7 @@ export const Appointment = ({ appointment, setAppointments, progression, current
 
                                                 // Send POST request to your API
                                                 saveEditedAppointment(progressionChange)
-                                                    .then(() => getAppointments()
-                                                        .then(data => setAppointments(data)))
+                                                    .then(fetchAppointments)
                                             }}><strong>confirm</strong></button>
                                         </div>
 
@@ -186,8 +189,7 @@ export const Appointment = ({ appointment, setAppointments, progression, current
 
                                                     // Send POST request to your API
                                                     saveEditedAppointment(reScheduleChange)
-                                                        .then(() => getAppointments()
-                                                            .then(data => setAppointments(data)))
+                                                        .then(fetchAppointments)
                                                 }}
                                             >
                                                 <span><i className="fa-regular fa-calendar-days"></i></span>
@@ -228,8 +230,7 @@ export const Appointment = ({ appointment, setAppointments, progression, current
 
                                                     // Send POST request to your API
                                                     saveEditedAppointment(scheduleChange)
-                                                        .then(() => getAppointments()
-                                                            .then(data => setAppointments(data)))
+                                                        .then(fetchAppointments)
                                                 }}
                                             >
                                                 <span><i className="fa-regular fa-calendar-days"></i></span>
@@ -264,8 +265,7 @@ export const Appointment = ({ appointment, setAppointments, progression, current
 
                                                 // Send POST request to your API
                                                 saveEditedAppointment(confirmDate)
-                                                    .then(() => getAppointments()
-                                                        .then(data => setAppointments(data)))
+                                                    .then(fetchAppointments)
                                             }}
                                         >
                                             <span><i className="fa-regular fa-calendar-days"></i></span>

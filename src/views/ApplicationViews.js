@@ -8,6 +8,7 @@ import { Authorized } from "./Authorized"
 export const ApplicationViews = () => {
     return <>
         <Routes>
+            <Route path="/mcpressure" element={<MCPressureWebpage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/*" element={<Authorized />}>
