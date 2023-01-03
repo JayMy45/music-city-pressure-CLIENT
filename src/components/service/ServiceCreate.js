@@ -11,6 +11,7 @@ export const ServiceCreate = () => {
     const [newService, setNewService] = useState({
         name: "",
         label: "",
+        image: "",
         description: "",
         details: "",
         price: 0
@@ -20,6 +21,23 @@ export const ServiceCreate = () => {
         getEquipments()
             .then(data => { setEquipment(data) })
     }, [])
+
+    const showWidget = (clickEvent) => {
+        clickEvent.preventDefault()
+        let widget = window.cloudinary.createUploadWidget({
+            cloudName: `dp04hh5pz`,
+            uploadPreset: `gv9plrcj`
+        },
+            (error, result) => {
+                if (!error && result && result.event === "success") {
+                    console.log(result.info.url)
+                    const copy = structuredClone(newService)
+                    copy.image = result.info.url
+                    setNewService(copy)
+                }
+            });
+        widget.open()
+    }
 
     const changeServiceState = (domEvent) => {
         // TODO: Complete the onChange function
@@ -33,7 +51,7 @@ export const ServiceCreate = () => {
 
     return <>
         <h2>Hellow Creation Worldie</h2>
-        <form>
+        <form className="mc__service--create box">
             <div>
                 <div>
                     <label>New Service Name</label>
@@ -58,6 +76,22 @@ export const ServiceCreate = () => {
                     value={newService.description}
                     onChange={changeServiceState} />
             </div>
+
+            <div>
+                <div>
+                    {
+                        newService.image !== ""
+                            ? <figure className="service__image is-size-4"><img src={newService.image} alt="preview" /></figure>
+                            : <></>
+                    }
+                </div>
+                <button
+                    onClick={(clickEvent) => showWidget(clickEvent)}
+                    className="btn btn-primary">
+                    Add Image
+                </button>
+            </div>
+
             <div>
                 <div>
                     <label>Details</label>
@@ -117,6 +151,7 @@ export const ServiceCreate = () => {
                     const service = {
                         name: newService.name,
                         label: newService.label,
+                        image: newService.image,
                         description: newService.description,
                         details: newService.details,
                         tools: Array.from(checkedOptions),

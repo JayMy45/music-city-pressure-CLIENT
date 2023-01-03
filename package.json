@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@cloudinary/react": "^1.7.0",
+    "@cloudinary/url-gen": "^1.8.7",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bulma": "^0.9.4",
+    "cloudinary-react": "^1.8.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-calendar": "^4.0.0",

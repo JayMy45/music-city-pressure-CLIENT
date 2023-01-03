@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { deleteAppointment, getAppointments, saveEditedAppointment } from "../../managers/AppointmentManager"
+import { deleteAppointment, saveEditedAppointment } from "../../managers/AppointmentManager"
 import moment from "moment";
 
 
@@ -103,7 +103,6 @@ export const Appointment = ({ appointment, fetchAppointments, progression, }) =>
                                             <div className="is-size-8">Current Progress:</div>
                                             <div><strong className="is-capitalized">{appointment.progress.label}</strong></div>
                                             <select name="progress" className="drop__down" onChange={changeProgressState} value={currentAppointment.progress.label}>
-                                                <option value={0}>Update Progress</option>
                                                 {
                                                     progression.map(progress => {
                                                         return <option value={`${progress.id}`} className="center" key={`progress--${progress.id}`}>{progress.label}</option>
@@ -162,7 +161,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, }) =>
                         </div>
                         <p><strong>Address:</strong> {appointment.customer.address}</p>
                         {
-                            (appointment.scheduled && appointment.progress.id <= 2)
+                            (appointment.scheduled && appointment.progress.id === 2)
                                 ? <>
                                     <div>
                                         <div>
@@ -198,15 +197,20 @@ export const Appointment = ({ appointment, fetchAppointments, progression, }) =>
                                         </div>
                                     </div>
                                 </>
-                                : appointment.progress.id <= 2
+                                : appointment.progress.id < 3
                                     ? <footer className="card-footer py-2 mt-2 has-text-grey center"><em>Request Date:</em><div className="ml-3">{moment(`${appointment.request_date}`).format("L")}</div></footer>
-                                    : <></>
+                                    : appointment.progress.id >= 3 && mCPressure
+                                        ? <footer className="card-footer py-2 mt-2 has-text-grey center"><em>Service for {appointment.customer.full_name} is <span className="is-uppercase">{appointment.progress.label} </span></em></footer>
+                                        : appointment.progress.id >= 3 && !mCPressure
+                                            ? <footer className="card-footer py-2 mt-2 has-text-grey center"><em>Your Service is <span className="is-uppercase">{appointment.progress.label} </span></em></footer>
+                                            : <></>
+
 
                         }
 
                         <footer className="card-footer py-2 mt-2 has-text-grey item center">
                             {
-                                mCPressure
+                                mCPressure && appointment.progress.id < 3
                                     ? <div>
                                         <input type="date" name="request_date" required className="center__text appt__calendar"
                                             onChange={changeProgressState} />

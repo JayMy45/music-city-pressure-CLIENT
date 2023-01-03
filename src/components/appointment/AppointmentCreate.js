@@ -29,10 +29,27 @@ export const AppointmentCreate = () => {
         })
     }
 
+    // const showWidget = (clickEvent) => {
+    //     clickEvent.preventDefault()
+    //     let widget = window.cloudinary.createUploadWidget({
+    //         cloudName: `dp04hh5pz`,
+    //         uploadPreset: `gv9plrcj`
+    //     },
+    //         (error, result) => {
+    //             if (!error && result && result.event === "success") {
+    //                 console.log(result.info.url)
+    //                 const copy = structuredClone(newAppointment)
+    //                 copy.image = result.info.url
+    //                 setNewAppointment(copy)
+    //             }
+    //         });
+    //     widget.open()
+    // }
+
 
     return <>
         <h2>Hellow Creation Worldie</h2>
-        <form>
+        <form className="box">
             <div>
                 <div>
                     <label>Details about need</label>
@@ -60,6 +77,15 @@ export const AppointmentCreate = () => {
                     value={newAppointment.requestDate}
                     onChange={changeAppointmentState} />
             </div>
+
+            {/* <div>
+                <button
+                    onClick={(clickEvent) => showWidget(clickEvent)}
+                    className="btn btn-primary">
+                    Add Image
+                </button>
+            </div> */}
+
             <div>
                 <button type="submit" onClick={evt => {
                     // Prevent form from being submitted

@@ -55,7 +55,8 @@ export const NavBar = () => {
                                 <button className="nav-link fakeLink is-link"
                                     onClick={() => {
                                         localStorage.removeItem("mc_token");
-                                        localStorage.removeItem("is_staff")
+                                        localStorage.removeItem("is_staff");
+                                        localStorage.removeItem("is_superuser")
                                         navigate('/login')
                                     }}
                                 >Logout</button>

@@ -6,3 +6,9 @@
 .services__list {
     margin: auto;
 }
+
+/* service create form */
+.mc__service--create {
+    margin: auto;
+    width: fit-content;
+}
