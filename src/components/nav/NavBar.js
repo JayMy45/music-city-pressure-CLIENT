@@ -1,9 +1,11 @@
+import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 // import Logo from "/Users/jeremymyers/workspace/level-up-CLIENT/level-up-react-CLIENT/src/logo192.png"
 import "./NavBar.css"
 
 export const NavBar = () => {
     const navigate = useNavigate()
+
 
 
     return (
@@ -15,11 +17,22 @@ export const NavBar = () => {
                 </a>
 
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" id="burger">
+                {/* <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" id="burger" onClick={toggleMenu}> */}
+                <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" id="burger" onClick={() => {
+                    const burger = document.getElementById('burger');
+                    const navLinks = document.getElementById('navbarBasicExample');
+                    burger.classList.toggle('is-active');
+                    navLinks.classList.toggle('is-active');
+                }}>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                 </a>
+
+                {/* <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a> */}
             </div>
 
             <div className="navbar-end nav-links">

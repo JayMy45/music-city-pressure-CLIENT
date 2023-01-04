@@ -3,6 +3,29 @@
     height: 10rem;
 }
 
-#b-black {
-    border: 10px solid black;
+.mc__employee {
+    margin: auto;
+}
+
+.employee__list {
+    width: 20rem;
+}
+
+.mc__employee--details {
+    width: 30rem;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center__left {
+    display: flex;
+    align-items: center;
+}
+
+.btn__employee-details {
+    width: 5rem;
 }

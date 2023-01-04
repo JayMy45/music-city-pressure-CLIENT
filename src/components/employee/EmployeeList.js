@@ -21,6 +21,7 @@ export const EmployeeList = () => {
 
 
     return <>
+        <button>Button</button>
         <div>
             {
                 employees.map(emp => <Employee key={`employee--${emp.id}`}
