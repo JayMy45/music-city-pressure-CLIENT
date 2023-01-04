@@ -37,11 +37,6 @@ export const AppointmentList = () => {
         getCustomers().then(setCustomer)
     }, [])
 
-
-
-
-
-    // 'id', 'service_type','completed', 'consultation', 'request_details',
     return <>
         <section>
             <h1 className="is-title mb-2">Appointments</h1>

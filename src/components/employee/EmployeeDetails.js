@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getEmployeeById } from "../../managers/EmployeeManager"
+import { deleteEmployee, getEmployeeById, getEmployees } from "../../managers/EmployeeManager"
 import { EmployeeUpdate } from "./EmployeeUpdate"
 import "./Employee.css"
 
@@ -12,22 +12,14 @@ export const EmployeeDetails = () => {
         address: "",
         bio: "",
         phone_number: "",
-        salary: ""
+        salary: "",
+        specialty: []
     })
 
     const navigate = useNavigate()
 
     const mCSuperUser = localStorage.getItem("is_superuser")
     const superUser = JSON.parse(mCSuperUser)
-
-    const renderEmployee = () => {
-        if (employeeId) {
-            getEmployeeById(employeeId).then((res) => {
-                setEmployee(res)
-            })
-        }
-    }
-
 
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -37,6 +29,13 @@ export const EmployeeDetails = () => {
     });
     const formattedValue = formatter.format(employee.salary);
 
+    const renderEmployee = () => {
+        if (employeeId) {
+            getEmployeeById(employeeId).then((res) => {
+                setEmployee(res)
+            })
+        }
+    }
 
     useEffect(() => {
         renderEmployee()
@@ -51,6 +50,9 @@ export const EmployeeDetails = () => {
         })
     }
 
+
+
+
     const defaultDisplay = () => {
         return <>
             <div>
@@ -58,7 +60,7 @@ export const EmployeeDetails = () => {
             </div>
             <div className="mc__employee center">
                 <section className="mc__employee--details box is-centered mb-2 columns">
-                    <div className="mr-3 column is-9">
+                    <div className="mr-3 column center is-8">
                         <div className="">
                             <header className="center__left mb-4">
                                 <h1 className="">{employee.full_name}</h1>
@@ -77,13 +79,28 @@ export const EmployeeDetails = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="column">
-                        {
-                            superUser
-                                ? <><button onClick={() => updateClickStatus(true)} className="center button btn__employee-details is-small mb-2">Update</button>
-                                    <button className="button btn__employee-details is-small">Delete</button></>
-                                : <></>
-                        }
+                    <div>
+                        <div className="column">
+                            <div className="mb-4">
+                                <button onClick={() => updateClickStatus(true)} className="center button btn__employee-details is-small mb-2">Update</button>
+                                {
+                                    superUser
+                                        ? <>
+                                            <button className="center button btn__employee-details is-small" onClick={() => { }}>Delete</button></>
+                                        : <></>
+                                }
+                            </div>
+                            <div>
+                                <h2 className="center is-size-4"><strong><u>Specialties</u></strong></h2>
+                                {
+                                    employee.specialty.map(special => {
+                                        return <div key={`specialty--${special.id}`}>
+                                            <p className="center">{special.label}</p>
+                                        </div>
+                                    })
+                                }
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -96,6 +113,8 @@ export const EmployeeDetails = () => {
                     employee={employee}
                     updateClickStatus={updateClickStatus}
                     changeEmployeeState={changeEmployeeState}
+                    superUser={superUser}
+                    formattedValue={formattedValue}
                 />
                 : defaultDisplay()
         }

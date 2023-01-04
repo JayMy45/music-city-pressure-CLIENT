@@ -5,6 +5,7 @@ import { UpdateAppointment } from "../components/appointment/UpdateAppointment"
 import { Employee } from "../components/employee/Employee"
 import { EmployeeDetails } from "../components/employee/EmployeeDetails"
 import { EmployeeList } from "../components/employee/EmployeeList"
+import { EmpUpdate } from "../components/employee/EmpUpdate"
 import { ServiceCreate } from "../components/service/ServiceCreate"
 import { ServiceDetails } from "../components/service/ServiceDetails"
 import { ServiceList } from "../components/service/ServiceList"
@@ -18,6 +19,7 @@ export const SuperViews = () => {
             <Route path="/" element={<EmployeeList />} />
             <Route path="/employees" element={<EmployeeList />} />
             <Route path="/employees/:employeeId" element={<EmployeeDetails />} />
+            <Route path="/employees/:employeeId" element={<EmpUpdate />} />
             <Route path="/services" element={<ServiceList />} />
             <Route path="/services/create" element={<ServiceCreate />} />
             <Route path="/services/:serviceId" element={<ServiceDetails />} />

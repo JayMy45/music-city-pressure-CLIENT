@@ -1,9 +1,35 @@
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { getEmployeeById } from "../../managers/EmployeeManager"
+import { getEmployeeById, getEmployeeId } from "../../managers/EmployeeManager"
 import "./Employee.css"
 
-export const EmployeeUpdate = ({ updateClickStatus, employee, changeEmployeeState, superUser, formattedValue }) => {
+export const EmpUpdate = ({ updateClickStatus, employee, changeEmployeeState, superUser, currentEmployee, formattedValue }) => {
+
+    useEffect(() => {
+        // Fetch employee information from the server using the employeeId
+        // For example: 
+        getEmployeeId(currentEmployee)
+            .then(response => response.json())
+            .then(employeeData => {
+                // Update the employee state with the new data
+                changeEmployeeState(employeeData)
+            })
+    }, [])
+    console.log(employee)
+    //    getEmployeeById(employeeId)
+    //   .then(response => {
+    //     if (!response.ok) {
+    //       throw new Error(`Error ${response.status}: ${response.statusText}`)
+    //     }
+    //     return response.json()
+    //   })
+    //   .then(employeeData => {
+    //     // Update the employee state with the new data
+    //     changeEmployeeState(employeeData)
+    //   })
+    //   .catch(error => {
+    //     console.error(error)
+    //   })
 
     return <>
 

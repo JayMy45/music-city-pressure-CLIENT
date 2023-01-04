@@ -9,6 +9,12 @@
 
 .employee__list {
     width: 20rem;
+    margin: auto;
+}
+
+.employee__update {
+    width: 30rem;
+    margin: auto;
 }
 
 .mc__employee--details {
@@ -28,4 +34,5 @@
 
 .btn__employee-details {
     width: 5rem;
+    margin: auto;
 }

@@ -11,8 +11,6 @@ export const EmployeeList = () => {
     const mCSuperUser = localStorage.getItem("is_superuser")
     const superUser = JSON.parse(mCSuperUser)
 
-    const navigate = useNavigate()
-
     useEffect(() => {
         getEmployees()
             .then(setEmployees)
@@ -22,6 +20,7 @@ export const EmployeeList = () => {
 
     return <>
         <button>Button</button>
+        <div><h1>Employees</h1></div>
         <div>
             {
                 employees.map(emp => <Employee key={`employee--${emp.id}`}
