@@ -23,7 +23,7 @@ export const NavBar = () => {
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 {/* <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" id="burger" onClick={toggleMenu}> */}
                 <a
-                    onClick={() => { setIsActive(!isActive) }}
+                    onClick={closeHamburger}
                     role="button"
                     className={`navbar-burger burger ${isActive ? 'is-active' : ""}`}
                     aria-label="menu navigation"
