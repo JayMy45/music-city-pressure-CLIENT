@@ -19,7 +19,7 @@ export const SuperViews = () => {
             <Route path="/" element={<EmployeeList />} />
             <Route path="/employees" element={<EmployeeList />} />
             <Route path="/employees/:employeeId" element={<EmployeeDetails />} />
-            <Route path="/employees/:employeeId" element={<EmpUpdate />} />
+            {/* <Route path="/employees/:employeeId" element={<EmpUpdate />} /> */}
             <Route path="/services" element={<ServiceList />} />
             <Route path="/services/create" element={<ServiceCreate />} />
             <Route path="/services/:serviceId" element={<ServiceDetails />} />

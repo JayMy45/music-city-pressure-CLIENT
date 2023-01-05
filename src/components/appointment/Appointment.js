@@ -5,7 +5,7 @@ import moment from "moment";
 
 
 
-export const Appointment = ({ appointment, fetchAppointments, progression, }) => {
+export const Appointment = ({ appointment, fetchAppointments, progression, superUser }) => {
 
 
     const navigate = useNavigate()
@@ -40,11 +40,32 @@ export const Appointment = ({ appointment, fetchAppointments, progression, }) =>
     return <React.Fragment key={`appointment--${appointment.id}`}>
         <div className="appointment__request is-4-tablet is-4-desktop mx-1 column">
             <div className="card ">
-                {
-                    mCPressure
-                        ? <div className="pt-1 pl-1"><div className="mt-1 ml-1"><header><em>Customer Name:</em> {appointment.customer.full_name}</header></div></div>
-                        : <></>
-                }
+                <div className="">
+                    {
+                        mCPressure
+                            ? <div className="pt-1 pl-1"><div className="mt-1 ml-1"><header><em>Customer:</em> {appointment.customer.full_name}</header></div></div>
+                            : <></>
+                    }
+                </div>
+
+                <div className="pt-2 pl-2">
+                    {
+                        (Array.isArray(appointment.employee) && appointment.employee.length === 0 && mCPressure)
+                            ? <button onClick={() => { }}>UnAssigned</button>
+                            : <>{
+                                appointment.employee.map(employ => {
+                                    return (
+                                        <div key={`employee--${employ.id}`}>
+                                            <Link to={`/employees/${employ.id}`}>{employ.full_name}</Link>
+                                        </div>
+                                    )
+                                })
+                            }</>
+                    }
+                </div>
+
+
+
                 <div className="card-image has-text-centered pt-2 px-2">
                     <figure className="image is-4by3">
                         <img src={appointment.image} alt="Customer House" />

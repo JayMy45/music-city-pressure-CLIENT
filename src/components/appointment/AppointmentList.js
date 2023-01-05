@@ -20,6 +20,9 @@ export const AppointmentList = () => {
     const localMCUser = localStorage.getItem("is_staff")
     const mCPressure = JSON.parse(localMCUser)
 
+    const mCSuperUser = localStorage.getItem("is_superuser")
+    const superUser = JSON.parse(mCSuperUser)
+
     const fetchAppointments = () => {
         getAppointments()
             .then(data => setAppointments(data))
@@ -63,6 +66,7 @@ export const AppointmentList = () => {
                             fetchAppointments={fetchAppointments}
                             progression={progression}
                             mCPressure={mCPressure}
+                            superUser={superUser}
                         />)
                     }
 

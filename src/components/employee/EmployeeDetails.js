@@ -21,6 +21,9 @@ export const EmployeeDetails = () => {
     const mCSuperUser = localStorage.getItem("is_superuser")
     const superUser = JSON.parse(mCSuperUser)
 
+    const localMCUser = localStorage.getItem("is_staff")
+    const mCPressure = JSON.parse(mCSuperUser)
+
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -56,7 +59,9 @@ export const EmployeeDetails = () => {
     const defaultDisplay = () => {
         return <>
             <div>
-                <button className="" onClick={() => navigate(`/employees`)}>Back to Employees</button>
+                {mCPressure || superUser
+                    ? <button className="" onClick={() => navigate(`/employees`)}>Back to Employees</button>
+                    : <button className="" onClick={() => navigate(`/appointments`)}>Back to Appointments</button>}
             </div>
             <div className="mc__employee center">
                 <section className="mc__employee--details box is-centered mb-2 columns">
@@ -69,8 +74,16 @@ export const EmployeeDetails = () => {
                                 <img src={employee.image} alt={`${employee.first_name}'s image`} />
                             </figure>
                             <div>
-                                <p>Address: {employee.address}</p>
-                                <p>Phone: {employee.phone_number}</p>
+                                {
+                                    mCPressure || superUser
+                                        ? <>
+                                            <p>Address: {employee.address}</p>
+                                            <p>Phone: {employee.phone_number}</p>
+                                        </>
+                                        : <>
+                                            <p>Bio: {employee.bio}</p>
+                                        </>
+                                }
                                 {
                                     superUser
                                         ? <><p>Current Salary: {formattedValue}</p></>
@@ -81,15 +94,19 @@ export const EmployeeDetails = () => {
                     </div>
                     <div>
                         <div className="column">
-                            <div className="mb-4">
-                                <button onClick={() => updateClickStatus(true)} className="center button btn__employee-details is-small mb-2">Update</button>
-                                {
-                                    superUser
-                                        ? <>
-                                            <button className="center button btn__employee-details is-small" onClick={() => { }}>Delete</button></>
-                                        : <></>
-                                }
-                            </div>
+                            {
+                                mCPressure || superUser
+                                    ? <div className="mb-4">
+                                        <button onClick={() => updateClickStatus(true)} className="center button btn__employee-details is-small mb-2">Update</button>
+                                        {
+                                            superUser
+                                                ? <>
+                                                    <button className="center button btn__employee-details is-small" onClick={() => { }}>Delete</button></>
+                                                : <></>
+                                        }
+                                    </div>
+                                    : <></>
+                            }
                             <div>
                                 <h2 className="center is-size-4"><strong><u>Specialties</u></strong></h2>
                                 {
