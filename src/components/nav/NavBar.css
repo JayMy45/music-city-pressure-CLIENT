@@ -1,8 +1,6 @@
-/* .navbar {
-    flex-wrap: nowrap;
-    justify-content: left;
-
-} */
+.navbar {
+    max-height: 3rem;
+}
 
 /* .navbar__item {
     flex-basis: 20%;

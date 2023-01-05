@@ -38,7 +38,7 @@ export const AppointmentList = () => {
     }, [])
 
     return <>
-        <section>
+        <section className="mt-5 ml-5">
             <h1 className="is-title mb-2">Appointments</h1>
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
         </section>

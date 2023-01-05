@@ -6,14 +6,25 @@ import "./NavBar.css"
 export const NavBar = () => {
     const navigate = useNavigate()
     const [isActive, setIsActive] = useState(false)
+    const [activeDropDown, setActiveDropDown] = useState(false)
 
     const closeHamburger = () => {
         setIsActive(!isActive)
     }
 
+    const handleDropDown = () => {
+        setActiveDropDown(!activeDropDown)
+    }
+
+    const closeAll = () => {
+        setIsActive(!isActive)
+        setActiveDropDown(!activeDropDown)
+    }
+
+
 
     return (
-        <nav className="navbar has-shadow is-warning mb-5 is-fixed-top" role="navigation" aria-label="main navigation">
+        <nav className="navbar has-shadow is-warning mb-5 is-fixed-top" role="navigation" aria-label="dropdown navigation">
 
             <div className="navbar-brand">
                 <a className="navbar-item" href="/">
@@ -38,15 +49,25 @@ export const NavBar = () => {
 
             <div id="navbarBasicExample" className={`navbar-menu ${isActive ? 'is-active' : ""}`} >
                 <div className="navbar-end ">
-                    <div className="">
+                    <div className="navbar-item ">
                         {
                             (localStorage.getItem("mc_token") !== null) ?
                                 <div>
                                     <ul className="navbar-item">
-                                        <div className="navbar-item">
-                                            <li className="navbar__item">
-                                                <Link to="/appointments/create" onClick={closeHamburger}>Make an Appointment</Link>
-                                            </li>
+                                        <div className={`navbar-item has-dropdown ${activeDropDown ? 'is-active' : ""}`}>
+                                            <div>
+                                                <li className="navbar-item">
+                                                    <Link onClick={handleDropDown} className="navbar-link is-arrowless">Appointments</Link>
+                                                </li>
+                                            </div>
+                                            <div className="navbar-dropdown">
+                                                <li className="navbar-item">
+                                                    <Link to="/appointments" onClick={closeAll} className="">All Appointments</Link>
+                                                </li>
+                                                <li className="navbar-item">
+                                                    <Link to="/appointments/create" onClick={closeAll} className="">Schedule Appointments</Link>
+                                                </li>
+                                            </div>
                                         </div>
                                         <div className="navbar-item">
                                             <li className="navbar__item">
@@ -64,7 +85,7 @@ export const NavBar = () => {
                                 : <></>
                         }
                     </div>
-                    <div className="is-flex mr-4 is-vcentered">
+                    <div className="is-flex is-vcentered mr-4 ">
                         {
                             (localStorage.getItem("mc_token") !== null) ?
                                 <li className="navbar-item">
