@@ -50,22 +50,42 @@ export const Employee = ({ emp, superUser }) => {
 
     const defaultDisplay = () => {
         return <>
-            <div>
-                <section className="employee__list box mb-2">
-                    <div className="mt-3">
-                        <header>
-                            <h2><Link to={`/employees/${emp.id}`} >{emp.full_name}</Link></h2>
-                        </header>
-                        <div>
-                            <p>Address: {emp.address}</p>
-                            <p>Phone: {emp.phone_number}</p>
-                            {
-                                superUser
-                                    ? <><p>Current Salary: {formattedValue}</p></>
-                                    : <></>
-                            }
+            <div className="is-4-desktop">
+                <section className="employee__list box mb-3">
+                    <div className="columns">
+                        <div className="column is-8 center">
+                            <div className="">
+                                <header className="center__left mb-2">
+                                    <h2 className="title"><Link to={`/employees/${emp.id}`} >{emp.full_name}</Link></h2>
+                                </header>
+                                <div className="">
+                                    <p>Address: {emp.address}</p>
+                                    <p>Phone: {emp.phone_number}</p>
+                                    <p>Email: {emp.user.email}</p>
+                                    {
+                                        superUser
+                                            ? <><p>Current Salary: {formattedValue}</p></>
+                                            : <></>
+                                    }
+                                    <div>
+                                        <button onClick={() => updateClickStatus(true)}>Update</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="employee__specialty--delete-btn column">
                             <div>
-                                <button onClick={() => updateClickStatus(true)}>Update</button>
+                                <h2 className="center is-size-7"><strong><u>Specialties</u></strong></h2>
+                                {
+                                    emp.specialty.map(special => {
+                                        return <div key={`specialty--${special.id}`}>
+                                            <p className="center is-size-7">{special.label}</p>
+                                        </div>
+                                    })
+                                }
+                            </div>
+                            <div className="center is-flex">
                                 {
                                     superUser
                                         ? <>
@@ -73,10 +93,10 @@ export const Employee = ({ emp, superUser }) => {
                                         </>
                                         : <></>
                                 }
-
                             </div>
                         </div>
                     </div>
+
                 </section>
             </div>
         </>

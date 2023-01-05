@@ -106,7 +106,6 @@ export const Appointment = ({ appointment, fetchAppointments, progression, }) =>
                                                 {
                                                     progression.map(progress => {
                                                         return <option value={`${progress.id}`} className="center" key={`progress--${progress.id}`}>{progress.label}</option>
-
                                                     })
                                                 }
                                             </select>

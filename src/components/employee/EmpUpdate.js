@@ -1,6 +1,5 @@
 import { useEffect } from "react"
-import { useParams } from "react-router-dom"
-import { getEmployeeById, getEmployeeId } from "../../managers/EmployeeManager"
+import { getEmployeeId } from "../../managers/EmployeeManager"
 import "./Employee.css"
 
 export const EmpUpdate = ({ updateClickStatus, employee, changeEmployeeState, superUser, currentEmployee, formattedValue }) => {
@@ -14,8 +13,7 @@ export const EmpUpdate = ({ updateClickStatus, employee, changeEmployeeState, su
                 // Update the employee state with the new data
                 changeEmployeeState(employeeData)
             })
-    }, [])
-    console.log(employee)
+    }, [currentEmployee, changeEmployeeState])
     //    getEmployeeById(employeeId)
     //   .then(response => {
     //     if (!response.ok) {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 // import Logo from "/Users/jeremymyers/workspace/level-up-CLIENT/level-up-react-CLIENT/src/logo192.png"
 import "./NavBar.css"
@@ -8,6 +8,9 @@ export const NavBar = () => {
     const [isActive, setIsActive] = useState(false)
     const [activeDropDown1, setActiveDropDown1] = useState(false)
     const [activeDropDown2, setActiveDropDown2] = useState(false)
+
+    const localMCUser = localStorage.getItem("is_staff")
+    const mCPressure = JSON.parse(localMCUser)
 
     const closeHamburger = () => {
         setIsActive(!isActive)
@@ -83,21 +86,31 @@ export const NavBar = () => {
                                                 <Link to="/appointments" onClick={closeHamburger}>Appointments</Link>
                                             </li>
                                         </div>
-                                        <div className={`navbar-item has-dropdown ${activeDropDown2 ? 'is-active' : ""}`}>
-                                            <div>
-                                                <li className="navbar-item">
-                                                    <Link onClick={handleDropDown2} className="navbar-link is-arrowless">Services</Link>
-                                                </li>
-                                            </div>
-                                            <div className="navbar-dropdown">
-                                                <li className="navbar-item">
-                                                    <Link to="/services" onClick={closeAll2} className="">All Services</Link>
-                                                </li>
-                                                <li className="navbar-item">
-                                                    <Link to="/services/create" onClick={closeAll2} className="">Create New Service</Link>
-                                                </li>
-                                            </div>
-                                        </div>
+                                        {
+                                            mCPressure
+                                                ? < div className={`navbar-item has-dropdown ${activeDropDown2 ? 'is-active' : ""}`}>
+                                                    <div>
+                                                        <li className="navbar-item">
+                                                            <Link onClick={handleDropDown2} className="navbar-link is-arrowless">Services</Link>
+                                                        </li>
+                                                    </div>
+                                                    <div className="navbar-dropdown">
+                                                        <li className="navbar-item">
+                                                            <Link to="/services" onClick={closeAll2} className="">All Services</Link>
+                                                        </li>
+                                                        <li className="navbar-item">
+                                                            <Link to="/services/create" onClick={closeAll2} className="">Create New Service</Link>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                                : <>
+                                                    <div>
+                                                        <li className="navbar-item">
+                                                            <Link to="/services" onClick={closeHamburger}>Services</Link>
+                                                        </li>
+                                                    </div>
+                                                </>
+                                        }
                                     </ul>
                                 </div>
 
@@ -137,7 +150,7 @@ export const NavBar = () => {
                         }
                     </div>
                 </div>
-            </div>
+            </div >
         </nav >
     )
 }

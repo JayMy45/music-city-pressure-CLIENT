@@ -8,7 +8,7 @@
 }
 
 .employee__list {
-    width: 20rem;
+    width: 30rem;
     margin: auto;
 }
 
@@ -35,4 +35,10 @@
 .btn__employee-details {
     width: 5rem;
     margin: auto;
+}
+
+.employee__specialty--delete-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

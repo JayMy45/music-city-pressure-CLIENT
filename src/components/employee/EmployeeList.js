@@ -19,9 +19,11 @@ export const EmployeeList = () => {
 
 
     return <>
-        <button>Button</button>
-        <div><h1>Employees</h1></div>
-        <div>
+        <div className="mb-3 ml-5">
+            <h1>Employees</h1>
+            <button>Button</button>
+        </div>
+        <div className="mt-5">
             {
                 employees.map(emp => <Employee key={`employee--${emp.id}`}
                     emp={emp}
