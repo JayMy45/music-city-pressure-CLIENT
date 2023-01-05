@@ -6,19 +6,28 @@ import "./NavBar.css"
 export const NavBar = () => {
     const navigate = useNavigate()
     const [isActive, setIsActive] = useState(false)
-    const [activeDropDown, setActiveDropDown] = useState(false)
+    const [activeDropDown1, setActiveDropDown1] = useState(false)
+    const [activeDropDown2, setActiveDropDown2] = useState(false)
 
     const closeHamburger = () => {
         setIsActive(!isActive)
     }
 
-    const handleDropDown = () => {
-        setActiveDropDown(!activeDropDown)
+    const handleDropDown1 = () => {
+        setActiveDropDown1(!activeDropDown1)
     }
 
-    const closeAll = () => {
+    const handleDropDown2 = () => {
+        setActiveDropDown2(!activeDropDown2)
+    }
+
+    const closeAll1 = () => {
         setIsActive(!isActive)
-        setActiveDropDown(!activeDropDown)
+        setActiveDropDown1(!activeDropDown1)
+    }
+    const closeAll2 = () => {
+        setIsActive(!isActive)
+        setActiveDropDown2(!activeDropDown2)
     }
 
 
@@ -54,18 +63,18 @@ export const NavBar = () => {
                             (localStorage.getItem("mc_token") !== null) ?
                                 <div>
                                     <ul className="navbar-item">
-                                        <div className={`navbar-item has-dropdown ${activeDropDown ? 'is-active' : ""}`}>
+                                        <div className={`navbar-item has-dropdown ${activeDropDown1 ? 'is-active' : ""}`}>
                                             <div>
                                                 <li className="navbar-item">
-                                                    <Link onClick={handleDropDown} className="navbar-link is-arrowless">Appointments</Link>
+                                                    <Link onClick={handleDropDown1} className="navbar-link is-arrowless">Appointments</Link>
                                                 </li>
                                             </div>
                                             <div className="navbar-dropdown">
                                                 <li className="navbar-item">
-                                                    <Link to="/appointments" onClick={closeAll} className="">All Appointments</Link>
+                                                    <Link to="/appointments" onClick={closeAll1} className="">All Appointments</Link>
                                                 </li>
                                                 <li className="navbar-item">
-                                                    <Link to="/appointments/create" onClick={closeAll} className="">Schedule Appointments</Link>
+                                                    <Link to="/appointments/create" onClick={closeAll1} className="">Schedule Appointments</Link>
                                                 </li>
                                             </div>
                                         </div>
@@ -74,10 +83,20 @@ export const NavBar = () => {
                                                 <Link to="/appointments" onClick={closeHamburger}>Appointments</Link>
                                             </li>
                                         </div>
-                                        <div className="navbar-item">
-                                            <li className="navbar__item">
-                                                <Link to="/services" onClick={closeHamburger}>Services</Link>
-                                            </li>
+                                        <div className={`navbar-item has-dropdown ${activeDropDown2 ? 'is-active' : ""}`}>
+                                            <div>
+                                                <li className="navbar-item">
+                                                    <Link onClick={handleDropDown2} className="navbar-link is-arrowless">Services</Link>
+                                                </li>
+                                            </div>
+                                            <div className="navbar-dropdown">
+                                                <li className="navbar-item">
+                                                    <Link to="/services" onClick={closeAll2} className="">All Services</Link>
+                                                </li>
+                                                <li className="navbar-item">
+                                                    <Link to="/services/create" onClick={closeAll2} className="">Create New Service</Link>
+                                                </li>
+                                            </div>
                                         </div>
                                     </ul>
                                 </div>
