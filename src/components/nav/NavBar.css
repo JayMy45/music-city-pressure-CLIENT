@@ -1,15 +1,26 @@
-/* .navbar {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: left;
+.navbar {
+    max-height: 3rem;
 }
 
-.navbar__item {
+/* .navbar__item {
     flex-basis: 20%;
     list-style-type: none;
+    max-height: 3rem;
 } */
 
-.navbar-item {
+/* .navbar-item {
     max-height: 3rem;
 
-}
+} */
+
+/* .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+/* @media screen and (max-width: 1024px) {
+    .navbar-menu {
+        display: none;
+    }
+} */

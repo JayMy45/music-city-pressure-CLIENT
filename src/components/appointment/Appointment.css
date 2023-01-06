@@ -7,6 +7,10 @@
     width: 100%;
 }
 
+.appt__media--width {
+    display: flex;
+}
+
 /* add grid to child elements */
 .grid {
     display: grid;

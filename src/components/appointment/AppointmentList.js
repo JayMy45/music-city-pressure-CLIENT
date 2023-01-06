@@ -20,6 +20,9 @@ export const AppointmentList = () => {
     const localMCUser = localStorage.getItem("is_staff")
     const mCPressure = JSON.parse(localMCUser)
 
+    const mCSuperUser = localStorage.getItem("is_superuser")
+    const superUser = JSON.parse(mCSuperUser)
+
     const fetchAppointments = () => {
         getAppointments()
             .then(data => setAppointments(data))
@@ -37,13 +40,8 @@ export const AppointmentList = () => {
         getCustomers().then(setCustomer)
     }, [])
 
-
-
-
-
-    // 'id', 'service_type','completed', 'consultation', 'request_details',
     return <>
-        <section>
+        <section className="mt-5 ml-5">
             <h1 className="is-title mb-2">Appointments</h1>
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
         </section>
@@ -68,6 +66,7 @@ export const AppointmentList = () => {
                             fetchAppointments={fetchAppointments}
                             progression={progression}
                             mCPressure={mCPressure}
+                            superUser={superUser}
                         />)
                     }
 

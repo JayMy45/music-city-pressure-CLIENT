@@ -5,13 +5,10 @@ import moment from "moment";
 
 
 
-export const Appointment = ({ appointment, fetchAppointments, progression, }) => {
+export const Appointment = ({ appointment, fetchAppointments, progression, superUser, mCPressure }) => {
 
 
     const navigate = useNavigate()
-
-    const localMCUser = localStorage.getItem("is_staff")
-    const mCPressure = JSON.parse(localMCUser)
 
     const [currentAppointment, setCurrentAppointment] = useState({
         request_date: "",
@@ -37,21 +34,77 @@ export const Appointment = ({ appointment, fetchAppointments, progression, }) =>
         })
     }
 
+    const renderProgressBar = (appointment) => {
+        return (
+            <div className="">
+                <div className="appt__media--width appt__progress grid center">
+                    {
+                        appointment.progress.id === 1 || appointment.progress.id === 2
+                            ? <span className="mb-3 mt-2">Progress</span>
+                            : <span className="is-capitalized mb-2 is-size-8">{appointment.progress.label}</span>
+
+                    }
+                </div>
+                <div>
+                    {
+                        appointment.progress.id !== 1
+                            ? <progress className={`mb-2 ${appointment.progress.class_name}`} value={`${appointment.progress.percent}`} max="100"></progress>
+                            : <></>
+                    }
+                </div>
+            </div>
+        )
+    }
+
+
     return <React.Fragment key={`appointment--${appointment.id}`}>
         <div className="appointment__request is-4-tablet is-4-desktop mx-1 column">
             <div className="card ">
-                {
-                    mCPressure
-                        ? <div className="pt-1 pl-1"><div className="mt-1 ml-1"><header><em>Customer Name:</em> {appointment.customer.full_name}</header></div></div>
-                        : <></>
-                }
+                <div className="">
+                    {
+                        mCPressure
+                            ? <div className="pt-1 pl-1"><div className="mt-1 ml-3"><header>Customer: {appointment.customer.full_name}</header></div></div>
+                            : <></>
+                    }
+                </div>
+
+                <div className="pt-2 pl-2 mr-2">
+                    {
+                        Array.isArray(appointment.employee) && appointment.employee.length > 0
+                            ? (
+                                <>
+                                    <div className="ml-2 mb-1">
+                                        Technician:{" "}
+                                        {
+                                            appointment.employee.map((employ, index) => (
+                                                <React.Fragment key={`employee--${employ.id}`}>
+                                                    <Link to={`/employees/${employ.id}`}>
+                                                        {employ.full_name}
+                                                    </Link>
+                                                    {index < appointment.employee.length - 1 ? ", " : ""}
+                                                </React.Fragment>
+                                            ))
+                                        }
+                                    </div>
+                                </>
+                            )
+                            : (
+                                mCPressure && !superUser
+                                    ? <button className="ml-2 mb-1" onClick={() => { }}>Claim</button>
+                                    : superUser
+                                        ? <button className="ml-2 mb-1" onClick={() => { }}>Assign</button>
+                                        : <></>
+                            )
+                    }
+                </div>
+
                 <div className="card-image has-text-centered pt-2 px-2">
                     <figure className="image is-4by3">
                         <img src={appointment.image} alt="Customer House" />
                     </figure>
                 </div>
                 <div className="card-content pb-1">
-                    <section className="is-centered media columns py-2">
+                    <section className="is-centered media columns center py-2">
                         {/* handles delete and update buttons */}
                         {
                             (appointment.progress.id <= 2)
@@ -74,7 +127,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, }) =>
                                     </div>
                                 </div>
                                 : !mCPressure
-                                    ? <><h2 className="center mt-4">Your Service is ongoing</h2></>
+                                    ? <div className=""><h2 className="center mt-4 ml-1 mr-2">Your Service is ongoing</h2></div>
                                     : <div className="media-left column mr-2 ml-5">
                                         <div>
                                             <button className="btn__appt-list button is-small " onClick={() => navigate(`/appointments/update/${appointment.id}`)}>
@@ -95,18 +148,18 @@ export const Appointment = ({ appointment, fetchAppointments, progression, }) =>
                                     </div>
 
                         }
-                        <div className="notification column mr-5 ml-1 mt-3 ">
+                        {/* Progress div */}
+                        <div className="notification column mr-5 ml-4 mt-2 mb-2">
                             {
                                 mCPressure
                                     ? <>
-                                        <div className="ml-4">
+                                        <div className="ml-2 mb-2">
                                             <div className="is-size-8">Current Progress:</div>
                                             <div><strong className="is-capitalized">{appointment.progress.label}</strong></div>
                                             <select name="progress" className="drop__down" onChange={changeProgressState} value={currentAppointment.progress.label}>
                                                 {
                                                     progression.map(progress => {
                                                         return <option value={`${progress.id}`} className="center" key={`progress--${progress.id}`}>{progress.label}</option>
-
                                                     })
                                                 }
                                             </select>
@@ -134,21 +187,9 @@ export const Appointment = ({ appointment, fetchAppointments, progression, }) =>
 
                                     </>
                                     : <>
-                                        <div className="appt__media--width appt__progress grid center">
-                                            {
-                                                appointment.progress.id === 1 || appointment.progress.id === 2
-                                                    ? <span className="mb-3">Progress</span>
-                                                    : <span className="is-capitalized mb-3 is-size-8">{appointment.progress.label}</span>
-
-                                            }
-                                        </div>
-                                        <div>
-                                            {
-                                                appointment.progress.id !== 1
-                                                    ? <progress className={`${appointment.progress.class_name}`} value={`${appointment.progress.percent}`} max="100"></progress>
-                                                    : <></>
-                                            }
-                                        </div>
+                                        {
+                                            renderProgressBar(appointment)
+                                        }
                                     </>
                             }
                         </div>
@@ -197,15 +238,15 @@ export const Appointment = ({ appointment, fetchAppointments, progression, }) =>
                                         </div>
                                     </div>
                                 </>
-                                : appointment.progress.id < 3
-                                    ? <footer className="card-footer py-2 mt-2 has-text-grey center"><em>Request Date:</em><div className="ml-3">{moment(`${appointment.request_date}`).format("L")}</div></footer>
-                                    : appointment.progress.id >= 3 && mCPressure
-                                        ? <footer className="card-footer py-2 mt-2 has-text-grey center"><em>Service for {appointment.customer.full_name} is <span className="is-uppercase">{appointment.progress.label} </span></em></footer>
-                                        : appointment.progress.id >= 3 && !mCPressure
-                                            ? <footer className="card-footer py-2 mt-2 has-text-grey center"><em>Your Service is <span className="is-uppercase">{appointment.progress.label} </span></em></footer>
-                                            : <></>
-
-
+                                : <footer className="card-footer py-2 mt-2 has-text-grey center">
+                                    {
+                                        appointment.progress.id < 3
+                                            ? <div><em>Request Date:</em><div className="ml-3">{moment(`${appointment.request_date}`).format("L")}</div></div>
+                                            : <em>{mCPressure
+                                                ? `Service for ${appointment.customer.full_name} is`
+                                                : "Your Service is"} <span className="is-uppercase">{appointment.progress.label} </span></em>
+                                    }
+                                </footer>
                         }
 
                         <footer className="card-footer py-2 mt-2 has-text-grey item center">

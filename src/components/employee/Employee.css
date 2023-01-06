@@ -3,6 +3,42 @@
     height: 10rem;
 }
 
-#b-black {
-    border: 10px solid black;
+.mc__employee {
+    margin: auto;
+}
+
+.employee__list {
+    width: 30rem;
+    margin: auto;
+}
+
+.employee__update {
+    width: 30rem;
+    margin: auto;
+}
+
+.mc__employee--details {
+    width: 30rem;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center__left {
+    display: flex;
+    align-items: center;
+}
+
+.btn__employee-details {
+    width: 5rem;
+    margin: auto;
+}
+
+.employee__specialty--delete-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
