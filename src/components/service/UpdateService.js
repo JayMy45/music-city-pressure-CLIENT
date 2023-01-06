@@ -16,12 +16,10 @@ export const UpdateService = () => {
         equipment_id: 0
     })
 
-
     useEffect(() => {
         getEquipments()
             .then(setEquipments)
     }, [])
-
 
     useEffect(() => {
         getServiceById(serviceId)
@@ -44,21 +42,7 @@ export const UpdateService = () => {
                 <div>
                     <label> <span><em>current service selection</em> {currentService.name}</span></label>
                 </div>
-
             </div>
-            {/* <div>
-                <label>Update Request Date</label>
-                <input type="date" name="request_date" required autoFocus className=""
-                    value={currentService.request_date}
-                    onChange={changeServiceState} />
-            </div> */}
-
-            {/* <div>
-                <label>consultation</label>
-                <input type="checkbox" />
-            </div> */}
-
-
             <div>
                 <label>Description</label>
                 <input type="text" name="description" required autoFocus className=""
