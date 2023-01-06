@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 // import Logo from "/Users/jeremymyers/workspace/level-up-CLIENT/level-up-react-CLIENT/src/logo192.png"
 import "./NavBar.css"
@@ -12,16 +12,21 @@ export const NavBar = () => {
     const localMCUser = localStorage.getItem("is_staff")
     const mCPressure = JSON.parse(localMCUser)
 
+    const mCSuperUser = localStorage.getItem("is_superuser")
+    const superUser = JSON.parse(mCSuperUser)
+
     const closeHamburger = () => {
         setIsActive(!isActive)
     }
 
     const handleDropDown1 = () => {
-        setActiveDropDown1(!activeDropDown1)
+        setActiveDropDown1(!activeDropDown1);
+        setActiveDropDown2(false);
     }
 
     const handleDropDown2 = () => {
-        setActiveDropDown2(!activeDropDown2)
+        setActiveDropDown1(false); // Close the first dropdown
+        setActiveDropDown2(!activeDropDown2);
     }
 
     const closeAll1 = () => {
@@ -32,6 +37,18 @@ export const NavBar = () => {
         setIsActive(!isActive)
         setActiveDropDown2(!activeDropDown2)
     }
+
+    const handleDropdownClose = (event) => {
+        if (event.target.className !== 'navbar-item has-dropdown is-active' && event.target.className !== 'navbar-link is-arrowless') {
+            setActiveDropDown1(false);
+            setActiveDropDown2(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('click', handleDropdownClose);
+        return () => window.removeEventListener('click', handleDropdownClose);
+    });
 
 
 
@@ -81,14 +98,22 @@ export const NavBar = () => {
                                                 </li>
                                             </div>
                                         </div>
-                                        <div className="navbar-item">
-                                            <li className="navbar__item">
-                                                <Link to="/appointments" onClick={closeHamburger}>Appointments</Link>
-                                            </li>
-                                        </div>
+                                        {
+                                            mCPressure || superUser
+                                                ? <div className="navbar-item">
+                                                    <li className="navbar__item">
+                                                        <Link to="/Employees" onClick={closeHamburger}>Employees</Link>
+                                                    </li>
+                                                </div>
+                                                : <div className="navbar-item">
+                                                    <li className="navbar__item">
+                                                        <Link to="/employees" onClick={closeHamburger}>Technicians</Link>
+                                                    </li>
+                                                </div>
+                                        }
                                         {
                                             mCPressure
-                                                ? < div className={`navbar-item has-dropdown ${activeDropDown2 ? 'is-active' : ""}`}>
+                                                ? (< div className={`navbar-item has-dropdown ${activeDropDown2 ? 'is-active' : ""}`}>
                                                     <div>
                                                         <li className="navbar-item">
                                                             <Link onClick={handleDropDown2} className="navbar-link is-arrowless">Services</Link>
@@ -103,6 +128,7 @@ export const NavBar = () => {
                                                         </li>
                                                     </div>
                                                 </div>
+                                                )
                                                 : <>
                                                     <div>
                                                         <li className="navbar-item">

@@ -6,7 +6,7 @@ import "./Employee.css"
 import { EmployeeUpdate } from "./EmployeeUpdate"
 import { EmpUpdate } from "./EmpUpdate"
 
-export const Employee = ({ emp, superUser }) => {
+export const Employee = ({ emp, superUser, mCPressure }) => {
 
     const { employeeId } = useParams()
     const [clickStatus, updateClickStatus] = useState(false)
@@ -67,10 +67,13 @@ export const Employee = ({ emp, superUser }) => {
                                             ? <><p>Current Salary: {formattedValue}</p></>
                                             : <></>
                                     }
-                                    <div>
-                                        <button onClick={() => updateClickStatus(true)}>Update</button>
-
-                                    </div>
+                                    {
+                                        mCPressure || superUser
+                                            ? < div >
+                                                <button onClick={() => updateClickStatus(true)}>Update</button>
+                                            </div>
+                                            : <></>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -98,7 +101,7 @@ export const Employee = ({ emp, superUser }) => {
                     </div>
 
                 </section>
-            </div>
+            </div >
         </>
     }
     return <main>

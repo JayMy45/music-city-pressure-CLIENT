@@ -8,6 +8,9 @@ export const EmployeeList = () => {
 
     const [employees, setEmployees] = useState([])
 
+    const localMCUser = localStorage.getItem("is_staff")
+    const mCPressure = JSON.parse(localMCUser)
+
     const mCSuperUser = localStorage.getItem("is_superuser")
     const superUser = JSON.parse(mCSuperUser)
 
@@ -20,13 +23,18 @@ export const EmployeeList = () => {
 
     return <>
         <div className="mb-3 ml-5">
-            <h1>Employees</h1>
-            <button>Button</button>
+            {
+                mCPressure || superUser
+                    ? <h1>Employees</h1>
+                    : <h1>Technicians</h1>
+            }
         </div>
         <div className="mt-5">
             {
+
                 employees.map(emp => <Employee key={`employee--${emp.id}`}
                     emp={emp}
+                    mCPressure={mCPressure}
                     superUser={superUser}
                 />)
             }
