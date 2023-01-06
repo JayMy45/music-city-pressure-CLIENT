@@ -21,6 +21,7 @@ export const Login = () => {
                 if ("valid" in res && res.valid && "token" in res) {
                     localStorage.setItem("mc_token", res.token);
                     localStorage.setItem("is_staff", res.staff);
+                    localStorage.setItem("user_id", res.user_id);
                     localStorage.setItem("is_superuser", res.supervisor)
                     navigate("/")
                 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { getAppointments } from "../../managers/AppointmentManager"
 import { getCustomers } from "../../managers/CustomerManager"
-import { getEmployees } from "../../managers/EmployeeManager"
+import { getCurrentEmployee, getEmployees } from "../../managers/EmployeeManager"
 import { getProgressions } from "../../managers/ProgressManager"
 import { Appointment } from "./Appointment"
 import "./Appointment.css"
@@ -12,6 +12,7 @@ export const AppointmentList = () => {
     const [progression, setProgression] = useState([])
     const [customers, setCustomer] = useState([])
     const [employee, setEmployee] = useState([])
+    const [currentEmployee, setCurrentEmployee] = useState([])
 
     const navigate = useNavigate()
 
@@ -21,11 +22,19 @@ export const AppointmentList = () => {
             .then(data => { setEmployee(data) })
     }, [])
 
+    useEffect(() => {
+        getCurrentEmployee()
+            .then(data => { setCurrentEmployee(data) })
+    }, [])
+
 
 
     // store is_staff value for differential display
     const localMCUser = localStorage.getItem("is_staff")
     const mCPressure = JSON.parse(localMCUser)
+
+    const localMCUserId = localStorage.getItem("user_id")
+
 
     const mCSuperUser = localStorage.getItem("is_superuser")
     const superUser = JSON.parse(mCSuperUser)
@@ -75,6 +84,8 @@ export const AppointmentList = () => {
                             progression={progression}
                             mCPressure={mCPressure}
                             superUser={superUser}
+                            localMCUserId={localMCUserId}
+                            currentEmployee={currentEmployee}
                         />)
                     }
 

@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteAppointment, saveEditedAppointment } from "../../managers/AppointmentManager"
 import moment from "moment";
-import { getEmployees } from "../../managers/EmployeeManager";
 
 
 
-export const Appointment = ({ appointment, fetchAppointments, progression, employee, superUser, mCPressure }) => {
+export const Appointment = ({ appointment, fetchAppointments, progression, employee, superUser, mCPressure, currentEmployee }) => {
 
 
     const navigate = useNavigate()
@@ -59,7 +58,6 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
         )
     }
 
-
     return <React.Fragment key={`appointment--${appointment.id}`}>
         <div className="appointment__request is-4-tablet is-4-desktop mx-1 column">
             <div className="card ">
@@ -93,7 +91,44 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                             )
                             : (
                                 mCPressure && !superUser
-                                    ? <button className="ml-2 mb-1" onClick={() => { }}>Claim</button>
+                                    ? <>
+
+                                        <div className="ml-2 mr-2" key={`specialty--${currentEmployee.id}`}>
+                                            <input className="mr-2" value={currentEmployee.id}
+                                                onChange={(e) => {
+                                                    const copy = new Set(checkedOptions)
+                                                    if (copy.has(currentEmployee.id)) {
+                                                        copy.delete(currentEmployee.id)
+                                                    } else { copy.add(currentEmployee.id) }
+                                                    setCheckedOptions(copy)
+                                                }
+                                                } type="checkbox" />
+                                            {currentEmployee.user.first_name}
+                                        </div>
+
+
+
+                                        <button className="ml-2 mb-1" onClick={(evt) => {
+                                            evt.preventDefault()
+
+                                            const employeeAssign = {
+                                                id: appointment.id,
+                                                service_type: appointment.service_type.id,
+                                                progress: parseInt(appointment.progress.id),
+                                                request_date: appointment.request_date,
+                                                scheduled: appointment.scheduled,
+                                                confirm: appointment.confirm,
+                                                consultation: appointment.consultation,
+                                                employee: appointment.employee,
+                                                request_details: appointment.request_details,
+                                                completed: appointment.completed
+                                            }
+
+                                            // Send POST request to your API
+                                            saveEditedAppointment(employeeAssign)
+                                                .then(fetchAppointments)
+                                        }}>Claim</button>
+                                    </>
                                     : superUser
                                         ? <>
 
@@ -141,7 +176,6 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                             )
                     }
                 </div>
-
                 <div className="card-image has-text-centered pt-2 px-2">
                     <figure className="image is-4by3">
                         <img src={appointment.image} alt="Customer House" />
