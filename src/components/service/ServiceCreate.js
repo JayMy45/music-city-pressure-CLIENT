@@ -100,19 +100,6 @@ export const ServiceCreate = () => {
                     value={newService.details}
                     onChange={changeServiceState} />
             </div>
-            {/* <div>
-                <label>Equipment Needed</label>
-                <div>
-                    <select name="equipment_id" className="drop__down" onChange={changeServiceState} value={newService.equipment_id}>
-                        <option value={0}>Choose equipment</option>
-                        {
-                            equipments.map(equip => {
-                                return <option value={`${equip.id}`} key={`equip--${equip.id}`}>{equip.label}</option>
-                            })
-                        }
-                    </select>
-                </div>
-            </div> */}
 
             <div>
                 <label>Equipment Needed</label>
@@ -143,6 +130,7 @@ export const ServiceCreate = () => {
                     value={newService.price}
                     onChange={changeServiceState} />
             </div>
+
             <div>
                 <button type="submit" onClick={evt => {
                     // Prevent form from being submitted
