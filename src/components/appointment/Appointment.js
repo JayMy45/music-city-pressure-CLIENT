@@ -5,10 +5,14 @@ import moment from "moment";
 
 
 
-export const Appointment = ({ appointment, fetchAppointments, progression, superUser, mCPressure }) => {
+export const Appointment = ({ appointment, fetchAppointments, progression, employee, superUser, mCPressure, currentEmployee }) => {
 
 
     const navigate = useNavigate()
+    const [checkedOptions, setCheckedOptions] = useState(new Set())
+    const [clickStatus, updateClickStatus] = useState(false)
+
+
 
     const [currentAppointment, setCurrentAppointment] = useState({
         request_date: "",
@@ -56,6 +60,40 @@ export const Appointment = ({ appointment, fetchAppointments, progression, super
         )
     }
 
+    const handleClaimChange = (e) => {
+        // Call onChange function
+        const copy = new Set(checkedOptions)
+        if (copy.has(currentEmployee.id)) {
+            copy.delete(currentEmployee.id)
+        } else {
+            copy.add(currentEmployee.id)
+        }
+        setCheckedOptions(copy)
+        updateClickStatus(!clickStatus)
+    }
+
+    const handleClaimClick = (e) => {
+        // Call onClick function
+        e.preventDefault()
+
+        const employeeAssign = {
+            id: appointment.id,
+            service_type: appointment.service_type.id,
+            progress: parseInt(appointment.progress.id),
+            request_date: appointment.request_date,
+            scheduled: appointment.scheduled,
+            confirm: appointment.confirm,
+            consultation: appointment.consultation,
+            employee: Array.from(checkedOptions),
+            request_details: appointment.request_details,
+            completed: appointment.completed
+        }
+
+        // Send POST request to your API
+        saveEditedAppointment(employeeAssign)
+            .then(fetchAppointments)
+    }
+
 
     return <React.Fragment key={`appointment--${appointment.id}`}>
         <div className="appointment__request is-4-tablet is-4-desktop mx-1 column">
@@ -90,14 +128,63 @@ export const Appointment = ({ appointment, fetchAppointments, progression, super
                             )
                             : (
                                 mCPressure && !superUser
-                                    ? <button className="ml-2 mb-1" onClick={() => { }}>Claim</button>
+                                    ? <>
+                                        {
+                                            !clickStatus
+                                                ? <button className="ml-2 mb-1" onClick={handleClaimChange}>Claim</button>
+                                                : <>
+                                                    <button className="ml-2 mb-1" onClick={handleClaimClick}>Confirm</button>
+                                                    <button onClick={handleClaimChange}>undo</button>
+                                                </>
+                                        }
+                                    </>
                                     : superUser
-                                        ? <button className="ml-2 mb-1" onClick={() => { }}>Assign</button>
+                                        ? <>
+
+                                            {employee.map(special => (<div className="ml-2 mr-2" key={`specialty--${special.id}`}>
+
+                                                <input className="mr-2" value={special.id}
+                                                    onChange={(e) => {
+                                                        const copy = new Set(checkedOptions)
+                                                        if (copy.has(special.id)) {
+                                                            copy.delete(special.id)
+                                                        } else { copy.add(special.id) }
+                                                        setCheckedOptions(copy)
+                                                    }
+                                                    } type="checkbox" />
+                                                {special.user.first_name}
+                                            </div>))
+                                            }
+                                            <div>
+                                                <button type="submit" className="ml-2 mb-1" onClick={(evt) => {
+                                                    evt.preventDefault()
+
+                                                    const employeeAssign = {
+                                                        id: appointment.id,
+                                                        service_type: appointment.service_type.id,
+                                                        progress: parseInt(appointment.progress.id),
+                                                        request_date: appointment.request_date,
+                                                        scheduled: appointment.scheduled,
+                                                        confirm: appointment.confirm,
+                                                        consultation: appointment.consultation,
+                                                        employee: Array.from(checkedOptions),
+                                                        request_details: appointment.request_details,
+                                                        completed: appointment.completed
+                                                    }
+
+                                                    // Send POST request to your API
+                                                    saveEditedAppointment(employeeAssign)
+                                                        .then(fetchAppointments)
+                                                }}>Assign</button>
+                                                <div>
+                                                </div>
+                                            </div>
+
+                                        </>
                                         : <></>
                             )
                     }
                 </div>
-
                 <div className="card-image has-text-centered pt-2 px-2">
                     <figure className="image is-4by3">
                         <img src={appointment.image} alt="Customer House" />

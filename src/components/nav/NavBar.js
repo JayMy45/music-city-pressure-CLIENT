@@ -152,6 +152,7 @@ export const NavBar = () => {
                                             closeHamburger();
                                             localStorage.removeItem("mc_token");
                                             localStorage.removeItem("is_staff");
+                                            localStorage.removeItem("user_id");
                                             localStorage.removeItem("is_superuser")
                                             navigate('/login')
                                         }}

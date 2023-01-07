@@ -8,6 +8,16 @@ export const getEmployees = () => {
         .then(response => response.json())
 }
 
+// Get all Employees
+export const getCurrentEmployee = () => {
+    return fetch("http://localhost:8000/employees/current_employee", {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("mc_token")}`
+        }
+    })
+        .then(response => response.json())
+}
+
 // GET single employee by Id
 export const getEmployeeById = (employeeId) => {
     return fetch(`http://localhost:8000/employees/${employeeId}`, {
