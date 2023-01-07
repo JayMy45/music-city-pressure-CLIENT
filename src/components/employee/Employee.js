@@ -59,7 +59,7 @@ export const Employee = ({ emp, superUser, mCPressure }) => {
                                     <h2 className="title"><Link to={`/employees/${emp.id}`} >{emp.full_name}</Link></h2>
                                 </header>
                                 <div className="">
-                                    <p>Address: {emp.address}</p>
+                                    {superUser ? <p>Address: {emp.address}</p> : <></>}
                                     <p>Phone: {emp.phone_number}</p>
                                     <p>Email: {emp.user.email}</p>
                                     {
