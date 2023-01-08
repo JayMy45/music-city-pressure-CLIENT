@@ -16,6 +16,7 @@ export const AppointmentCreate = () => {
     const navigate = useNavigate()
     const [services, setServices] = useState([])
     const [customers, setCustomers] = useState([])
+    const [clickStatus, updateClickStatus] = useState(false)
     const [currentEmployee, setCurrentEmployee] = useState([])
     const [currentCustomer, setCurrentCustomer] = useState([])
     const [checkedOptions, setCheckedOptions] = useState(new Set())
@@ -88,6 +89,42 @@ export const AppointmentCreate = () => {
         widget.open()
     }
 
+
+    const handleClaimChange = (e) => {
+        // Call onChange function
+        const copy = new Set(checkedOptions)
+        if (copy.has(currentEmployee.id)) {
+            copy.delete(currentEmployee.id)
+        } else {
+            copy.add(currentEmployee.id)
+        }
+        setCheckedOptions(copy)
+        updateClickStatus(!clickStatus)
+    }
+
+    // const handleClaimClick = (e) => {
+    //     // Call onClick function
+    //     e.preventDefault()
+
+    //     const employeeAssign = {
+    //         id: appointment.id,
+    //         service_type: appointment.service_type.id,
+    //         progress: parseInt(appointment.progress.id),
+    //         request_date: appointment.request_date,
+    //         scheduled: appointment.scheduled,
+    //         confirm: appointment.confirm,
+    //         consultation: appointment.consultation,
+    //         employee: Array.from(checkedOptions),
+    //         request_details: appointment.request_details,
+    //         completed: appointment.completed
+    //     }
+
+    //     // Send POST request to your API
+    //     saveEditedAppointment(employeeAssign)
+    //         .then(fetchAppointments)
+    // }
+
+
     return <>
         <form className="mc__appointment--create box">
 
@@ -106,6 +143,7 @@ export const AppointmentCreate = () => {
                     <h2 className="subtitle is-7">Hellow Creation Worldie</h2>
                 </div>
             </div>
+
             {mCPressure ? <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label>Choose a Customer</label>
@@ -144,6 +182,7 @@ export const AppointmentCreate = () => {
                 </div>
             </div>
 
+            {/* Add Image cloudinary widget */}
             <div className="field is-horizontal">
                 <div className="field-label is-normal mt-3">
                     <button
@@ -172,6 +211,7 @@ export const AppointmentCreate = () => {
                 </div>
             </div>
 
+            {/* Service type DropDown */}
             <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label>Choose a service</label>
@@ -195,6 +235,7 @@ export const AppointmentCreate = () => {
                 </div>
             </div>
 
+            {/* Request Date Calendar Input */}
             <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label>Request Date</label>
@@ -242,7 +283,34 @@ export const AppointmentCreate = () => {
                                         </div>
                                     </div>
                                 </div>
-                                : <></>
+                                : mCPressure && !superUser
+                                    ? <>
+                                        {!clickStatus
+                                            ? <>
+                                                <div>
+                                                    <div>
+                                                        <button className="btn__appt--claim button  is-small ml-2 mb-1" type="button" onClick={handleClaimChange}>Claim</button>
+                                                    </div>
+                                                    <div>
+                                                        <span>Click Here to Claim This Appointment</span>
+                                                    </div>
+                                                </div>
+                                            </>
+
+                                            : <>
+                                                <div>
+                                                    <div>
+                                                        <button className="btn__appt--claim button  is-small ml-2 mb-1" type="button" onClick={handleClaimChange}>undo</button>
+                                                    </div>
+                                                    <div>
+                                                        <span>This appointment is yours <span>{`${currentEmployee?.user?.first_name}`}</span></span>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        }
+
+                                    </>
+                                    : <></>
                         }
                     </>
                     : <>
@@ -278,7 +346,7 @@ export const AppointmentCreate = () => {
             }
 
 
-
+            {/* Customer Create Appointment */}
             {!mCPressure ? <><div className="center mt-2">
                 <button
                     className="button is-info"
@@ -305,8 +373,41 @@ export const AppointmentCreate = () => {
                     }}
                 >Create Appointment</button>
             </div></> : <></>}
-            {/* send update from Employee */}
-            {mCPressure ? <><div className="center mt-2">
+
+            {/* Employee can create Appointment and/or assign self */}
+            {mCPressure && !superUser ? <><div className="center mt-2">
+                <button
+                    className="button is-info"
+                    type="submit"
+                    onClick={evt => {
+                        // Prevent form from being submitted
+                        evt.preventDefault()
+
+                        const appointment = {
+                            customer: parseInt(newAppointment.customer),
+                            request_details: newAppointment.requestDetails,
+                            service_type: parseInt(newAppointment.serviceTypeId),
+                            image: newAppointment.image,
+                            scheduled: false,
+                            progress: parseInt(newAppointment.progress),
+                            request_date: newAppointment.requestDate,
+                            completed: false,
+                            consultation: false,
+                        };
+
+                        if (checkedOptions) {
+                            appointment.employee = Array.from(checkedOptions);
+                        }
+
+                        // Send POST request to your API
+                        createAppointment(appointment)
+                            .then(() => navigate("/appointments"))
+                    }}
+                >Create Appointment</button>
+            </div></> : <></>}
+
+            {/* SuperUser create Appointment and assign employees including self */}
+            {superUser && !mCPressure ? <><div className="center mt-2">
                 <button
                     className="button is-info"
                     type="submit"
