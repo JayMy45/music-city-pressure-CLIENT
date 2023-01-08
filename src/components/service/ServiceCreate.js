@@ -120,8 +120,13 @@ export const ServiceCreate = () => {
                         <div className="center">
                             {
                                 newService.image !== ""
-                                    ? <figure className="service__image is-size-4"><img src={newService.image} alt="preview" /></figure>
-                                    : <></>
+                                    ? <>
+                                        <div className="box">
+                                            <figure className="service__image is-size-4"><img src={newService.image} alt="preview" /></figure>
+                                            <div className="center"><h4 className="subtitle is-7">image preview</h4></div>
+                                        </div>
+                                    </>
+                                    : <>Image Will Preview Here</>
                             }
                         </div>
 
