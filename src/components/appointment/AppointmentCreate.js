@@ -106,7 +106,7 @@ export const AppointmentCreate = () => {
                     <h2 className="subtitle is-7">Hellow Creation Worldie</h2>
                 </div>
             </div>
-            <div className="field is-horizontal">
+            {mCPressure ? <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label>Choose a Customer</label>
                 </div>
@@ -126,7 +126,7 @@ export const AppointmentCreate = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> : <></>}
 
             <div className="field is-horizontal">
                 <div className="field-label is-normal">
@@ -290,12 +290,12 @@ export const AppointmentCreate = () => {
                         evt.preventDefault()
 
                         const appointment = {
-                            customer: newAppointment.customer,
+                            customer: parseInt(currentCustomer.id),
                             request_details: newAppointment.requestDetails,
                             service_type: parseInt(newAppointment.serviceTypeId),
+                            image: newAppointment.image,
                             scheduled: false,
                             progress: parseInt(newAppointment.progress),
-                            employee: Array.from(checkedOptions),
                             request_date: newAppointment.requestDate,
                             completed: false,
                             consultation: false

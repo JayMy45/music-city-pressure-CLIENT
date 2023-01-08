@@ -22,9 +22,12 @@ export const AppointmentList = () => {
     }, [])
 
     useEffect(() => {
-        getCurrentEmployee()
-            .then(data => { setCurrentEmployee(data) })
+        if (superUser || mCPressure) {
+            getCurrentEmployee()
+                .then(data => { setCurrentEmployee(data) })
+        }
     }, [])
+
 
 
 
