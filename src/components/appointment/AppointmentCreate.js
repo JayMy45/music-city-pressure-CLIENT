@@ -1,14 +1,26 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { createAppointment } from "../../managers/AppointmentManager";
+import { getCurrentCustomer, getCustomers } from "../../managers/CustomerManager";
+import { getCurrentEmployee, getEmployees } from "../../managers/EmployeeManager";
 import { getServices } from "../../managers/ServiceManager"
 
 export const AppointmentCreate = () => {
 
+    const localMCUser = localStorage.getItem("is_staff")
+    const mCPressure = JSON.parse(localMCUser)
+
+    const mCSuperUser = localStorage.getItem("is_superuser")
+    const superUser = JSON.parse(mCSuperUser)
+
     const navigate = useNavigate()
     const [services, setServices] = useState([])
+    const [customers, setCustomers] = useState([])
+    const [currentEmployee, setCurrentEmployee] = useState([])
+    const [currentCustomer, setCurrentCustomer] = useState([])
+    const [checkedOptions, setCheckedOptions] = useState(new Set())
+    const [employees, setEmployees] = useState([])
     const [newAppointment, setNewAppointment] = useState({
-
         employee: [],
         customer: "",
         serviceTypeId: 0,
@@ -22,6 +34,32 @@ export const AppointmentCreate = () => {
     useEffect(() => {
         getServices()
             .then(data => { setServices(data) })
+    }, [])
+
+    useEffect(() => {
+        getEmployees()
+            .then(data => { setEmployees(data) })
+    }, [])
+
+    useEffect(() => {
+        if (superUser || mCPressure) {
+            getCurrentEmployee()
+                .then(data => { setCurrentEmployee(data) })
+        }
+    }, [])
+
+    useEffect(() => {
+        if (superUser || mCPressure) {
+            getCustomers()
+                .then(data => { setCustomers(data) })
+        }
+    }, [])
+
+    useEffect(() => {
+        if (!mCPressure)
+            getCurrentCustomer()
+                .then(data => { setCurrentCustomer(data) })
+
     }, [])
 
     const changeAppointmentState = (domEvent) => {
@@ -54,12 +92,35 @@ export const AppointmentCreate = () => {
         <form className="mc__appointment--create box">
 
             <div className="center mb-2">
-                <h2>Hellow Creation Worldie</h2>
+                {
+                    mCPressure || superUser
+                        ? <h2>Welcome Back {currentEmployee.full_name}</h2>
+                        : !mCPressure || !superUser
+                            ? <h2>Welcome Back {currentCustomer.full_name}</h2>
+                            : <></>
+                }
             </div>
 
             <div className="mb-5 mt-3 center">
                 <div>
                     <h2 className="subtitle is-7">Hellow Creation Worldie</h2>
+                </div>
+            </div>
+
+            <div className="field-body">
+                <div className="field">
+                    <div className="control">
+                        <div className="select is-fullwidth">
+                            <select name="customer" className="drop__down" onChange={changeAppointmentState} value={newAppointment.serviceTypeId}>
+                                <option value={0}>Select Service Type</option>
+                                {
+                                    customers.map(customer => {
+                                        return <option value={`${customer.id}`} key={`customer--${customer.id}`}>{customer.full_name}</option>
+                                    })
+                                }
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -70,47 +131,11 @@ export const AppointmentCreate = () => {
                 <div className="field-body">
                     <div className="field">
                         <div className="control">
-                            <textarea type="text" name="requestDetails" required autoFocus className="textarea is-right"
+                            <textarea type="text" name="requestDetails" required autoFocus className="textarea is-right" placeholder="Provide information about what your need."
                                 value={newAppointment.requestDetails}
                                 onChange={changeAppointmentState} >
                             </textarea>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="field is-horizontal">
-                <div className="field-label is-normal">
-                    <label>Choose a service</label>
-                </div>
-                <div className="field-body">
-                    <div className="field">
-                        <div className="control">
-                            <div className="select is-fullwidth">
-                                <select name="serviceTypeId" className="drop__down" onChange={changeAppointmentState} value={newAppointment.serviceTypeId}>
-                                    <option value={0}>Select Service Type</option>
-                                    {
-                                        services.map(service => {
-                                            return <option value={`${service.id}`} key={`service--${service.id}`}>{service.name}</option>
-                                        })
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="field is-horizontal">
-                <div className="field-label is-normal">
-                    <label>Request Date</label>
-                </div>
-                <div className="field-body">
-                    <div className="field">
-                        <div className="control"></div>
-                        <input type="date" name="requestDate" required autoFocus className="input"
-                            value={newAppointment.requestDate}
-                            onChange={changeAppointmentState} />
                     </div>
                 </div>
             </div>
@@ -143,6 +168,115 @@ export const AppointmentCreate = () => {
                 </div>
             </div>
 
+            <div className="field is-horizontal">
+                <div className="field-label is-normal">
+                    <label>Choose a service</label>
+                </div>
+
+                <div className="field-body">
+                    <div className="field">
+                        <div className="control">
+                            <div className="select is-fullwidth">
+                                <select name="serviceTypeId" className="drop__down" onChange={changeAppointmentState} value={newAppointment.serviceTypeId}>
+                                    <option value={0}>Select Service Type</option>
+                                    {
+                                        services.map(service => {
+                                            return <option value={`${service.id}`} key={`service--${service.id}`}>{service.name}</option>
+                                        })
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="field is-horizontal">
+                <div className="field-label is-normal">
+                    <label>Request Date</label>
+                </div>
+                <div className="field-body">
+                    <div className="field">
+                        <div className="control"></div>
+                        <input type="date" name="requestDate" required autoFocus className="input"
+                            value={newAppointment.requestDate}
+                            onChange={changeAppointmentState} />
+                    </div>
+                </div>
+            </div>
+
+
+
+            {
+                mCPressure || superUser
+                    ? <>
+                        {
+                            superUser
+                                ? < div className="field is-horizontal">
+                                    <div className="field-label is-normal mt-2">
+                                        <label className="label">Employees</label>
+                                        <h3 className="subtitle is-7"><em>Assign Employee to an Appointment</em></h3>
+                                    </div>
+                                    <div className="field-body mt-4 mb-5">
+                                        <div className="field">
+                                            <div className="control">
+                                                <label className="checkbox">
+                                                    {employees.map(emp => (<div className="ml-2 mr-2" key={`employee--${emp.id}`}>
+
+                                                        <input className="mr-2" value={emp.id}
+                                                            onChange={(e) => {
+                                                                const copy = new Set(checkedOptions)
+                                                                if (copy.has(emp.id)) {
+                                                                    copy.delete(emp.id)
+                                                                } else { copy.add(emp.id) }
+                                                                setCheckedOptions(copy)
+                                                            }
+                                                            } type="checkbox" />
+                                                        {emp.full_name}
+                                                    </div>))
+                                                    }
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                : <></>
+                        }
+                    </>
+                    : <>
+                        {
+                            mCPressure && !superUser
+                                ? < div className="field is-horizontal">
+                                    <div className="field-label is-normal mt-2">
+                                        <label className="label">Employee</label>
+                                        <h3 className="subtitle is-7"><em>assign yourself here</em></h3>
+                                    </div>
+                                    <div className="field-body mt-4 mb-5">
+                                        <div className="field">
+                                            <div className="control">
+                                                <input className="mr-2" value={currentEmployee.id}
+                                                    onChange={(e) => {
+                                                        const copy = new Set(checkedOptions)
+                                                        if (copy.has(currentEmployee.id)) {
+                                                            copy.delete(currentEmployee.id)
+                                                        } else {
+                                                            copy.add(currentEmployee.id)
+                                                        }
+                                                        setCheckedOptions(copy)
+                                                    }
+                                                    } type="checkbox" />
+                                                {currentEmployee.full_name}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                : <></>
+                        }
+                    </>
+            }
+
+
+
             <div className="center mt-2">
                 <button
                     className="button is-info"
@@ -152,12 +286,14 @@ export const AppointmentCreate = () => {
                         evt.preventDefault()
 
                         const appointment = {
-                            customer_id: newAppointment.customer,
+                            customer: newAppointment.customer,
                             request_details: newAppointment.requestDetails,
                             service_type: parseInt(newAppointment.serviceTypeId),
                             scheduled: false,
                             progress: parseInt(newAppointment.progress),
+                            employee: Array.from(checkedOptions),
                             request_date: newAppointment.requestDate,
+                            completed: false,
                             consultation: false
                         }
 

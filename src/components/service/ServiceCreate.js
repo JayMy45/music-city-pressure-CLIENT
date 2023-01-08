@@ -79,6 +79,7 @@ export const ServiceCreate = () => {
                     </div>
                 </div>
             </div>
+
             <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label>Label</label>
@@ -92,6 +93,7 @@ export const ServiceCreate = () => {
                     </div>
                 </div>
             </div>
+
             <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label>Description</label>

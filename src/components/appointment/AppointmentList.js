@@ -16,7 +16,6 @@ export const AppointmentList = () => {
 
     const navigate = useNavigate()
 
-
     useEffect(() => {
         getEmployees()
             .then(data => { setEmployee(data) })
