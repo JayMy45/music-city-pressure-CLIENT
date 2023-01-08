@@ -106,19 +106,23 @@ export const AppointmentCreate = () => {
                     <h2 className="subtitle is-7">Hellow Creation Worldie</h2>
                 </div>
             </div>
-
-            <div className="field-body">
-                <div className="field">
-                    <div className="control">
-                        <div className="select is-fullwidth">
-                            <select name="customer" className="drop__down" onChange={changeAppointmentState} value={newAppointment.serviceTypeId}>
-                                <option value={0}>Select Service Type</option>
-                                {
-                                    customers.map(customer => {
-                                        return <option value={`${customer.id}`} key={`customer--${customer.id}`}>{customer.full_name}</option>
-                                    })
-                                }
-                            </select>
+            <div className="field is-horizontal">
+                <div className="field-label is-normal">
+                    <label>Choose a Customer</label>
+                </div>
+                <div className="field-body">
+                    <div className="field">
+                        <div className="control">
+                            <div className="select is-fullwidth">
+                                <select name="customer" className="drop__down" onChange={changeAppointmentState} value={newAppointment.serviceTypeId}>
+                                    <option value={0}>Select Service Type</option>
+                                    {
+                                        customers.map(customer => {
+                                            return <option value={`${customer.id}`} key={`customer--${customer.id}`}>{customer.full_name}</option>
+                                        })
+                                    }
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
