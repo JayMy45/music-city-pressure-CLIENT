@@ -16,16 +16,18 @@ export const AppointmentList = () => {
 
     const navigate = useNavigate()
 
-
     useEffect(() => {
         getEmployees()
             .then(data => { setEmployee(data) })
     }, [])
 
     useEffect(() => {
-        getCurrentEmployee()
-            .then(data => { setCurrentEmployee(data) })
+        if (superUser || mCPressure) {
+            getCurrentEmployee()
+                .then(data => { setCurrentEmployee(data) })
+        }
     }, [])
+
 
 
 

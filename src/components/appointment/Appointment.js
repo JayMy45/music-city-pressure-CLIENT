@@ -11,9 +11,6 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
     const navigate = useNavigate()
     const [checkedOptions, setCheckedOptions] = useState(new Set())
     const [clickStatus, updateClickStatus] = useState(false)
-
-
-
     const [currentAppointment, setCurrentAppointment] = useState({
         request_date: "",
         progress: parseInt(appointment.progress.id)

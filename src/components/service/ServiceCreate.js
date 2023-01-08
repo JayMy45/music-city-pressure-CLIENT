@@ -49,6 +49,7 @@ export const ServiceCreate = () => {
     }
 
 
+
     return <>
         <form className="mc__service--create box  px-6 py-6 mt-5 mb-5">
 
@@ -78,6 +79,7 @@ export const ServiceCreate = () => {
                     </div>
                 </div>
             </div>
+
             <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label>Label</label>
@@ -91,17 +93,19 @@ export const ServiceCreate = () => {
                     </div>
                 </div>
             </div>
+
             <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label>Description</label>
                 </div>
                 <div className="field-body">
                     <div className="field">
-                        <div className="control"></div>
-                        <textarea type="text" name="description" required className="textarea is-right" placeholder="Briefly describe the service.  This will be loaded in a list of all services provided"
-                            value={newService.description}
-                            onChange={changeServiceState}>
-                        </textarea>
+                        <div className="control">
+                            <textarea type="text" name="description" required className="textarea is-right" placeholder="Briefly describe the service.  This will be loaded in a list of all services provided"
+                                value={newService.description}
+                                onChange={changeServiceState}>
+                            </textarea>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -116,20 +120,20 @@ export const ServiceCreate = () => {
                 </div>
                 <div className="field-body">
                     <div className="field">
-                        <div className="control mt-4"></div>
-                        <div className="center">
-                            {
-                                newService.image !== ""
-                                    ? <>
-                                        <div className="box">
-                                            <figure className="service__image is-size-4"><img src={newService.image} alt="preview" /></figure>
-                                            <div className="center"><h4 className="subtitle is-7">image preview</h4></div>
-                                        </div>
-                                    </>
-                                    : <>Image Will Preview Here</>
-                            }
+                        <div className="control mt-4">
+                            <div className="center">
+                                {
+                                    newService.image !== ""
+                                        ? <>
+                                            <div className="box">
+                                                <figure className="service__image is-size-4"><img src={newService.image} alt="preview" /></figure>
+                                                <div className="center"><h4 className="subtitle is-7">image preview</h4></div>
+                                            </div>
+                                        </>
+                                        : <>Image Will Preview Here</>
+                                }
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -155,14 +159,12 @@ export const ServiceCreate = () => {
             <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label className="label">Tools:</label>
-                    <h3 className="subtitle is-7"><em>Can on be view by employees</em></h3>
+                    <h3 className="subtitle is-7"><em>Can only be view by employees</em></h3>
                 </div>
                 <div className="field-body mt-2">
                     <div className="field">
                         <div className="control">
                             <label className="checkbox">
-
-
                                 {equipments.map(equip => (<div className="ml-2 mr-2" key={`equipment--${equip.id}`}>
 
                                     <input className="mr-2" value={equip.id}
