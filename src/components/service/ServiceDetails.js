@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { getServiceById } from "../../managers/ServiceManager"
 
 export const ServiceDetails = () => {
@@ -18,17 +18,36 @@ export const ServiceDetails = () => {
     // whenever serviceId changes renderServe is called usually entire function contains: {renderGame()}, [gameId])
 
     return <>
-        <article>
-            <h1 className="">{service.name}</h1>
-            <div className="">
-                <div className="">
-                    <section className="">
-                        <div><h2><span className="">More About: </span></h2></div>
-                        <div>{service.details}</div>
-                    </section>
+        <article className="box mc__service--details mt-5 mb-5">
+            <div>
+                <h1 className="title is-1 center">{service.name}</h1>
+                <div className="subtitle is-4 center">
+                    <h2><span className="">Service Details </span></h2>
+                </div>
+                <div className="columns">
+                    <div className="column">
+
+                        <figure className="image is-square">
+                            <img className="" src={service.image} alt="Picture of Service" />
+                        </figure>
+
+                    </div>
+                    <div className="mt-4 column">
+                        <div>
+                            {service.details}
+                        </div>
+                    </div>
                 </div>
                 <div>
-                    <button onClick={() => navigate("/services")}>Back To Services</button>
+
+                    <div>
+                        <p>Starting at ${service.price}</p>
+                        <p>Make an appointment today. A <Link to={`/employees`}>technician</Link> will call about a consultation</p>
+
+                    </div>
+                    <div>
+                        <button className="button mt-3 center is-info" onClick={() => navigate("/services")}>Back To Services</button>
+                    </div>
                 </div>
             </div>
         </article>

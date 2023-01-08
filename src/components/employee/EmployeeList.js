@@ -25,8 +25,8 @@ export const EmployeeList = () => {
         <div className="mb-3 ml-5">
             {
                 mCPressure || superUser
-                    ? <h1>Employees</h1>
-                    : <h1>Technicians</h1>
+                    ? <h1 className="mb-3 ml-5 mt-3">Employees</h1>
+                    : <h1 className="mb-3 ml-5 mt-3">Technicians</h1>
             }
         </div>
         <div className="mt-5">

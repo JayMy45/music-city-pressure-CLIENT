@@ -131,10 +131,13 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                                     ? <>
                                         {
                                             !clickStatus
-                                                ? <button className="ml-2 mb-1" onClick={handleClaimChange}>Claim</button>
+                                                ? <button className="btn__appt--claim button  is-small ml-2 mb-1" onClick={handleClaimChange}>Claim</button>
                                                 : <>
-                                                    <button className="ml-2 mb-1" onClick={handleClaimClick}>Confirm</button>
-                                                    <button onClick={handleClaimChange}>undo</button>
+                                                    <button className="btn__appt--claim button  is-small  is-danger ml-2 mb-1" onClick={handleClaimClick}>Confirm</button>
+                                                    <button className="btn__appt--claim button is-small is-outlined mr-1" onClick={handleClaimChange}>undo</button>
+
+                                                    <span className="is-size-7">CONFIRM to claim this appointment, <span className="is-italic has-text-weight-bold	">{currentEmployee.user.first_name}</span></span>!
+
                                                 </>
                                         }
                                     </>

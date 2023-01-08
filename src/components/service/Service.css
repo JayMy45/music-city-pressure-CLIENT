@@ -3,6 +3,10 @@
     margin: auto;
 }
 
+.btn__service--details {
+    width: 10rem;
+}
+
 .services__list {
     margin: auto;
 }
@@ -16,4 +20,9 @@
 .mc__service--update {
     margin: auto;
     width: 40rem;
+}
+
+.mc__service--details {
+    margin: auto;
+    width: 50rem;
 }

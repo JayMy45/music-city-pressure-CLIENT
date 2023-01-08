@@ -59,9 +59,12 @@ export const EmployeeDetails = () => {
     const defaultDisplay = () => {
         return <>
             <div>
+                <h1 className=" ml-5 mt-3">Employee Details</h1>
+            </div>
+            <div className="mt-5 mb-5 ml-5 ">
                 {mCPressure || superUser
-                    ? <button className="" onClick={() => navigate(`/employees`)}>Back to Employees</button>
-                    : <button className="" onClick={() => navigate(`/appointments`)}>Back to Appointments</button>}
+                    ? <button className="button is-small is-rounded is-dark ml-5" onClick={() => navigate(`/employees`)}>Back to Employees</button>
+                    : <button className="button is-small is-rounded is-dark ml-5" onClick={() => navigate(`/appointments`)}>Back to Appointments</button>}
             </div>
             <div className="mc__employee center">
                 <section className="mc__employee--details box is-centered mb-2 columns">
