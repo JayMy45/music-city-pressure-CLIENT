@@ -17,9 +17,9 @@ export const AppointmentCreate = () => {
     const [services, setServices] = useState([])
     const [customers, setCustomers] = useState([])
     const [clickStatus, updateClickStatus] = useState(false)
+    const [checkedOptions, setCheckedOptions] = useState(new Set())
     const [currentEmployee, setCurrentEmployee] = useState([])
     const [currentCustomer, setCurrentCustomer] = useState([])
-    const [checkedOptions, setCheckedOptions] = useState(new Set())
     const [employees, setEmployees] = useState([])
     const [newAppointment, setNewAppointment] = useState({
         employee: [],
@@ -72,6 +72,7 @@ export const AppointmentCreate = () => {
         })
     }
 
+    // cloudinary widget
     const showWidget = (clickEvent) => {
         clickEvent.preventDefault()
         let widget = window.cloudinary.createUploadWidget({
@@ -89,7 +90,7 @@ export const AppointmentCreate = () => {
         widget.open()
     }
 
-
+    // handles change of Checked Options
     const handleClaimChange = (e) => {
         // Call onChange function
         const copy = new Set(checkedOptions)
@@ -101,29 +102,6 @@ export const AppointmentCreate = () => {
         setCheckedOptions(copy)
         updateClickStatus(!clickStatus)
     }
-
-    // const handleClaimClick = (e) => {
-    //     // Call onClick function
-    //     e.preventDefault()
-
-    //     const employeeAssign = {
-    //         id: appointment.id,
-    //         service_type: appointment.service_type.id,
-    //         progress: parseInt(appointment.progress.id),
-    //         request_date: appointment.request_date,
-    //         scheduled: appointment.scheduled,
-    //         confirm: appointment.confirm,
-    //         consultation: appointment.consultation,
-    //         employee: Array.from(checkedOptions),
-    //         request_details: appointment.request_details,
-    //         completed: appointment.completed
-    //     }
-
-    //     // Send POST request to your API
-    //     saveEditedAppointment(employeeAssign)
-    //         .then(fetchAppointments)
-    // }
-
 
     return <>
         <form className="mc__appointment--create box">
@@ -250,6 +228,7 @@ export const AppointmentCreate = () => {
                 </div>
             </div>
 
+            {/* Employee or Admin/Superuser can assign or claim Appointments */}
             {
                 mCPressure || superUser
                     ? <>
@@ -344,7 +323,6 @@ export const AppointmentCreate = () => {
                         }
                     </>
             }
-
 
             {/* Customer Create Appointment */}
             {!mCPressure ? <><div className="center mt-2">
