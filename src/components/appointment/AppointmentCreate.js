@@ -16,9 +16,10 @@ export const AppointmentCreate = () => {
     const navigate = useNavigate()
     const [services, setServices] = useState([])
     const [customers, setCustomers] = useState([])
+    const [clickStatus, updateClickStatus] = useState(false)
+    const [checkedOptions, setCheckedOptions] = useState(new Set())
     const [currentEmployee, setCurrentEmployee] = useState([])
     const [currentCustomer, setCurrentCustomer] = useState([])
-    const [checkedOptions, setCheckedOptions] = useState(new Set())
     const [employees, setEmployees] = useState([])
     const [newAppointment, setNewAppointment] = useState({
         employee: [],
@@ -71,6 +72,7 @@ export const AppointmentCreate = () => {
         })
     }
 
+    // cloudinary widget
     const showWidget = (clickEvent) => {
         clickEvent.preventDefault()
         let widget = window.cloudinary.createUploadWidget({
@@ -86,6 +88,19 @@ export const AppointmentCreate = () => {
                 }
             });
         widget.open()
+    }
+
+    // handles change of Checked Options
+    const handleClaimChange = (e) => {
+        // Call onChange function
+        const copy = new Set(checkedOptions)
+        if (copy.has(currentEmployee.id)) {
+            copy.delete(currentEmployee.id)
+        } else {
+            copy.add(currentEmployee.id)
+        }
+        setCheckedOptions(copy)
+        updateClickStatus(!clickStatus)
     }
 
     return <>
@@ -106,6 +121,7 @@ export const AppointmentCreate = () => {
                     <h2 className="subtitle is-7">Hellow Creation Worldie</h2>
                 </div>
             </div>
+
             {mCPressure ? <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label>Choose a Customer</label>
@@ -114,7 +130,7 @@ export const AppointmentCreate = () => {
                     <div className="field">
                         <div className="control">
                             <div className="select is-fullwidth">
-                                <select name="customer" className="drop__down" onChange={changeAppointmentState} value={newAppointment.serviceTypeId}>
+                                <select name="customer" className="drop__down" onChange={changeAppointmentState} value={newAppointment.customer}>
                                     <option value={0}>Select Service Type</option>
                                     {
                                         customers.map(customer => {
@@ -144,6 +160,7 @@ export const AppointmentCreate = () => {
                 </div>
             </div>
 
+            {/* Add Image cloudinary widget */}
             <div className="field is-horizontal">
                 <div className="field-label is-normal mt-3">
                     <button
@@ -172,6 +189,7 @@ export const AppointmentCreate = () => {
                 </div>
             </div>
 
+            {/* Service type DropDown */}
             <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label>Choose a service</label>
@@ -195,6 +213,7 @@ export const AppointmentCreate = () => {
                 </div>
             </div>
 
+            {/* Request Date Calendar Input */}
             <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label>Request Date</label>
@@ -209,8 +228,7 @@ export const AppointmentCreate = () => {
                 </div>
             </div>
 
-
-
+            {/* Employee or Admin/Superuser can assign or claim Appointments */}
             {
                 mCPressure || superUser
                     ? <>
@@ -244,7 +262,34 @@ export const AppointmentCreate = () => {
                                         </div>
                                     </div>
                                 </div>
-                                : <></>
+                                : mCPressure && !superUser
+                                    ? <>
+                                        {!clickStatus
+                                            ? <>
+                                                <div>
+                                                    <div>
+                                                        <button className="btn__appt--claim button  is-small ml-2 mb-1" type="button" onClick={handleClaimChange}>Claim</button>
+                                                    </div>
+                                                    <div>
+                                                        <span>Click Here to Claim This Appointment</span>
+                                                    </div>
+                                                </div>
+                                            </>
+
+                                            : <>
+                                                <div>
+                                                    <div>
+                                                        <button className="btn__appt--claim button  is-small ml-2 mb-1" type="button" onClick={handleClaimChange}>undo</button>
+                                                    </div>
+                                                    <div>
+                                                        <span>This appointment is yours <span>{`${currentEmployee?.user?.first_name}`}</span></span>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        }
+
+                                    </>
+                                    : <></>
                         }
                     </>
                     : <>
@@ -279,9 +324,8 @@ export const AppointmentCreate = () => {
                     </>
             }
 
-
-
-            <div className="center mt-2">
+            {/* Customer Create Appointment */}
+            {!mCPressure ? <><div className="center mt-2">
                 <button
                     className="button is-info"
                     type="submit"
@@ -306,7 +350,71 @@ export const AppointmentCreate = () => {
                             .then(() => navigate("/appointments"))
                     }}
                 >Create Appointment</button>
-            </div>
+            </div></> : <></>}
+
+            {/* Employee can create Appointment and/or assign self */}
+            {mCPressure && !superUser ? <><div className="center mt-2">
+                <button
+                    className="button is-info"
+                    type="submit"
+                    onClick={evt => {
+                        // Prevent form from being submitted
+                        evt.preventDefault()
+
+                        const appointment = {
+                            customer: parseInt(newAppointment.customer),
+                            request_details: newAppointment.requestDetails,
+                            service_type: parseInt(newAppointment.serviceTypeId),
+                            image: newAppointment.image,
+                            scheduled: false,
+                            progress: parseInt(newAppointment.progress),
+                            request_date: newAppointment.requestDate,
+                            completed: false,
+                            consultation: false,
+                        };
+
+                        if (checkedOptions) {
+                            appointment.employee = Array.from(checkedOptions);
+                        }
+
+                        // Send POST request to your API
+                        createAppointment(appointment)
+                            .then(() => navigate("/appointments"))
+                    }}
+                >Create Appointment</button>
+            </div></> : <></>}
+
+            {/* SuperUser create Appointment and assign employees including self */}
+            {superUser && !mCPressure ? <><div className="center mt-2">
+                <button
+                    className="button is-info"
+                    type="submit"
+                    onClick={evt => {
+                        // Prevent form from being submitted
+                        evt.preventDefault()
+
+                        const appointment = {
+                            customer: parseInt(newAppointment.customer),
+                            request_details: newAppointment.requestDetails,
+                            service_type: parseInt(newAppointment.serviceTypeId),
+                            image: newAppointment.image,
+                            scheduled: false,
+                            progress: parseInt(newAppointment.progress),
+                            request_date: newAppointment.requestDate,
+                            completed: false,
+                            consultation: false,
+                        };
+
+                        if (checkedOptions) {
+                            appointment.employee = Array.from(checkedOptions);
+                        }
+
+                        // Send POST request to your API
+                        createAppointment(appointment)
+                            .then(() => navigate("/appointments"))
+                    }}
+                >Create Appointment</button>
+            </div></> : <></>}
 
         </form>
     </>
