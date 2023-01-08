@@ -114,7 +114,7 @@ export const AppointmentCreate = () => {
                     <div className="field">
                         <div className="control">
                             <div className="select is-fullwidth">
-                                <select name="customer" className="drop__down" onChange={changeAppointmentState} value={newAppointment.serviceTypeId}>
+                                <select name="customer" className="drop__down" onChange={changeAppointmentState} value={newAppointment.customer}>
                                     <option value={0}>Select Service Type</option>
                                     {
                                         customers.map(customer => {
@@ -209,8 +209,6 @@ export const AppointmentCreate = () => {
                 </div>
             </div>
 
-
-
             {
                 mCPressure || superUser
                     ? <>
@@ -281,7 +279,7 @@ export const AppointmentCreate = () => {
 
 
 
-            <div className="center mt-2">
+            {!mCPressure ? <><div className="center mt-2">
                 <button
                     className="button is-info"
                     type="submit"
@@ -306,7 +304,38 @@ export const AppointmentCreate = () => {
                             .then(() => navigate("/appointments"))
                     }}
                 >Create Appointment</button>
-            </div>
+            </div></> : <></>}
+            {/* send update from Employee */}
+            {mCPressure ? <><div className="center mt-2">
+                <button
+                    className="button is-info"
+                    type="submit"
+                    onClick={evt => {
+                        // Prevent form from being submitted
+                        evt.preventDefault()
+
+                        const appointment = {
+                            customer: parseInt(newAppointment.customer),
+                            request_details: newAppointment.requestDetails,
+                            service_type: parseInt(newAppointment.serviceTypeId),
+                            image: newAppointment.image,
+                            scheduled: false,
+                            progress: parseInt(newAppointment.progress),
+                            request_date: newAppointment.requestDate,
+                            completed: false,
+                            consultation: false,
+                        };
+
+                        if (checkedOptions) {
+                            appointment.employee = Array.from(checkedOptions);
+                        }
+
+                        // Send POST request to your API
+                        createAppointment(appointment)
+                            .then(() => navigate("/appointments"))
+                    }}
+                >Create Appointment</button>
+            </div></> : <></>}
 
         </form>
     </>
