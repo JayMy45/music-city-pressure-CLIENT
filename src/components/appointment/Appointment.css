@@ -61,3 +61,8 @@
 .btn__appt--claim {
     width: 7rem
 }
+
+.mc__appointment--create {
+    margin: auto;
+    width: 50rem;
+}
