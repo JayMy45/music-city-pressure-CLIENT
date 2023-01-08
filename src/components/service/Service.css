@@ -10,5 +10,10 @@
 /* service create form */
 .mc__service--create {
     margin: auto;
-    width: fit-content;
+    width: 40rem;
+}
+
+.mc__service--update {
+    margin: auto;
+    width: 40rem;
 }
