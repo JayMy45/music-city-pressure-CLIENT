@@ -26,32 +26,41 @@ export const ServiceList = () => {
     }
 
     return <>
-        <header>
-            <h1>Services</h1>
-            <div><button className="" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button></div>
-            {
-                mCPressure
-                    ? <div><button className="" onClick={() => { navigate({ pathname: "/services/create" }) }}><span className="">Create Service</span></button></div>
-                    : <></>
-            }
+        <header className="mt-5">
+            <h1 className="title is-1 ml-4">Services</h1>
+            <div className="ml-5">
+                <div>
+                    <button className="btn__service--details is-primary is-outlined is-rounded button is-small" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
+                </div>
+                {
+                    mCPressure
+                        ? <div><button className="btn__service--details is-outlined button is-rounded mt-1 is-small" onClick={() => { navigate({ pathname: "/services/create" }) }}><span className="">Create New Service</span></button></div>
+                        : <></>
+                }
+            </div>
         </header>
-        <article className="">
+        <article className="mx-5 px-5">
             {
                 services.map(service => {
                     return <React.Fragment key={`service--${service.id}`}>
                         <div className="columns box mt-2" id="service__list--details" >
                             <section className="service column">
                                 <div><h2><Link to={`/services/${service.id}`}>{service.name}</Link></h2></div>
-                                <div className="service__description has-text-left">Description: {service.description}</div>
+                                <div className="service__description has-text-left"><em>Brief Description: </em>{service.description}</div>
                             </section>
-                            {
-                                mCPressure
-                                    ? <>
-                                        <button className="button is-uppercase is-small" onClick={() => navigate(`/services/update/${service.id}`)}>Update</button>
-                                        <button className="button is-uppercase is-small is-danger" onClick={(evt) => confirmDelete(evt, service)}>Delete</button>
-                                    </>
-                                    : <></>
-                            }
+                            <div className="">
+                                {
+                                    mCPressure
+                                        ? <>
+                                            <button className="button is-uppercase is-small" onClick={() => navigate(`/services/update/${service.id}`)}>Update</button>
+                                            <button className="button is-uppercase is-small is-danger" onClick={(evt) => confirmDelete(evt, service)}>Delete</button>
+                                        </>
+                                        : <></>
+                                }
+                                <div className="">
+                                    <h3 className="mt-5 is-italic">Price Starting at ${service.price}</h3>
+                                </div>
+                            </div>
                         </div>
                     </React.Fragment>
                 })

@@ -85,7 +85,7 @@ export const ServiceCreate = () => {
                 <div className="field-body">
                     <div className="field">
                         <div className="control"></div>
-                        <input type="text" name="label" required autoFocus className="input" placeholder="What would you like to label your new service?"
+                        <input type="text" name="label" required className="input" placeholder="What would you like to label your new service?"
                             value={newService.label}
                             onChange={changeServiceState} />
                     </div>
@@ -98,7 +98,7 @@ export const ServiceCreate = () => {
                 <div className="field-body">
                     <div className="field">
                         <div className="control"></div>
-                        <textarea type="text" name="description" required autoFocus className="textarea is-right" placeholder="Briefly describe the service.  This will be loaded in a list of all services provided"
+                        <textarea type="text" name="description" required className="textarea is-right" placeholder="Briefly describe the service.  This will be loaded in a list of all services provided"
                             value={newService.description}
                             onChange={changeServiceState}>
                         </textarea>
@@ -141,7 +141,7 @@ export const ServiceCreate = () => {
                 <div className="field-body mt-2">
                     <div className="field">
                         <div className="control">
-                            <textarea type="text" name="details" required autoFocus className="textarea is-right" placeholder="Describe new service in detail. This will be used on a details page when customer want to learn more about a given service."
+                            <textarea type="text" name="details" required className="textarea is-right" placeholder="Describe new service in detail. This will be used on a details page when customer want to learn more about a given service."
                                 value={newService.details}
                                 onChange={changeServiceState} >
 
@@ -190,7 +190,7 @@ export const ServiceCreate = () => {
                 <div className="field-body mt-2">
                     <div className="field">
                         <div className="control">
-                            <input type="number" name="price" required autoFocus className="input is-focused is-primary"
+                            <input type="number" name="price" required className="input is-primary"
                                 value={newService.price}
                                 onChange={changeServiceState} />
                         </div>
