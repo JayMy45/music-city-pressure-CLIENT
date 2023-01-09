@@ -51,10 +51,18 @@ export const ServiceCreate = () => {
 
 
     return <>
+        <div className="mt-5" id="navbar__space">
+            <h1 className=" ml-5 mt-5">Create Service </h1>
+        </div>
+        <div className="mt-1 mb-5 ml-5 ">
+            <div>
+                <button className="btn__service--details button is-small is-dark ml-5" onClick={() => navigate(`/services`)}>Back to Services</button>
+            </div>
+        </div>
         <form className="mc__service--create box  px-6 py-6 mt-5 mb-5">
 
             <div className="center mb-2">
-                <h2 className="title is-1">Create New Service</h2>
+                <h2 className="title is-1">New Service</h2>
             </div>
 
             <div className="mb-5 mt-3 center">
@@ -70,7 +78,7 @@ export const ServiceCreate = () => {
                 <div className="field-body">
                     <div className="field">
                         <div className="control">
-                            <input type="text" name="name" required autoFocus className="input"
+                            <input type="text" name="name" required className="input"
                                 placeholder="What would you like to call your new service?"
                                 value={newService.name}
                                 onChange={changeServiceState} />

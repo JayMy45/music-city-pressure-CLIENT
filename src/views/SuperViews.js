@@ -2,10 +2,9 @@ import { Route, Routes } from "react-router-dom"
 import { AppointmentCreate } from "../components/appointment/AppointmentCreate"
 import { AppointmentList } from "../components/appointment/AppointmentList"
 import { UpdateAppointment } from "../components/appointment/UpdateAppointment"
-import { Employee } from "../components/employee/Employee"
 import { EmployeeDetails } from "../components/employee/EmployeeDetails"
 import { EmployeeList } from "../components/employee/EmployeeList"
-import { EmpUpdate } from "../components/employee/EmpUpdate"
+import { EmployeeUpdate } from "../components/employee/EmployeeUpdate"
 import { ServiceCreate } from "../components/service/ServiceCreate"
 import { ServiceDetails } from "../components/service/ServiceDetails"
 import { ServiceList } from "../components/service/ServiceList"
@@ -19,6 +18,7 @@ export const SuperViews = () => {
             <Route path="/" element={<EmployeeList />} />
             <Route path="/employees" element={<EmployeeList />} />
             <Route path="/employees/:employeeId" element={<EmployeeDetails />} />
+            <Route path="/employees/update/:employeeId" element={<EmployeeUpdate />} />
             {/* <Route path="/employees/:employeeId" element={<EmpUpdate />} /> */}
             <Route path="/services" element={<ServiceList />} />
             <Route path="/services/create" element={<ServiceCreate />} />

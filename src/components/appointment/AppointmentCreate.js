@@ -104,6 +104,10 @@ export const AppointmentCreate = () => {
     }
 
     return <>
+        <section className="mt-5 ml-5">
+            <h1 className="is-title mb-2">Create Appointments</h1>
+            <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/services" }) }}><span className="">Research Service</span></button>
+        </section>
         <form className="mc__appointment--create box mt-5 mb-5">
             <h2 className="center title is-3">Schedule Your Appointment</h2>
             <div className="center mb-2">

@@ -4,6 +4,7 @@ import { AppointmentList } from "../components/appointment/AppointmentList"
 import { UpdateAppointment } from "../components/appointment/UpdateAppointment"
 import { EmployeeDetails } from "../components/employee/EmployeeDetails"
 import { EmployeeList } from "../components/employee/EmployeeList"
+import { EmployeeUpdate } from "../components/employee/EmployeeUpdate"
 import { ServiceCreate } from "../components/service/ServiceCreate"
 import { ServiceDetails } from "../components/service/ServiceDetails"
 import { ServiceList } from "../components/service/ServiceList"
@@ -17,6 +18,7 @@ export const EmployeeViews = () => {
             <Route path="/" element={<AppointmentList />} />
             <Route path="/employees" element={<EmployeeList />} />
             <Route path="/employees/:employeeId" element={<EmployeeDetails />} />
+            <Route path="/employees/update/:employeeId" element={<EmployeeUpdate />} />
             <Route path="/services" element={<ServiceList />} />
             <Route path="/services/create" element={<ServiceCreate />} />
             <Route path="/services/:serviceId" element={<ServiceDetails />} />

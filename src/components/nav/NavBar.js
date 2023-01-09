@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-// import Logo from "/Users/jeremymyers/workspace/level-up-CLIENT/level-up-react-CLIENT/src/logo192.png"
 import "./NavBar.css"
 
 export const NavBar = () => {
@@ -55,13 +54,13 @@ export const NavBar = () => {
     return (
         <nav className="navbar has-shadow is-warning mb-5 is-fixed-top" role="navigation" aria-label="dropdown navigation">
 
-            <div className="navbar-brand">
-                <a className="navbar-item" href="/">
-                    {/* <img src={Logo} height="3rem" alt="React Logo" /> <h1 className="title is-4 ml-3">Level UP</h1> */}
-                </a>
+            <figure className="ml-5" href="/">
+                <img src="https://res.cloudinary.com/dp04hh5pz/image/upload/v1673305800/gv5u3r51kku977msd0yl.svg" alt="Site Logo" width="112" height="30" />
+                {/* <h1 className="title is-4 ml-3">Level UP</h1> */}
+            </figure>
 
+            <div className="navbar-brand">
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                {/* <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" id="burger" onClick={toggleMenu}> */}
                 <a
                     onClick={closeHamburger}
                     role="button"

@@ -11,6 +11,10 @@ export const ServiceList = () => {
     const localMCUser = localStorage.getItem("is_staff")
     const mCPressure = JSON.parse(localMCUser)
 
+    // store is_superuser value for differential display
+    const mCSuperUser = localStorage.getItem("is_superuser")
+    const superUser = JSON.parse(mCSuperUser)
+
     useEffect(() => {
         getServices().then(data => setServices(data))
     }, [])
@@ -26,15 +30,17 @@ export const ServiceList = () => {
     }
 
     return <>
-        <header className="mt-5">
-            <h1 className="title is-1 ml-4">Services</h1>
-            <div className="ml-5">
+        <header className="mt-5" id="navbar__space">
+            <div className="mt-5">
+                <h1 className="ml-5 mt-5">Services</h1>
+            </div>
+            <div className="ml-5 mt-3">
                 <div>
-                    <button className="btn__service--details is-primary is-outlined is-rounded button is-small" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
+                    <button className="btn__service--details is-outlined button is-small" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
                 </div>
                 {
                     mCPressure
-                        ? <div><button className="btn__service--details is-outlined button is-rounded mt-1 is-small" onClick={() => { navigate({ pathname: "/services/create" }) }}><span className="">Create New Service</span></button></div>
+                        ? <div><button className="btn__service--details button mt-1 is-info is-default" onClick={() => { navigate({ pathname: "/services/create" }) }}><span className="">Create New Service</span></button></div>
                         : <></>
                 }
             </div>
