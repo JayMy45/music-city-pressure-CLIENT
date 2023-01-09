@@ -15,6 +15,8 @@ export const ServiceDetails = () => {
         getServiceById(serviceId).then(data => setCurrentService(data))
     }, [serviceId])
 
+
+
     // whenever serviceId changes renderServe is called usually entire function contains: {renderGame()}, [gameId])
 
     return <>
@@ -28,7 +30,7 @@ export const ServiceDetails = () => {
                     <div className="column">
 
                         <figure className="image is-square">
-                            <img className="" src={service.image} alt="Picture of Service" />
+                            <img className="" src={service.image} alt="" />
                         </figure>
 
                     </div>

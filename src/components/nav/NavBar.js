@@ -99,19 +99,6 @@ export const NavBar = () => {
                                             </div>
                                         </div>
                                         {
-                                            mCPressure || superUser
-                                                ? <div className="navbar-item">
-                                                    <li className="navbar__item">
-                                                        <Link to="/Employees" onClick={closeHamburger}>Employees</Link>
-                                                    </li>
-                                                </div>
-                                                : <div className="navbar-item">
-                                                    <li className="navbar__item">
-                                                        <Link to="/employees" onClick={closeHamburger}>Technicians</Link>
-                                                    </li>
-                                                </div>
-                                        }
-                                        {
                                             mCPressure
                                                 ? (< div className={`navbar-item has-dropdown ${activeDropDown2 ? 'is-active' : ""}`}>
                                                     <div>
@@ -137,6 +124,20 @@ export const NavBar = () => {
                                                     </div>
                                                 </>
                                         }
+                                        {
+                                            mCPressure || superUser
+                                                ? <div className="navbar-item">
+                                                    <li className="navbar__item">
+                                                        <Link to="/Employees" onClick={closeHamburger}>Employees</Link>
+                                                    </li>
+                                                </div>
+                                                : <div className="navbar-item">
+                                                    <li className="navbar__item">
+                                                        <Link to="/employees" onClick={closeHamburger}>Technicians</Link>
+                                                    </li>
+                                                </div>
+                                        }
+
                                     </ul>
                                 </div>
 

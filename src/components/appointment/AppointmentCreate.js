@@ -104,8 +104,8 @@ export const AppointmentCreate = () => {
     }
 
     return <>
-        <form className="mc__appointment--create box">
-
+        <form className="mc__appointment--create box mt-5 mb-5">
+            <h2 className="center title is-3">Schedule Your Appointment</h2>
             <div className="center mb-2">
                 {
                     mCPressure || superUser
@@ -116,11 +116,11 @@ export const AppointmentCreate = () => {
                 }
             </div>
 
-            <div className="mb-5 mt-3 center">
+            {/* <div className="mb-5 mt-3 center">
                 <div>
                     <h2 className="subtitle is-7">Hellow Creation Worldie</h2>
                 </div>
-            </div>
+            </div> */}
 
             {mCPressure ? <div className="field is-horizontal">
                 <div className="field-label is-normal">
@@ -220,10 +220,11 @@ export const AppointmentCreate = () => {
                 </div>
                 <div className="field-body">
                     <div className="field">
-                        <div className="control"></div>
-                        <input type="date" name="requestDate" required autoFocus className="input"
-                            value={newAppointment.requestDate}
-                            onChange={changeAppointmentState} />
+                        <div className="control">
+                            <input type="date" name="requestDate" required autoFocus className="input"
+                                value={newAppointment.requestDate}
+                                onChange={changeAppointmentState} />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -237,7 +238,7 @@ export const AppointmentCreate = () => {
                                 ? < div className="field is-horizontal">
                                     <div className="field-label is-normal mt-2">
                                         <label className="label">Employees</label>
-                                        <h3 className="subtitle is-7"><em>Assign Employee to an Appointment</em></h3>
+                                        <h3 className="subtitle is-7"><em>Assign Employee(s) to an Appointment</em></h3>
                                     </div>
                                     <div className="field-body mt-4 mb-5">
                                         <div className="field">
