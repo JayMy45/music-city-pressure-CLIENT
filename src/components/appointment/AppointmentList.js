@@ -16,30 +16,26 @@ export const AppointmentList = () => {
 
     const navigate = useNavigate()
 
+    // store is_staff value for differential display
+    const localMCUser = localStorage.getItem("is_staff")
+    const mCPressure = JSON.parse(localMCUser)
+
+    // store is_superuser value for differential display
+    const mCSuperUser = localStorage.getItem("is_superuser")
+    const superUser = JSON.parse(mCSuperUser)
+
     useEffect(() => {
         getEmployees()
             .then(data => { setEmployee(data) })
     }, [])
 
+    // if a Admin/SuperUser or Employee/mCPressure is logged in update currentEmployee
     useEffect(() => {
         if (superUser || mCPressure) {
             getCurrentEmployee()
                 .then(data => { setCurrentEmployee(data) })
         }
-    }, [])
-
-
-
-
-    // store is_staff value for differential display
-    const localMCUser = localStorage.getItem("is_staff")
-    const mCPressure = JSON.parse(localMCUser)
-
-    const localMCUserId = localStorage.getItem("user_id")
-
-
-    const mCSuperUser = localStorage.getItem("is_superuser")
-    const superUser = JSON.parse(mCSuperUser)
+    }, [superUser, mCPressure])
 
     const fetchAppointments = () => {
         getAppointments()
@@ -86,7 +82,6 @@ export const AppointmentList = () => {
                             progression={progression}
                             mCPressure={mCPressure}
                             superUser={superUser}
-                            localMCUserId={localMCUserId}
                             currentEmployee={currentEmployee}
                         />)
                     }

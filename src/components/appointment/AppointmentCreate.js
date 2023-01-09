@@ -47,21 +47,21 @@ export const AppointmentCreate = () => {
             getCurrentEmployee()
                 .then(data => { setCurrentEmployee(data) })
         }
-    }, [])
+    }, [superUser, mCPressure])
 
     useEffect(() => {
         if (superUser || mCPressure) {
             getCustomers()
                 .then(data => { setCustomers(data) })
         }
-    }, [])
+    }, [superUser, mCPressure])
 
     useEffect(() => {
         if (!mCPressure)
             getCurrentCustomer()
                 .then(data => { setCurrentCustomer(data) })
 
-    }, [])
+    }, [mCPressure])
 
     const changeAppointmentState = (domEvent) => {
         // TODO: Complete the onChange function
