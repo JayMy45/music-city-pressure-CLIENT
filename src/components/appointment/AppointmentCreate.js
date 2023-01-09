@@ -353,68 +353,78 @@ export const AppointmentCreate = () => {
             </div></> : <></>}
 
             {/* Employee can create Appointment and/or assign self */}
-            {mCPressure && !superUser ? <><div className="center mt-2">
-                <button
-                    className="button is-info"
-                    type="submit"
-                    onClick={evt => {
-                        // Prevent form from being submitted
-                        evt.preventDefault()
+            {mCPressure && !superUser
+                ?
+                <>
+                    <div className="center mt-2">
+                        <button
+                            className="button is-info"
+                            type="submit"
+                            onClick={evt => {
+                                // Prevent form from being submitted
+                                evt.preventDefault()
 
-                        const appointment = {
-                            customer: parseInt(newAppointment.customer),
-                            request_details: newAppointment.requestDetails,
-                            service_type: parseInt(newAppointment.serviceTypeId),
-                            image: newAppointment.image,
-                            scheduled: false,
-                            progress: parseInt(newAppointment.progress),
-                            request_date: newAppointment.requestDate,
-                            completed: false,
-                            consultation: false,
-                        };
+                                const appointment = {
+                                    customer: parseInt(newAppointment.customer),
+                                    request_details: newAppointment.requestDetails,
+                                    service_type: parseInt(newAppointment.serviceTypeId),
+                                    image: newAppointment.image,
+                                    scheduled: false,
+                                    progress: parseInt(newAppointment.progress),
+                                    request_date: newAppointment.requestDate,
+                                    completed: false,
+                                    consultation: false,
+                                };
 
-                        if (checkedOptions) {
-                            appointment.employee = Array.from(checkedOptions);
-                        }
+                                if (checkedOptions) {
+                                    appointment.employee = Array.from(checkedOptions);
+                                }
 
-                        // Send POST request to your API
-                        createAppointment(appointment)
-                            .then(() => navigate("/appointments"))
-                    }}
-                >Create Appointment</button>
-            </div></> : <></>}
+                                // Send POST request to your API
+                                createAppointment(appointment)
+                                    .then(() => navigate("/appointments"))
+                            }}
+                        >Create Appointment</button>
+                    </div>
+                </>
+                : <></>
+            }
 
             {/* SuperUser create Appointment and assign employees including self */}
-            {superUser && !mCPressure ? <><div className="center mt-2">
-                <button
-                    className="button is-info"
-                    type="submit"
-                    onClick={evt => {
-                        // Prevent form from being submitted
-                        evt.preventDefault()
+            {(superUser)
+                ? <>
+                    <div className="center mt-2">
+                        <button
+                            className="button is-info"
+                            type="submit"
+                            onClick={evt => {
+                                // Prevent form from being submitted
+                                evt.preventDefault()
 
-                        const appointment = {
-                            customer: parseInt(newAppointment.customer),
-                            request_details: newAppointment.requestDetails,
-                            service_type: parseInt(newAppointment.serviceTypeId),
-                            image: newAppointment.image,
-                            scheduled: false,
-                            progress: parseInt(newAppointment.progress),
-                            request_date: newAppointment.requestDate,
-                            completed: false,
-                            consultation: false,
-                        };
+                                const appointment = {
+                                    customer: parseInt(newAppointment.customer),
+                                    request_details: newAppointment.requestDetails,
+                                    service_type: parseInt(newAppointment.serviceTypeId),
+                                    image: newAppointment.image,
+                                    scheduled: false,
+                                    progress: parseInt(newAppointment.progress),
+                                    request_date: newAppointment.requestDate,
+                                    completed: false,
+                                    consultation: false,
+                                };
 
-                        if (checkedOptions) {
-                            appointment.employee = Array.from(checkedOptions);
-                        }
+                                if (checkedOptions) {
+                                    appointment.employee = Array.from(checkedOptions);
+                                }
 
-                        // Send POST request to your API
-                        createAppointment(appointment)
-                            .then(() => navigate("/appointments"))
-                    }}
-                >Create Appointment</button>
-            </div></> : <></>}
+                                // Send POST request to your API
+                                createAppointment(appointment)
+                                    .then(() => navigate("/appointments"))
+                            }}
+                        >Create Appointment</button>
+                    </div>
+                </>
+                : <></>}
 
         </form>
     </>
