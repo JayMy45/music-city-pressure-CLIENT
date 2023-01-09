@@ -37,8 +37,17 @@
     margin: auto;
 }
 
+.btn__employee--update {
+    width: 10rem;
+}
+
 .employee__specialty--delete-btn {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.mc__employee--update {
+    margin: auto;
+    margin: 30rem;
 }
