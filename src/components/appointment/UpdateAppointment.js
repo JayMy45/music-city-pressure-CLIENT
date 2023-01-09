@@ -171,7 +171,7 @@ export const UpdateAppointment = () => {
             </div>
 
 
-            {mCPressure ? <div className="center mt-5">
+            <div className="center mt-5">
                 <div>
                     <button
                         className="button is-outlined is-dark"
@@ -190,7 +190,7 @@ export const UpdateAppointment = () => {
                                 confirm: currentAppt.confirm,
                                 consultation: currentAppt.consultation,
                                 completed: currentAppt.completed,
-                                image: "",
+                                image: currentAppt.image,
                                 confirm: currentAppt.confirm
                             }
 
@@ -206,41 +206,6 @@ export const UpdateAppointment = () => {
                 </div>
             </div>
 
-                : <div className="center mt-5">
-                    <div>
-                        <button
-                            className="button is-outlined is-dark"
-                            type="submit"
-                            onClick={evt => {
-                                // Prevent form from being submitted
-                                evt.preventDefault()
-
-                                const appointment = {
-                                    id: currentAppt.id,
-                                    service_type: parseInt(currentAppt.service_type.id),
-                                    request_details: currentAppt.request_details,
-                                    request_date: currentAppt.request_date,
-                                    progress: parseInt(currentAppt.progress.id),
-                                    scheduled: currentAppt.scheduled,
-                                    confirm: currentAppt.confirm,
-                                    consultation: currentAppt.consultation,
-                                    completed: currentAppt.completed,
-                                    image: "",
-                                    confirm: currentAppt.confirm
-                                }
-
-                                // Send POST request to your API
-                                saveEditedAppointment(appointment)
-                                    .then(() => navigate("/appointments"))
-                            }}
-                        >Update Appointment</button>
-                    </div>
-
-                    <div>
-                        <button className="button is-outlined is-dark ml-3" onClick={() => navigate(`/appointments`)} >Back to Appointments</button>
-                    </div>
-                </div>
-            }
         </form>
     </>
 
