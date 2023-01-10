@@ -100,7 +100,7 @@ export const Register = () => {
                 </fieldset>
                 <fieldset>
                     <label htmlFor="verifyPassword"> Bio </label>
-                    <textarea ref={bio} name="bio" className="form-control" placeholder="Let other gamers know a little bit about you..." />
+                    <textarea ref={bio} name="bio" className="form-control textarea" placeholder="Let others know a little bit about you..." />
                 </fieldset>
                 <fieldset style={{
                     textAlign: "center"
