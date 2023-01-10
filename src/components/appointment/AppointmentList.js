@@ -60,13 +60,13 @@ export const AppointmentList = () => {
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
         </section>
         <article className="appointments">
-            <section className="mt-5">
+            <section className="mt-5 ml-5">
                 {
                     mCPressure
                         ? <></>
                         : <> {
                             customers.map(customer => {
-                                return <h3 key={`customer--${customer.id}`}>Welcome back {customer.full_name}</h3>
+                                return <h3 key={`customer--${customer.id}`} className="is-italic">Welcome back {customer.full_name}</h3>
                             })
                         }
                         </>

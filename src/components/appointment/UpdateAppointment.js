@@ -14,6 +14,7 @@ export const UpdateAppointment = () => {
     const superUser = JSON.parse(mCSuperUser)
 
     const navigate = useNavigate()
+
     const [services, setServices] = useState([])
     // const [employees, setEmployees] = useState([])
     // const [checkedOptions, setCheckedOptions] = useState(new Set())
@@ -86,7 +87,7 @@ export const UpdateAppointment = () => {
                 <div className="field-body mt-3">
                     <div className="field">
                         <div className="control">
-                            <input type="date" name="request_date" required autoFocus className="input "
+                            <input type="date" name="request_date" required autoFocus className="input"
                                 value={currentAppt.request_date}
                                 onChange={changeAppointmentState} />
                         </div>
@@ -160,12 +161,13 @@ export const UpdateAppointment = () => {
                 </div>
                 <div className="field-body mt-3">
                     <div className="field">
-                        <div className="control"></div>
-                        <textarea type="text" name="request_details" required autoFocus className="textarea is-right"
-                            value={currentAppt.request_details}
-                            placeholder={currentAppt.request_details}
-                            onChange={changeAppointmentState} >
-                        </textarea>
+                        <div className="control">
+                            <textarea type="text" name="request_details" required autoFocus className="textarea is-right"
+                                value={currentAppt.request_details}
+                                placeholder={currentAppt.request_details}
+                                onChange={changeAppointmentState} >
+                            </textarea>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { getEmployees } from "../../managers/EmployeeManager"
 import { Employee } from "./Employee"
 import "./Employee.css"
@@ -19,16 +18,24 @@ export const EmployeeList = () => {
             .then(setEmployees)
     }, [])
 
+    const fetchEmployees = () => {
+        getEmployees()
+            .then(data => setEmployees(data))
+    }
 
+    useEffect(() => {
+        fetchEmployees()
+    }, [])
 
     return <>
-        <div className="mb-3 ml-5">
+        <div className="mt-5" id="navbar__space">
             {
                 mCPressure || superUser
                     ? <h1 className="mb-3 ml-5 mt-3">Employees</h1>
                     : <h1 className="mb-3 ml-5 mt-3">Technicians</h1>
             }
         </div>
+
         <div className="mt-5">
             {
 
@@ -36,6 +43,7 @@ export const EmployeeList = () => {
                     emp={emp}
                     mCPressure={mCPressure}
                     superUser={superUser}
+                    fetchEmployees={fetchEmployees}
                 />)
             }
         </div>

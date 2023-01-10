@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteAppointment, saveEditedAppointment } from "../../managers/AppointmentManager"
 import moment from "moment";
+import "./Appointment.css"
 
 
 

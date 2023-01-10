@@ -43,3 +43,15 @@ export const deleteEmployee = (employeeId) => {
         headers: { "Authorization": `Token ${localStorage.getItem("mc_token")}` },
     })
 }
+
+// PUT edit specialties
+export const saveEditedEmployee = (employee) => {
+    return fetch(`http://localhost:8000/employees/${employee.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("mc_token")}`
+        },
+        body: JSON.stringify(employee)
+    })
+}

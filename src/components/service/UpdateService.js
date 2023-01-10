@@ -58,16 +58,22 @@ export const UpdateService = () => {
     }
 
     return <>
+        <div className="mt-5" id="navbar__space">
+
+            <h1 className=" ml-5 mt-5">Update Service </h1>
+        </div>
+        <div className="mt-1 mb-5 ml-5 ">
+            <div>
+                <button className="btn__service--details button is-small is-dark ml-5" onClick={() => navigate(`/services`)}>Back to Services</button>
+            </div>
+        </div>
         <form className="mc__service--update box px-6 py-6 mt-5 mb-5">
 
-            <div className="center mb-2">
-                <h2 className="title is-1">Update Service</h2>
-            </div>
 
             <div className="">
                 <div className="mb-5 mt-3 center">
                     <div>
-                        <h2 className="subtitle is-6"><span><strong>Selected Service: </strong> {currentService.name}</span></h2>
+                        <h2 className="title is-3"><span><strong>Updating </strong> {currentService.name}</span></h2>
                     </div>
                 </div>
 
@@ -78,7 +84,7 @@ export const UpdateService = () => {
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <input type="text" name="label" required autoFocus className="input"
+                                <input type="text" name="label" required className="input"
                                     value={currentService.label}
                                     onChange={changeServiceState} />
                             </div>
@@ -111,6 +117,7 @@ export const UpdateService = () => {
                             Update Image
                         </button>
                     </div>
+
                     <div className="field-body">
                         <div className="field">
                             <div className="control mt-4"></div>
@@ -138,7 +145,7 @@ export const UpdateService = () => {
                     <div className="field-body mt-2">
                         <div className="field">
                             <div className="control">
-                                <textarea type="text" name="details" required autoFocus className="textarea"
+                                <textarea type="text" name="details" required className="textarea"
                                     value={currentService.details}
                                     placeholder={currentService.details}
                                     onChange={changeServiceState} >
@@ -222,6 +229,10 @@ export const UpdateService = () => {
                     }}
                     >Update Service</button>
                 </div>
+                <a className="">
+                    <img src="https://res.cloudinary.com/dp04hh5pz/image/upload/v1673304763/qvybu8b0ojx40deg7yd5.png" alt="Site Logo" width="112" height="28" />
+                    {/* <h1 className="title is-4 ml-3">Level UP</h1> */}
+                </a>
             </div>
 
         </form>

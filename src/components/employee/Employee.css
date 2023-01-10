@@ -18,7 +18,7 @@
 }
 
 .mc__employee--details {
-    width: 30rem;
+    width: 40rem;
 }
 
 .center {
@@ -37,8 +37,25 @@
     margin: auto;
 }
 
+.btn__employee--update {
+    width: 10rem;
+}
+
+.btn__employee--update__1 {
+    width: 12rem;
+}
+
 .employee__specialty--delete-btn {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.mc__employee--update {
+    margin: auto;
+    width: 50rem;
+}
+
+#navbar__space {
+    margin-top: 10rem;
 }
