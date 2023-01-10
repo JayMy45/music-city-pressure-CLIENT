@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getEmployeeById, saveEditedEmployee } from "../../managers/EmployeeManager"
-import { getSpecialties } from "../../managers/SpeciatlyManager"
+import { getSpecialties } from "../../managers/SpecialtyManager"
 import "./Employee.css"
 
 
