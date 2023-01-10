@@ -20,7 +20,16 @@ export const ServiceDetails = () => {
     // whenever serviceId changes renderServe is called usually entire function contains: {renderGame()}, [gameId])
 
     return <>
-        <article className="box mc__service--details mt-5 mb-5">
+        <div className="mt-5" id="navbar__space">
+            <h1 className=" ml-5 mt-5">Service Details</h1>
+        </div>
+        <div className="mt-1 mb-5 ml-5 ">
+            <div>
+                <button className="btn__service--details button is-small is-dark ml-5" onClick={() => navigate(`/services`)}>Back to Services</button>
+            </div>
+        </div>
+
+        <article className="box mc__service--details mt-5 p-4">
             <div>
                 <h1 className="title is-1 center">{service.name}</h1>
                 <div className="subtitle is-4 center">
@@ -36,7 +45,7 @@ export const ServiceDetails = () => {
                     </div>
                     <div className="mt-4 column">
                         <div>
-                            {service.details}
+                            <p style={{ textAlign: 'justify' }}>{service.details}</p>
                         </div>
                     </div>
                 </div>

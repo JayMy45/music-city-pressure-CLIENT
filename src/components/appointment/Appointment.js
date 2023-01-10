@@ -6,7 +6,7 @@ import "./Appointment.css"
 
 
 
-export const Appointment = ({ appointment, fetchAppointments, progression, employee, superUser, mCPressure, currentEmployee }) => {
+export const Appointment = ({ appointment, fetchAppointments, progression, employee, superUser, mCPressure, currentEmployee, dropdown, setDropDown }) => {
 
 
     const navigate = useNavigate()
@@ -47,6 +47,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
 
                     }
                 </div>
+
                 <div>
                     {
                         appointment.progress.id !== 1
@@ -102,7 +103,11 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                             ? <div className="pt-1 pl-1"><div className="mt-1 ml-3"><header>Customer: {appointment.customer.full_name}</header></div></div>
                             : <></>
                     }
+
                 </div>
+
+
+
 
                 <div className="pt-2 pl-2 mr-2">
                     {
@@ -134,7 +139,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                                                     <button className="btn__appt--claim button  is-small  is-danger ml-2 mb-1" onClick={handleClaimClick}>Confirm</button>
                                                     <button className="btn__appt--claim button is-small is-outlined mr-1" onClick={handleClaimChange}>undo</button>
 
-                                                    <span className="is-size-7">CONFIRM to claim this appointment, <span className="is-italic has-text-weight-bold	">{currentEmployee.user.first_name}</span></span>!
+                                                    <span className="is-size-7">CONFIRM to claim, <span className="is-italic has-text-weight-bold	">{currentEmployee.user.first_name}</span></span>!
 
                                                 </>
                                         }

@@ -155,7 +155,7 @@ export const AppointmentCreate = () => {
                 <div className="field-body">
                     <div className="field">
                         <div className="control">
-                            <textarea type="text" name="requestDetails" required autoFocus className="textarea is-right" placeholder="Provide information about what your need."
+                            <textarea type="text" name="requestDetails" required className="textarea is-right" placeholder="Provide information about what your need."
                                 value={newAppointment.requestDetails}
                                 onChange={changeAppointmentState} >
                             </textarea>
@@ -225,7 +225,7 @@ export const AppointmentCreate = () => {
                 <div className="field-body">
                     <div className="field">
                         <div className="control">
-                            <input type="date" name="requestDate" required autoFocus className="input"
+                            <input type="date" name="requestDate" required className="input"
                                 value={newAppointment.requestDate}
                                 onChange={changeAppointmentState} />
                         </div>

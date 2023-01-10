@@ -52,12 +52,17 @@ export const NavBar = () => {
 
 
     return (
-        <nav className="navbar has-shadow is-warning mb-5 is-fixed-top" role="navigation" aria-label="dropdown navigation">
-
-            <figure className="ml-5" href="/">
-                <img src="https://res.cloudinary.com/dp04hh5pz/image/upload/v1673305800/gv5u3r51kku977msd0yl.svg" alt="Site Logo" width="112" height="30" />
-                {/* <h1 className="title is-4 ml-3">Level UP</h1> */}
-            </figure>
+        <nav className="navbar has-shadow is-dark mb-5 is-fixed-top" role="navigation" aria-label="dropdown navigation">
+            <div className="navbar-item">
+                {mCPressure && superUser
+                    ? <div>
+                        <h2><span className="has-text-danger ml-3 is-size-5">Admin</span></h2>
+                    </div>
+                    : mCPressure && !superUser
+                        ? <h2><span className="has-text-warning is-size-6 ml-3 is-italic">EmployeeView</span></h2>
+                        : <></>
+                }
+            </div>
 
             <div className="navbar-brand">
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -118,7 +123,7 @@ export const NavBar = () => {
                                                 : <>
                                                     <div>
                                                         <li className="navbar-item">
-                                                            <Link to="/services" onClick={closeHamburger}>Services</Link>
+                                                            <Link to="/services" onClick={closeHamburger}><strong>Services</strong></Link>
                                                         </li>
                                                     </div>
                                                 </>
@@ -127,12 +132,12 @@ export const NavBar = () => {
                                             mCPressure || superUser
                                                 ? <div className="navbar-item">
                                                     <li className="navbar__item">
-                                                        <Link to="/Employees" onClick={closeHamburger}>Employees</Link>
+                                                        <Link to="/Employees" onClick={closeHamburger}><strong>Employees</strong></Link>
                                                     </li>
                                                 </div>
                                                 : <div className="navbar-item">
                                                     <li className="navbar__item">
-                                                        <Link to="/employees" onClick={closeHamburger}>Technicians</Link>
+                                                        <Link to="/employees" onClick={closeHamburger}><strong>Technicians</strong></Link>
                                                     </li>
                                                 </div>
                                         }
