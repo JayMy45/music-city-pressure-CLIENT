@@ -21,7 +21,6 @@ export const Login = () => {
                 if ("valid" in res && res.valid && "token" in res) {
                     localStorage.setItem("mc_token", res.token);
                     localStorage.setItem("is_staff", res.staff);
-                    localStorage.setItem("user_id", res.user_id);
                     localStorage.setItem("is_superuser", res.supervisor)
                     navigate("/")
                 }
@@ -69,7 +68,16 @@ export const Login = () => {
                 </form>
             </section>
             <section className="link--register">
-                <Link to="/register">Not a member yet?</Link>
+                <div>
+                    <Link to="/register">Not a member yet?</Link></div>
+                <div>
+                    <Link to="/register/employee">Employee Registration</Link>
+                </div>
+
+                <div>
+                    <Link to="/register/supervisor">Supervisor Registration</Link>
+                </div>
+
             </section>
         </main>
     )

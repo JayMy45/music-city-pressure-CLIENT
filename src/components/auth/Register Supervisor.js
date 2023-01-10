@@ -1,9 +1,9 @@
 import React, { useRef } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { registerUser } from "../../managers/AuthManager"
-import "./Auth.css"
+// import "./Auth.css"
 
-export const Register = () => {
+export const RegisterSupervisor = () => {
     const firstName = useRef()
     const lastName = useRef()
     const username = useRef()
@@ -30,7 +30,9 @@ export const Register = () => {
                 "phone_number": phone_number.current.value,
                 "bio": bio.current.value,
                 "password": password.current.value,
-                "account_type": "customer",
+                "salary": 130000,
+                "account_type": "employee",
+                "super_type": "supervisor",
                 "email": email.current.value
             }
 
@@ -38,6 +40,8 @@ export const Register = () => {
                 .then(res => {
                     if ("token" in res) {
                         localStorage.setItem("mc_token", res.token)
+                        localStorage.setItem("is_staff", res.staff);
+                        localStorage.setItem("is_superuser", res.supervisor)
                         navigate("/")
                     }
                 })
@@ -65,7 +69,7 @@ export const Register = () => {
             </dialog>
 
             <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Register an account</h1>
+                <h1 className="h3 mb-3 font-weight-normal">Supervisor Registration</h1>
                 <fieldset>
                     <label htmlFor="firstName"> First Name </label>
                     <input ref={firstName} type="text" name="firstName" className="form-control" placeholder="First name" required autoFocus />
@@ -100,7 +104,7 @@ export const Register = () => {
                 </fieldset>
                 <fieldset>
                     <label htmlFor="verifyPassword"> Bio </label>
-                    <textarea ref={bio} name="bio" className="form-control textarea" placeholder="Let others know a little bit about you..." />
+                    <textarea ref={bio} name="bio" className="textarea form-control" placeholder="Tells us about yourself..." />
                 </fieldset>
                 <fieldset style={{
                     textAlign: "center"
