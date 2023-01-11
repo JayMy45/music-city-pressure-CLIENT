@@ -13,6 +13,7 @@ export const AppointmentList = () => {
     const [customers, setCustomer] = useState([])
     const [employee, setEmployee] = useState([])
     const [currentEmployee, setCurrentEmployee] = useState([])
+    const [dropDown, setDropDown] = useState(false)
 
     const navigate = useNavigate()
 
@@ -58,6 +59,7 @@ export const AppointmentList = () => {
         <section className="mt-5 ml-5">
             <h1 className="is-title mb-2">Appointments</h1>
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
+
         </section>
         <article className="appointments">
             <section className="mt-5 ml-5">
@@ -83,6 +85,8 @@ export const AppointmentList = () => {
                             mCPressure={mCPressure}
                             superUser={superUser}
                             currentEmployee={currentEmployee}
+                            dropDown={dropDown}
+                            setDropDown={setDropDown}
                         />)
                     }
 
