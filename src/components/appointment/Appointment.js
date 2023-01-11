@@ -158,7 +158,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                                                         setCheckedOptions(copy)
                                                     }
                                                     } type="checkbox" />
-                                                {special.user.first_name}
+                                                <span><Link to={`/employees/${special.id}`}>{special.user.first_name}</Link></span>
                                             </div>))
                                             }
                                             <div>
