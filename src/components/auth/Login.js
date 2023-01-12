@@ -33,6 +33,8 @@ export const Login = () => {
     return (
 
         <main className="container--login mt-5">
+
+
             <header className="mt-5" id="navbar__space">
                 <div className="mt-5">
                     <h1 className="ml-5 mt-5"></h1>
@@ -53,8 +55,8 @@ export const Login = () => {
                     <h1>Music City Pressure</h1>
                     <h2>Please sign in</h2>
                     <fieldset>
-                        <label htmlFor="inputUsername"> Username address </label>
-                        <input ref={username} type="username" id="username" className="form-control" placeholder="Username address" required autoFocus />
+                        <label htmlFor="inputUsername"> Username </label>
+                        <input ref={username} type="username" id="username" className="form-control" placeholder="Enter your Username" required autoFocus />
                     </fieldset>
                     <fieldset>
                         <label htmlFor="inputPassword"> Password </label>
@@ -67,18 +69,32 @@ export const Login = () => {
                     </fieldset>
                 </form>
             </section>
-            <section className="link--register">
-                <div>
-                    <Link to="/register">Not a member yet?</Link></div>
-                <div>
-                    <Link to="/register/employee">Employee Registration</Link>
+            <section>
+                <div className="mb-5 mt-5">
+                    <Link to="/register">Not a member yet?</Link>
                 </div>
-
-                <div>
-                    <Link to="/register/supervisor">Supervisor Registration</Link>
-                </div>
-
             </section>
+
+            <div className="hero is-medium has-background-grey-lighter">
+                <div className="hero-body">
+                    <section className="link--register">
+                        <div>
+                            <div className="">
+                                <div>
+                                    <Link to="/register/employee">Employee Registration</Link>
+                                </div>
+
+                                <div>
+                                    <Link to="/register/supervisor">Supervisor Registration</Link>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </section>
+                </div>
+            </div>
+
         </main>
     )
 }
