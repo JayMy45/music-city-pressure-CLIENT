@@ -53,32 +53,37 @@ export const NavBar = () => {
 
     return (
         <nav className="navbar has-shadow is-dark mb-5 is-fixed-top" role="navigation" aria-label="dropdown navigation">
-            <div className="navbar-item">
-                {mCPressure && superUser
-                    ? <div>
-                        <h2><span className="has-text-danger ml-3 is-size-5">Admin</span></h2>
+            <div className="navbar-brand">
+                <div>
+                    <div className="navbar-item">
+                        {mCPressure && superUser
+                            ? <div>
+                                <h2><span className="has-text-danger ml-3 mt-5 is-size-5">Admin</span></h2>
+                            </div>
+                            : mCPressure && !superUser
+                                ? <h2><span className="has-text-warning is-size-6 ml-3 is-italic">EmployeeView</span></h2>
+                                : <></>
+                        }
+
+                        <div className="navbar-start ">
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                            <a
+                                onClick={closeHamburger}
+                                role="button"
+                                className={`navbar-burger burger navbar-start ${isActive ? 'is-active' : ""}`}
+                                aria-label="menu navigation"
+                                aria-expanded="false"
+                                data-target="navbarBasicExample"
+                            >
+                                <span aria-hidden="true"></span>
+                                <span aria-hidden="true"></span>
+                                <span aria-hidden="true"></span>
+                            </a>
+                        </div>
                     </div>
-                    : mCPressure && !superUser
-                        ? <h2><span className="has-text-warning is-size-6 ml-3 is-italic">EmployeeView</span></h2>
-                        : <></>
-                }
+                </div>
             </div>
 
-            <div className="navbar-brand">
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a
-                    onClick={closeHamburger}
-                    role="button"
-                    className={`navbar-burger burger ${isActive ? 'is-active' : ""}`}
-                    aria-label="menu navigation"
-                    aria-expanded="false"
-                    data-target="navbarBasicExample"
-                >
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
 
             <div id="navbarBasicExample" className={`navbar-menu ${isActive ? 'is-active' : ""}`} >
                 <div className="navbar-end ">
@@ -123,7 +128,7 @@ export const NavBar = () => {
                                                 : <>
                                                     <div>
                                                         <li className="navbar-item">
-                                                            <Link to="/services" onClick={closeHamburger}><strong>Services</strong></Link>
+                                                            <Link className="has-text-light" to="/services" onClick={closeHamburger}><span>Services</span></Link>
                                                         </li>
                                                     </div>
                                                 </>
@@ -132,12 +137,12 @@ export const NavBar = () => {
                                             mCPressure || superUser
                                                 ? <div className="navbar-item">
                                                     <li className="navbar__item">
-                                                        <Link to="/Employees" onClick={closeHamburger}><strong>Employees</strong></Link>
+                                                        <Link className="has-text-light" to="/Employees" onClick={closeHamburger}><span>Employees</span></Link>
                                                     </li>
                                                 </div>
                                                 : <div className="navbar-item">
                                                     <li className="navbar__item">
-                                                        <Link to="/employees" onClick={closeHamburger}><strong>Technicians</strong></Link>
+                                                        <Link className="has-text-light" to="/employees" onClick={closeHamburger}><span>Technicians</span></Link>
                                                     </li>
                                                 </div>
                                         }
@@ -168,12 +173,12 @@ export const NavBar = () => {
                                         <div className="navbar-item">
                                             <div className="navbar-item">
                                                 <ul className="nav-item">
-                                                    <Link className="nav-link is-link" to="/login" onClick={closeHamburger}>Login</Link>
+                                                    <Link className="nav-link has-text-light" to="/login" onClick={closeHamburger}>Login</Link>
                                                 </ul>
                                             </div>
                                             <div className="navbar-item">
                                                 <ul className="nav-item">
-                                                    <Link className="nav-link is-link" to="/register" onClick={closeHamburger}>Register</Link>
+                                                    <Link className="nav-link has-text-light" to="/register" onClick={closeHamburger}>Register</Link>
                                                 </ul>
                                             </div>
                                         </div>
