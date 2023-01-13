@@ -55,7 +55,7 @@ export const NavBar = () => {
         <nav className="navbar has-shadow is-dark mb-5 is-fixed-top" role="navigation" aria-label="dropdown navigation">
             <div className="navbar-brand">
                 <div>
-                    <div className="navbar-item">
+                    <div className="navbar-item mt-4">
                         {mCPressure && superUser
                             ? <div>
                                 <h2><span className="has-text-danger ml-3 mt-5 is-size-5">Admin</span></h2>
