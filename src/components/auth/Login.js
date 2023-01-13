@@ -34,18 +34,6 @@ export const Login = () => {
 
         <main className="container--login mt-5">
 
-
-            <header className="mt-5" id="navbar__space">
-                <div className="mt-5">
-                    <h1 className="ml-5 mt-5"></h1>
-                </div>
-            </header>
-            <header className="mt-5" id="navbar__space">
-                <div className="mt-5">
-                    <h1 className="ml-5 mt-5"></h1>
-                </div>
-            </header>
-
             <dialog className="dialog dialog--auth mt-5" ref={invalidDialog}>
                 <div>Username or password was not valid.</div>
                 <button className="button--close" onClick={e => invalidDialog.current.close()}>Close</button>
