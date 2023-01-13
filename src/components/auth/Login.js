@@ -56,16 +56,20 @@ export const Login = () => {
                     <h2>Please sign in</h2>
                     <fieldset>
                         <label htmlFor="inputUsername"> Username </label>
-                        <input ref={username} type="username" id="username" className="form-control" placeholder="Enter your Username" required autoFocus />
+                        <div className="control">
+                            <input ref={username} type="username" id="username" className="form-control" placeholder="Enter your Username" required autoFocus />
+                        </div>
                     </fieldset>
                     <fieldset>
                         <label htmlFor="inputPassword"> Password </label>
-                        <input ref={password} type="password" id="password" className="form-control" placeholder="Password" required />
+                        <div className="control">
+                            <input ref={password} type="password" id="password" className="form-control" placeholder="Password" required />
+                        </div>
                     </fieldset>
                     <fieldset style={{ textAlign: "left" }}>
                         <button className="btn btn-1 btn-sep icon-send" type="submit">Sign In</button>
                     </fieldset>
-                    <section className="">
+                    <section className="link--register">
                         <div className="mb-5 mt-2">
                             <Link to="/register">Not a member yet?</Link>
                         </div>
@@ -75,15 +79,14 @@ export const Login = () => {
 
             <div className="hero is-medium has-background-white">
                 <div className="hero-body">
-                    <section className="link--register mb-5">
-                        <div className="columns ">
-                            <div className="column center">
+                    <section className="link__register--employee mb-5">
+                        <div className="columns">
+                            <div className="column">
                                 <div className="">
                                     <div className="">
                                         <Link to="/register/employee">Employee Registration</Link>
                                     </div>
-
-                                    <div className="">
+                                    <div className="ml-1">
                                         <Link to="/register/supervisor">Supervisor Registration</Link>
                                     </div>
                                 </div>
