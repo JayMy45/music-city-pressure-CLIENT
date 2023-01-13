@@ -62,30 +62,30 @@ export const Login = () => {
                         <label htmlFor="inputPassword"> Password </label>
                         <input ref={password} type="password" id="password" className="form-control" placeholder="Password" required />
                     </fieldset>
-                    <fieldset style={{
-                        textAlign: "center"
-                    }}>
+                    <fieldset style={{ textAlign: "left" }}>
                         <button className="btn btn-1 btn-sep icon-send" type="submit">Sign In</button>
                     </fieldset>
+                    <section className="">
+                        <div className="mb-5 mt-2">
+                            <Link to="/register">Not a member yet?</Link>
+                        </div>
+                    </section>
                 </form>
             </section>
-            <section>
-                <div className="mb-5 mt-5">
-                    <Link to="/register">Not a member yet?</Link>
-                </div>
-            </section>
 
-            <div className="hero is-medium has-background-grey-lighter">
+            <div className="hero is-medium has-background-white">
                 <div className="hero-body">
-                    <section className="link--register">
-                        <div>
-                            <div className="">
-                                <div>
-                                    <Link to="/register/employee">Employee Registration</Link>
-                                </div>
+                    <section className="link--register mb-5">
+                        <div className="columns ">
+                            <div className="column center">
+                                <div className="">
+                                    <div className="">
+                                        <Link to="/register/employee">Employee Registration</Link>
+                                    </div>
 
-                                <div>
-                                    <Link to="/register/supervisor">Supervisor Registration</Link>
+                                    <div className="">
+                                        <Link to="/register/supervisor">Supervisor Registration</Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
