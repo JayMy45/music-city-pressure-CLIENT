@@ -1,27 +1,9 @@
 .navbar {
     max-height: 5rem;
-    margin-bottom: 19rem;
 }
 
-/* .navbar__item {
-    flex-basis: 20%;
-    list-style-type: none;
-    max-height: 3rem;
-} */
-
-/* .navbar-item {
-    max-height: 3rem;
-
-} */
-
-/* .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
-/* @media screen and (max-width: 1024px) {
-    .navbar-menu {
-        display: none;
-    }
-} */
+.navbar-burger {
+    width: 50px !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}

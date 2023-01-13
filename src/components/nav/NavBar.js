@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { getCurrentCustomer } from "../../managers/CustomerManager"
 import "./NavBar.css"
 
 export const NavBar = () => {
@@ -7,6 +8,10 @@ export const NavBar = () => {
     const [isActive, setIsActive] = useState(false)
     const [activeDropDown1, setActiveDropDown1] = useState(false)
     const [activeDropDown2, setActiveDropDown2] = useState(false)
+    const [currentCustomer, setCurrentCustomer] = useState([])
+
+
+    const mCToken = localStorage.getItem("mc_token")
 
     const localMCUser = localStorage.getItem("is_staff")
     const mCPressure = JSON.parse(localMCUser)
@@ -49,7 +54,12 @@ export const NavBar = () => {
         return () => window.removeEventListener('click', handleDropdownClose);
     });
 
+    useEffect(() => {
+        if (!mCPressure && mCToken)
+            getCurrentCustomer()
+                .then(data => { setCurrentCustomer(data) })
 
+    }, [mCPressure])
 
     return (
         <nav className="navbar has-shadow is-dark mb-5 is-fixed-top" role="navigation" aria-label="dropdown navigation">
@@ -58,19 +68,21 @@ export const NavBar = () => {
                     <div className="navbar-item mt-4">
                         {mCPressure && superUser
                             ? <div>
-                                <h2><span className="has-text-danger ml-3 mt-5 is-size-5">Admin</span></h2>
+                                <h2><span className="has-text-danger ml-3 mt-5 is-size-5"><span>Admin</span></span></h2>
                             </div>
                             : mCPressure && !superUser
                                 ? <h2><span className="has-text-warning is-size-6 ml-3 is-italic">EmployeeView</span></h2>
-                                : <></>
+                                : mCToken
+                                    ? <><h2><span className="has-text-white is-size-6 ml-3">Welcome back <span className="is-italic is-size-5">{currentCustomer.full_name}</span></span></h2></>
+                                    : <></>
                         }
 
-                        <div className="navbar-start ">
+                        <div className="navbar-end">
                             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                             <a
                                 onClick={closeHamburger}
                                 role="button"
-                                className={`navbar-burger burger navbar-start ${isActive ? 'is-active' : ""}`}
+                                className={`navbar-burger burger ${isActive ? 'is-active' : ""}`}
                                 aria-label="menu navigation"
                                 aria-expanded="false"
                                 data-target="navbarBasicExample"

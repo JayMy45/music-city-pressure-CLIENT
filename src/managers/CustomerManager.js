@@ -17,3 +17,11 @@ export const getCurrentCustomer = () => {
     })
         .then(response => response.json())
 }
+
+// DELETE single customer
+export const deleteCustomer = (customerId) => {
+    return fetch(`http://localhost:8000/customers/${customerId}`, {
+        method: "DELETE",
+        headers: { "Authorization": `Token ${localStorage.getItem("mc_token")}` },
+    })
+}
