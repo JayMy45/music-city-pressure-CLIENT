@@ -77,7 +77,7 @@ export const NavBar = () => {
                                     : <></>
                         }
 
-                        <div className="navbar-end">
+                        <div className="">
                             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                             <a
                                 onClick={closeHamburger}
@@ -181,7 +181,7 @@ export const NavBar = () => {
                                     >Logout</button>
                                 </li> :
                                 <>
-                                    <div>
+                                    <div className={`navbar__tokenless navbar-menu ${isActive ? 'is-active' : ""}`}>
                                         <div className="navbar-item">
                                             <div className="navbar-item">
                                                 <ul className="nav-item">
