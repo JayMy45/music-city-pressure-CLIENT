@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { deleteEmployee } from "../../managers/EmployeeManager"
 import "./Employee.css"
 
-export const Employee = ({ emp, superUser, fetchEmployees }) => {
+export const Employee = ({ emp, superUser, mCPressure, fetchEmployees }) => {
 
     //  handles confirmation of deletion via a popup
     const confirmDelete = (evt, employee) => {
@@ -32,7 +32,13 @@ export const Employee = ({ emp, superUser, fetchEmployees }) => {
                     <div className="column is-8 center">
                         <div className="">
                             <header className="center__left mb-2">
-                                <h2 className="title"><Link to={`/employees/${emp.id}`} >{emp.full_name}</Link></h2>
+                                {mCPressure ? <> {emp.user.is_superuser
+                                    ? <div>
+                                        <span className="has-text-danger">*</span>
+                                    </div> : <></>}</> : <></>}
+                                <div>
+                                    <h2 className="title"><Link to={`/employees/${emp.id}`} >{emp.full_name}</Link></h2>
+                                </div>
                             </header>
                             <div className="">
                                 {superUser ? <p>Address: {emp.address}</p> : <></>}
@@ -62,7 +68,9 @@ export const Employee = ({ emp, superUser, fetchEmployees }) => {
                             {
                                 superUser
                                     ? <>
-                                        <button onClick={(evt) => confirmDelete(evt, emp)}>Remove</button>
+                                        <div>
+                                            <button onClick={(evt) => confirmDelete(evt, emp)}>Remove</button>
+                                        </div>
                                     </>
                                     : <></>
                             }
