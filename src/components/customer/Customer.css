@@ -1,0 +1,13 @@
+.customer__list {
+    margin-top: 5rem;
+}
+
+.btn__customers {
+    width: 5rem;
+}
+
+.btn__customer--div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}

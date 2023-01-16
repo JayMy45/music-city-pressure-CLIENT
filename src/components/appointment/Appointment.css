@@ -71,3 +71,7 @@
     margin: auto;
     width: 50rem;
 }
+
+.mc__appointment--list {
+    margin-top: 5rem;
+}

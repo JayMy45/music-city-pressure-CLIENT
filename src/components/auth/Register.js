@@ -48,17 +48,7 @@ export const Register = () => {
 
     return (
         <main style={{ textAlign: "center" }}>
-            <header className="mt-5" id="navbar__space">
-                <div className="mt-5">
-                    <h1 className="ml-5 mt-5"></h1>
-                </div>
 
-            </header> <header className="mt-5" id="navbar__space">
-                <div className="mt-5">
-                    <h1 className="ml-5 mt-5"></h1>
-                </div>
-
-            </header>
             <dialog className="dialog dialog--password" ref={passwordDialog}>
                 <div>Passwords do not match</div>
                 <button className="button--close" onClick={e => passwordDialog.current.close()}>Close</button>
