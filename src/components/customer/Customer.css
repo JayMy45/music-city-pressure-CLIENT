@@ -11,3 +11,11 @@
     flex-direction: column;
     justify-content: space-around;
 }
+
+.btn__customer--details {
+    width: 10rem;
+}
+
+.mc__customer--details {
+    width: 40rem;
+}

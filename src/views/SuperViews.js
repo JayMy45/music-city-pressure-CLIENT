@@ -3,6 +3,7 @@ import { AppointmentCreate } from "../components/appointment/AppointmentCreate"
 import { AppointmentList } from "../components/appointment/AppointmentList"
 import { UpdateAppointment } from "../components/appointment/UpdateAppointment"
 import { Customer } from "../components/customer/Customer"
+import { CustomerDetails } from "../components/customer/CustomerDetails"
 import { CustomerList } from "../components/customer/CustomerList"
 import { EmployeeDetails } from "../components/employee/EmployeeDetails"
 import { EmployeeList } from "../components/employee/EmployeeList"
@@ -22,6 +23,7 @@ export const SuperViews = () => {
             <Route path="/employees/:employeeId" element={<EmployeeDetails />} />
             <Route path="/employees/update/:employeeId" element={<EmployeeUpdate />} />
             <Route path="/customers" element={<CustomerList />} />
+            <Route path="/customers/:customerId" element={<CustomerDetails />} />
             <Route path="/services" element={<ServiceList />} />
             <Route path="/services/create" element={<ServiceCreate />} />
             <Route path="/services/:serviceId" element={<ServiceDetails />} />
