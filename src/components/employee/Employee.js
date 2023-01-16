@@ -38,13 +38,19 @@ export const Employee = ({ emp, superUser, fetchEmployees }) => {
                                         <Link to={`/employees/${emp.id}`} >{emp.full_name}</Link>
                                     </h2>
                                 </div>
-                                <div> {superUser ? <>
-                                    {emp.user.is_superuser ? <div>
-                                        <h3 className="has-text-danger">*</h3>
-                                    </div> : <></>}
-                                </>
-                                    : <></>
-                                }
+                                <div>
+                                    {superUser
+                                        ? <>
+                                            {
+                                                emp.user.is_superuser
+                                                    ? <div>
+                                                        <h3 className="has-text-danger">*</h3>
+                                                    </div>
+                                                    : <></>
+                                            }
+                                        </>
+                                        : <></>
+                                    }
                                 </div>
                             </header>
                             <div className="">
