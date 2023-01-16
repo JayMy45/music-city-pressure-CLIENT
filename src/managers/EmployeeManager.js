@@ -27,6 +27,7 @@ export const getEmployeeById = (employeeId) => {
     })
         .then(response => response.json())
 }
+
 export const getEmployeeId = (employee) => {
     return fetch(`http://localhost:8000/employees/${employee.id}`, {
         headers: {
