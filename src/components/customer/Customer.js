@@ -1,7 +1,9 @@
 
+import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteCustomer } from "../../managers/CustomerManager"
 import "./Customer.css"
+import { CustomerDetails } from "./CustomerDetails"
 
 export const Customer = ({ customer, superUser, mCPressure, fetchCustomers }) => {
 
@@ -17,7 +19,6 @@ export const Customer = ({ customer, superUser, mCPressure, fetchCustomers }) =>
             : <></>
     }
 
-
     return <>
 
         <div className="is-4-tablet is-4-desktop column center ml-1 mt-5">
@@ -26,7 +27,7 @@ export const Customer = ({ customer, superUser, mCPressure, fetchCustomers }) =>
                     <div className="column is-8 center">
                         <div className="">
                             <header className="center__left mb-2">
-                                <h2 className="title"><Link  >{customer.full_name}</Link></h2>
+                                <h2 className="title"><Link to={`/customers/${customer.id}`}>{customer.full_name}</Link></h2>
                             </header>
                             <div className="">
                                 {superUser ? <p>a: {customer.address}</p> : <></>}
@@ -64,5 +65,4 @@ export const Customer = ({ customer, superUser, mCPressure, fetchCustomers }) =>
             </section>
         </div >
     </>
-
 }

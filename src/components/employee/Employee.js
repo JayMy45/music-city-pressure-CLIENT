@@ -1,6 +1,7 @@
 
 import { Link } from "react-router-dom"
 import { deleteEmployee } from "../../managers/EmployeeManager"
+import { Appointment } from "../appointment/Appointment"
 import "./Employee.css"
 
 export const Employee = ({ emp, superUser, fetchEmployees }) => {
@@ -32,10 +33,29 @@ export const Employee = ({ emp, superUser, fetchEmployees }) => {
                     <div className="column is-8 center">
                         <div className="">
                             <header className="center__left mb-2">
-                                <h2 className="title"><Link to={`/employees/${emp.id}`} >{emp.full_name}</Link></h2>
+                                <div>
+                                    <h2 className="title">
+                                        <Link to={`/employees/${emp.id}`} >{emp.full_name}</Link>
+                                    </h2>
+                                </div>
+                                <div>
+                                    {superUser
+                                        ? <>
+                                            {
+                                                emp.user.is_superuser
+                                                    ? <div>
+                                                        <h3 className="has-text-danger">*</h3>
+                                                    </div>
+                                                    : <></>
+                                            }
+                                        </>
+                                        : <></>
+                                    }
+                                </div>
                             </header>
                             <div className="">
                                 {superUser ? <p>Address: {emp.address}</p> : <></>}
+
                                 <p>Phone: {emp.phone_number}</p>
                                 <p>Email: {emp.user.email}</p>
                                 {

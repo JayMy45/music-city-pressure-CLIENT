@@ -54,7 +54,7 @@ export const CustomerList = () => {
         </section>
         <article className="customer__list customers">
 
-            <section className="">
+            <section className="mc__customer--list">
                 <div className="columns is-multiline mt-5 is-3 is-variable is-centered">
                     {
                         customers.map(customer => <Customer key={`customer--${customer.id}`}
