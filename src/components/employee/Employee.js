@@ -66,6 +66,7 @@ export const Employee = ({ emp, superUser, mCPressure, fetchEmployees }) => {
 
                             </div>
                         </div>
+
                     </div>
                     <div className="employee__specialty--delete-btn column">
                         <div>
