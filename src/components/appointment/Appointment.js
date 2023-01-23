@@ -96,69 +96,10 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
 
     }
 
-    // const handleDeleteClick = (e) => {
-    //     e.preventDefault();
-    //     if (checkedOptions.size > 0) {
-    //         const copy = new Set(checkedOptions);
-    //         checkedOptions.forEach(option => copy.delete(option));
-    //         setCheckedOptions(copy);
-    //     } else {
-    //         alert("No employees are assigned to this appointment. Please select an employee to remove.");
-    //         updateAssignClick(false)
-    //     }
-    // }
-
-    // const handleDeleteClick = (e) => {
-    //     e.preventDefault();
-    //     if (checkedOptions.size > 0) {
-    //         const copy = new Set(checkedOptions);
-    //         checkedOptions.forEach(option => copy.delete(option));
-    //         setCheckedOptions(copy);
-    //         const employeeAssign = {
-    //             id: appointment.id,
-    //             service_type: appointment.service_type.id,
-    //             progress: parseInt(appointment.progress.id),
-    //             request_date: appointment.request_date,
-    //             scheduled: appointment.scheduled,
-    //             confirm: appointment.confirm,
-    //             consultation: appointment.consultation,
-    //             employee: Array.from(checkedOptions),
-    //             request_details: appointment.request_details,
-    //             completed: appointment.completed
-    //         }
-    //         saveEditedAppointment(employeeAssign)
-    //             .then(fetchAppointments)
-    //     } else {
-    //         alert("No employees are assigned to this appointment. Please select an employee to remove.");
-    //         updateAssignClick(false)
-    //     }
-    // }
-
-    // !
-    // const handleDeleteClick = (e, appointment) => {
-    //     e.preventDefault();
-    //     if (checkedOptions.size > 0) {
-    //         const copy = new Set(checkedOptions);
-    //         checkedOptions.forEach(option => copy.delete(option));
-    //         setCheckedOptions(copy);
-
-    //         //Update employeeAssign object with updated checkedOptions
-    //         const unAssignEmployee = {
-    //             id: appointment.id,
-    //             employee_pks: Array.from(copy), //use the updated copy of checkedOptions
-    //         }
-    //         unAssign(appointment.id, Array.from(copy))
-
-    //         unAssign(unAssignEmployee)
-    //             .then(fetchAppointments)
-    //     } else {
-    //         alert("No employees were chosen to unassign. Please select an employee.");
-    //         updateAssignClick(false)
-    //     }
-    // }
-
+    // deletes an assigned technician be sending appointmentId and employee_pks to server.
     const handleDeleteClick = (e, appointment) => {
         e.preventDefault();
+        // sets checkOptions to id/pk or clicked option
         if (checkedOptions.size > 0) {
             const copy = new Set(checkedOptions);
             checkedOptions.forEach(option => copy.add(option));
@@ -172,6 +113,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
             unAssign(appointment.id, unAssignEmployee)
                 .then(fetchAppointments)
                 .then(updateAssignClick(false))
+                //* resets checkOptions so data wont interfere with new requests
                 .then(setCheckedOptions(new Set()))
 
         } else {
