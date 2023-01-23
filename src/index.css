@@ -1,20 +1,5 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
 
-
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-} */
-
-/* code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
 body {
   background: #FFFFFF;
   background-image: url("https://res.cloudinary.com/dp04hh5pz/image/upload/v1673326489/n7mcg6bcgkhk7qdkuynx.png");
@@ -31,3 +16,25 @@ body {
   width: 100%;
   height: 100%;
 }
+
+/* :root {
+  --bg-image-customer: url("https://res.cloudinary.com/dp04hh5pz/image/upload/v1673326489/n7mcg6bcgkhk7qdkuynx.png");
+  --bg-image-employee: url("https://res.cloudinary.com/dp04hh5pz/image/upload/v1674511407/Employee.mcPressure_hh7qmg.png");
+  --bg-image-admin: url("https://res.cloudinary.com/dp04hh5pz/image/upload/v1674509477/Admin.mcPressure_mealn5.png");
+} */
+
+/* body {
+  background: #FFFFFF;
+  background-image: var(--bg-image-customer);
+  background-position-y: top;
+  background-position-x: right;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: 20% auto;
+  min-height: calc(100vh + 5rem);
+  margin-top: 2rem;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+} */

@@ -6,7 +6,7 @@ import "./Appointment.css"
 
 
 
-export const Appointment = ({ appointment, fetchAppointments, progression, employee, superUser, mCPressure, currentEmployee, dropdown, setDropDown }) => {
+export const Appointment = ({ appointment, fetchAppointments, progression, employee, superUser, mCPressure, currentEmployee }) => {
 
 
     const navigate = useNavigate()
@@ -127,7 +127,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
 
 
     return <React.Fragment key={`appointment--${appointment.id}`}>
-        <div className="appointment__request is-4-tablet is-4-desktop mx-1 column">
+        <div className="appointment__request is-4-tablet is-4-desktop mx-1 mt-1 column">
             <div className="card ">
                 <div className="">
                     {
@@ -137,9 +137,9 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                                     <div className="mt-1 ml-3">
                                         <header>Customer: {appointment.customer.full_name}</header>
                                         <div>
-                                            {assignClick ? <button onClick={(e) => handleDeleteClick(e, appointment)}>UnAssign</button>
+                                            {assignClick ? <button className="button is-danger is-light" onClick={(e) => handleDeleteClick(e, appointment)}>Update Assignment</button>
                                                 : Array.isArray(appointment.employee) && appointment.employee.length > 0
-                                                    ? <button className="button is-small is-light" onClick={() => updateAssignClick(true)}>Re-assign?</button>
+                                                    ? <button className="button is-small is-link is-light" onClick={() => updateAssignClick(true)}>Reassign Technician?</button>
                                                     : <></>}
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                                             ))
                                             }
                                             <div>
-                                                <button type="submit" className="ml-2 mb-1" onClick={(evt) => {
+                                                <button type="submit" className="button has-background-grey-light has-text-link is-small ml-2 mb-1 mt-2" onClick={(evt) => {
                                                     evt.preventDefault()
 
                                                     const employeeAssign = {
@@ -252,7 +252,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                                                         .then(fetchAppointments)
                                                         //* resets checkOptions to clear previous data to stop interference with new requests
                                                         .then(setCheckedOptions(new Set()))
-                                                }}>Assign</button>
+                                                }}>Assign Technician</button>
                                                 <div>
                                                 </div>
                                             </div>
@@ -487,10 +487,18 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                         }
                     </section>
                 </div>
+                {superUser
+                    ? <a className="">
+                        <img src="https://res.cloudinary.com/dp04hh5pz/image/upload/v1674509477/Admin.mcPressure_mealn5.png" alt="Site Logo" width="112" height="28" />
+                    </a>
 
-
+                    : <a className="">
+                        <img src="https://res.cloudinary.com/dp04hh5pz/image/upload/v1673304763/qvybu8b0ojx40deg7yd5.png" alt="Site Logo" width="112" height="28" />
+                    </a>
+                }
             </div>
         </div>
 
     </React.Fragment>
+
 }

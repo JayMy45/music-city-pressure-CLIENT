@@ -14,7 +14,6 @@ export const AppointmentList = () => {
     const [customers, setCustomer] = useState([])
     const [employee, setEmployee] = useState([])
     const [currentEmployee, setCurrentEmployee] = useState([])
-    const [dropDown, setDropDown] = useState(false)
     const [buttonFilter, setButtonFilter] = useState(false)
 
 
@@ -87,8 +86,8 @@ export const AppointmentList = () => {
                     {
                         mCPressure
                             ? <>
-                                {buttonFilter ? <button className="btn btn__appointments" onClick={() => setButtonFilter(false)}>All Appointments</button>
-                                    : <button className="btn btn__appointments" onClick={() => setButtonFilter(true)}>My Appointments</button>
+                                {buttonFilter ? <button className="btn btn__appointments button is-small mt-2 is-ghost" onClick={() => setButtonFilter(false)}>All Appointments</button>
+                                    : <button className="btn btn__appointments button is-small mt-2 is-text" onClick={() => setButtonFilter(true)}>My Appointments</button>
                                 }
                             </> : <></>
                     }
@@ -119,8 +118,6 @@ export const AppointmentList = () => {
                             mCPressure={mCPressure}
                             superUser={superUser}
                             currentEmployee={currentEmployee}
-                            dropDown={dropDown}
-                            setDropDown={setDropDown}
                             buttonFilter={buttonFilter}
                             setButtonFilter={setButtonFilter}
                             customer={customers.find(customer => customer.id === appointment.customerId)}
@@ -132,12 +129,3 @@ export const AppointmentList = () => {
         </article >
     </>
 }
-
-// {
-//     appointments.map(appointment => <Appointment key={appointment.id} 
-//         appointment={appointment} 
-//         customer={customers.find(customer => customer.id === appointment.customerId)} 
-//         progression={progression.find(prog => prog.id === appointment.progressionId)} 
-//         employee={employee} 
-//         />)
-// }
