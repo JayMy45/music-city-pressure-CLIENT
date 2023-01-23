@@ -430,7 +430,12 @@ export const AppointmentCreate = () => {
                     </div>
                 </>
                 : <></>}
-
+            <div className="mt-2">
+                <a className="">
+                    <img src="https://res.cloudinary.com/dp04hh5pz/image/upload/v1673304763/qvybu8b0ojx40deg7yd5.png" alt="Site Logo" width="112" height="28" />
+                    {/* <h1 className="title is-4 ml-3">Level UP</h1> */}
+                </a>
+            </div>
         </form>
     </>
 }

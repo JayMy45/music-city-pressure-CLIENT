@@ -16,8 +16,6 @@ export const UpdateAppointment = () => {
     const navigate = useNavigate()
 
     const [services, setServices] = useState([])
-    // const [employees, setEmployees] = useState([])
-    // const [checkedOptions, setCheckedOptions] = useState(new Set())
     const [currentAppt, setCurrentAppt] = useState({
         service_type: 0,
         request_details: "",
@@ -31,11 +29,6 @@ export const UpdateAppointment = () => {
         getServices()
             .then(setServices)
     }, [])
-
-    // useEffect(() => {
-    //     getEmployees()
-    //         .then(data => { setEmployees(data) })
-    // }, [])
 
     //  Whenever appointmentId changes set CurrentAppt state
     useEffect(() => {
@@ -204,7 +197,7 @@ export const UpdateAppointment = () => {
                 </div>
 
                 <div>
-                    <button className="button is-outlined is-dark ml-3" onClick={() => navigate(`/appointments`)} >Back to Appointments</button>
+                    <button className="button is-outlined is-dark ml-3" type="button" onClick={() => navigate(`/appointments`)} >Back to Appointments</button>
                 </div>
             </div>
 

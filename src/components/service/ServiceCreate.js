@@ -231,5 +231,13 @@ export const ServiceCreate = () => {
             </div>
 
         </form>
+        <section className="hero has-background-grey-light mt-4">
+            <div className="hero-foot mt-2">
+                <a className="">
+                    <img src="https://res.cloudinary.com/dp04hh5pz/image/upload/v1673304763/qvybu8b0ojx40deg7yd5.png" alt="Site Logo" width="112" height="28" />
+                </a>
+
+            </div>
+        </section>
     </>
 }
