@@ -96,10 +96,10 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
 
     }
 
-    // deletes an assigned technician be sending appointmentId and employee_pks to server.
+    //* deletes an assigned technician be sending appointmentId and employee_pks to server.
     const handleDeleteClick = (e, appointment) => {
         e.preventDefault();
-        // sets checkOptions to id/pk or clicked option
+        // sets checkOptions to id/pk of clicked option
         if (checkedOptions.size > 0) {
             const copy = new Set(checkedOptions);
             checkedOptions.forEach(option => copy.add(option));
@@ -113,7 +113,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
             unAssign(appointment.id, unAssignEmployee)
                 .then(fetchAppointments)
                 .then(updateAssignClick(false))
-                //* resets checkOptions so data wont interfere with new requests
+                //* resets checkOptions to clear previous data to stop interference with new requests
                 .then(setCheckedOptions(new Set()))
 
         } else {
@@ -250,6 +250,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                                                     // Send POST request to your API
                                                     saveEditedAppointment(employeeAssign)
                                                         .then(fetchAppointments)
+                                                        //* resets checkOptions to clear previous data to stop interference with new requests
                                                         .then(setCheckedOptions(new Set()))
                                                 }}>Assign</button>
                                                 <div>

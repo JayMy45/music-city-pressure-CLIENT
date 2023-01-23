@@ -42,7 +42,7 @@ export const saveEditedAppointment = (appointment) => {
     })
 }
 
-//! PUT edit appointments
+//! DELETE technician from appointments using custom @action decorator
 export const unAssign = (appointmentId, unAssignEmployee) => {
     return fetch(`http://localhost:8000/appointments/${appointmentId}/unassign`, {
         method: "DELETE",
