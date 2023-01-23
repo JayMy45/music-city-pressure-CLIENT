@@ -74,13 +74,13 @@ export const AppointmentList = () => {
             }
 
         },
-        [buttonFilter]
+        [buttonFilter, appt, currentEmployee]
     )
-
 
     return <>
         <section className="mt-5 ml-5">
-            <h1 className="is-title mb-2">Appointments</h1>
+            {buttonFilter ? <h1 className="is-title mb-2"><span className="is-italic">{currentEmployee.full_name}</span> Appointments</h1> : <h1 className="is-title mb-2">Appointments</h1>}
+
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
             <div className="btn__btn--section1 ">
                 <>

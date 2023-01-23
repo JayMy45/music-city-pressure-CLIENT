@@ -1,7 +1,6 @@
 
 import { Link } from "react-router-dom"
 import { deleteEmployee } from "../../managers/EmployeeManager"
-import { Appointment } from "../appointment/Appointment"
 import "./Employee.css"
 
 export const Employee = ({ emp, superUser, mCPressure, fetchEmployees }) => {

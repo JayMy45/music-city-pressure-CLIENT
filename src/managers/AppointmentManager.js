@@ -42,6 +42,19 @@ export const saveEditedAppointment = (appointment) => {
     })
 }
 
+//! PUT edit appointments
+export const unAssign = (appointmentId, unAssignEmployee) => {
+    return fetch(`http://localhost:8000/appointments/${appointmentId}/unassign`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("mc_token")}`
+        },
+        body: JSON.stringify(unAssignEmployee)
+    })
+}
+
+
 // DELETE single appointment
 export const deleteAppointment = (appointmentId) => {
     return fetch(`http://localhost:8000/appointments/${appointmentId}`, {
