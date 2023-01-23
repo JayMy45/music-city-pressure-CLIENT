@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { deleteAppointment, saveEditedAppointment } from "../../managers/AppointmentManager"
+import { deleteAppointment, saveEditedAppointment, unAssign } from "../../managers/AppointmentManager"
 import moment from "moment";
 import "./Appointment.css"
 
@@ -12,6 +12,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
     const navigate = useNavigate()
     const [checkedOptions, setCheckedOptions] = useState(new Set())
     const [clickStatus, updateClickStatus] = useState(false)
+    const [assignClick, updateAssignClick] = useState(false)
     const [currentAppointment, setCurrentAppointment] = useState({
         request_date: "",
         progress: parseInt(appointment.progress.id)
@@ -90,8 +91,97 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
 
         // Send POST request to your API
         saveEditedAppointment(employeeAssign)
+            .then(setCheckedOptions(new Set()))
             .then(fetchAppointments)
+
     }
+
+    // const handleDeleteClick = (e) => {
+    //     e.preventDefault();
+    //     if (checkedOptions.size > 0) {
+    //         const copy = new Set(checkedOptions);
+    //         checkedOptions.forEach(option => copy.delete(option));
+    //         setCheckedOptions(copy);
+    //     } else {
+    //         alert("No employees are assigned to this appointment. Please select an employee to remove.");
+    //         updateAssignClick(false)
+    //     }
+    // }
+
+    // const handleDeleteClick = (e) => {
+    //     e.preventDefault();
+    //     if (checkedOptions.size > 0) {
+    //         const copy = new Set(checkedOptions);
+    //         checkedOptions.forEach(option => copy.delete(option));
+    //         setCheckedOptions(copy);
+    //         const employeeAssign = {
+    //             id: appointment.id,
+    //             service_type: appointment.service_type.id,
+    //             progress: parseInt(appointment.progress.id),
+    //             request_date: appointment.request_date,
+    //             scheduled: appointment.scheduled,
+    //             confirm: appointment.confirm,
+    //             consultation: appointment.consultation,
+    //             employee: Array.from(checkedOptions),
+    //             request_details: appointment.request_details,
+    //             completed: appointment.completed
+    //         }
+    //         saveEditedAppointment(employeeAssign)
+    //             .then(fetchAppointments)
+    //     } else {
+    //         alert("No employees are assigned to this appointment. Please select an employee to remove.");
+    //         updateAssignClick(false)
+    //     }
+    // }
+
+    // !
+    // const handleDeleteClick = (e, appointment) => {
+    //     e.preventDefault();
+    //     if (checkedOptions.size > 0) {
+    //         const copy = new Set(checkedOptions);
+    //         checkedOptions.forEach(option => copy.delete(option));
+    //         setCheckedOptions(copy);
+
+    //         //Update employeeAssign object with updated checkedOptions
+    //         const unAssignEmployee = {
+    //             id: appointment.id,
+    //             employee_pks: Array.from(copy), //use the updated copy of checkedOptions
+    //         }
+    //         unAssign(appointment.id, Array.from(copy))
+
+    //         unAssign(unAssignEmployee)
+    //             .then(fetchAppointments)
+    //     } else {
+    //         alert("No employees were chosen to unassign. Please select an employee.");
+    //         updateAssignClick(false)
+    //     }
+    // }
+
+    const handleDeleteClick = (e, appointment) => {
+        e.preventDefault();
+        if (checkedOptions.size > 0) {
+            const copy = new Set(checkedOptions);
+            checkedOptions.forEach(option => copy.add(option));
+            setCheckedOptions(copy);
+
+            const unAssignEmployee = {
+                employee_pks: Array.from(copy), //use the updated copy of checkedOptions
+            }
+
+            // Pass the appointment id and employee_pks as separate arguments
+            unAssign(appointment.id, unAssignEmployee)
+                .then(fetchAppointments)
+                .then(updateAssignClick(false))
+                .then(setCheckedOptions(new Set()))
+
+        } else {
+            alert("No employees were chosen to unassign. Please select an employee.");
+            updateAssignClick(false)
+        }
+    }
+
+
+
 
 
     return <React.Fragment key={`appointment--${appointment.id}`}>
@@ -99,34 +189,69 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
             <div className="card ">
                 <div className="">
                     {
-                        mCPressure
-                            ? <div className="pt-1 pl-1"><div className="mt-1 ml-3"><header>Customer: {appointment.customer.full_name}</header></div></div>
-                            : <></>
+                        superUser
+                            ? <>
+                                <div className="pt-1 pl-1">
+                                    <div className="mt-1 ml-3">
+                                        <header>Customer: {appointment.customer.full_name}</header>
+                                        <div>
+                                            {assignClick ? <button onClick={(e) => handleDeleteClick(e, appointment)}>UnAssign</button>
+                                                : Array.isArray(appointment.employee) && appointment.employee.length > 0
+                                                    ? <button className="button is-small is-light" onClick={() => updateAssignClick(true)}>Re-assign?</button>
+                                                    : <></>}
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                            : mCPressure
+                                ? <>
+                                    <div className="pt-1 pl-1"><div className="mt-1 ml-3"><header>Customer: {appointment.customer.full_name}</header></div></div>
+                                </>
+                                : <></>
                     }
 
                 </div>
-
-
-
 
                 <div className="pt-2 pl-2 mr-2">
                     {
                         Array.isArray(appointment.employee) && appointment.employee.length > 0
                             ? (
                                 <>
-                                    <div className="ml-2 mb-1">
-                                        Technician:{" "}
+                                    {assignClick ? <div className="ml-2 mb-1">
+                                        Update Assigned Technician(s):{" "}
                                         {
                                             appointment.employee.map((employ, index) => (
-                                                <React.Fragment key={`employee--${employ.id}`}>
-                                                    <Link to={`/employees/${employ.id}`}>
-                                                        {employ.full_name}
-                                                    </Link>
+                                                // checkboxes to remove assigned technicians (ONLY superUsers)
+                                                <div className="ml-2 mr-2" key={`employee--${employ.id}`}>
+                                                    <input className="mr-2" value={employ.id}
+                                                        onChange={(e) => {
+                                                            const copy = new Set(checkedOptions)
+                                                            if (copy.has(employ.id)) {
+                                                                copy.delete(employ.id)
+                                                            } else { copy.add(employ.id) }
+                                                            setCheckedOptions(copy)
+                                                        }
+                                                        } type="checkbox" />
+                                                    <span><Link to={`/employees/${employ.id}`}>{employ.full_name}</Link></span>
                                                     {index < appointment.employee.length - 1 ? ", " : ""}
-                                                </React.Fragment>
+                                                </div>
+
                                             ))
                                         }
                                     </div>
+                                        : <div className="ml-2 mb-1">
+                                            Technician:{" "}
+                                            {
+                                                appointment.employee.map((employ, index) => (
+                                                    <React.Fragment key={`employee--${employ.id}`}>
+                                                        <Link to={`/employees/${employ.id}`}>
+                                                            {employ.full_name}
+                                                        </Link>
+                                                        {index < appointment.employee.length - 1 ? ", " : ""}
+                                                    </React.Fragment>
+                                                ))
+                                            }
+                                        </div>}
                                 </>
                             )
                             : (
@@ -147,19 +272,21 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                                     : superUser
                                         ? <>
 
-                                            {employee.map(special => (<div className="ml-2 mr-2" key={`specialty--${special.id}`}>
-
-                                                <input className="mr-2" value={special.id}
-                                                    onChange={(e) => {
-                                                        const copy = new Set(checkedOptions)
-                                                        if (copy.has(special.id)) {
-                                                            copy.delete(special.id)
-                                                        } else { copy.add(special.id) }
-                                                        setCheckedOptions(copy)
-                                                    }
-                                                    } type="checkbox" />
-                                                <span><Link to={`/employees/${special.id}`}>{special.user.first_name}</Link></span>
-                                            </div>))
+                                            {employee.map(special =>
+                                            (
+                                                <div className="ml-2 mr-2" key={`specialty--${special.id}`}>
+                                                    <input className="mr-2" value={special.id}
+                                                        onChange={(e) => {
+                                                            const copy = new Set(checkedOptions)
+                                                            if (copy.has(special.id)) {
+                                                                copy.delete(special.id)
+                                                            } else { copy.add(special.id) }
+                                                            setCheckedOptions(copy)
+                                                        }
+                                                        } type="checkbox" />
+                                                    <span><Link to={`/employees/${special.id}`}>{special.user.first_name}</Link></span>
+                                                </div>
+                                            ))
                                             }
                                             <div>
                                                 <button type="submit" className="ml-2 mb-1" onClick={(evt) => {
@@ -181,6 +308,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                                                     // Send POST request to your API
                                                     saveEditedAppointment(employeeAssign)
                                                         .then(fetchAppointments)
+                                                        .then(setCheckedOptions(new Set()))
                                                 }}>Assign</button>
                                                 <div>
                                                 </div>

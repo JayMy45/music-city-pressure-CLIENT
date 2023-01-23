@@ -1,10 +1,9 @@
 
 import { Link } from "react-router-dom"
 import { deleteEmployee } from "../../managers/EmployeeManager"
-import { Appointment } from "../appointment/Appointment"
 import "./Employee.css"
 
-export const Employee = ({ emp, superUser, fetchEmployees }) => {
+export const Employee = ({ emp, superUser, mCPressure, fetchEmployees }) => {
 
     //  handles confirmation of deletion via a popup
     const confirmDelete = (evt, employee) => {
@@ -66,6 +65,7 @@ export const Employee = ({ emp, superUser, fetchEmployees }) => {
 
                             </div>
                         </div>
+
                     </div>
                     <div className="employee__specialty--delete-btn column">
                         <div>
@@ -82,7 +82,9 @@ export const Employee = ({ emp, superUser, fetchEmployees }) => {
                             {
                                 superUser
                                     ? <>
-                                        <button onClick={(evt) => confirmDelete(evt, emp)}>Remove</button>
+                                        <div>
+                                            <button onClick={(evt) => confirmDelete(evt, emp)}>Remove</button>
+                                        </div>
                                     </>
                                     : <></>
                             }

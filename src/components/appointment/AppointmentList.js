@@ -9,11 +9,14 @@ import "./Appointment.css"
 
 export const AppointmentList = () => {
     const [appointments, setAppointments] = useState([])
+    const [appt, setAppt] = useState([])
     const [progression, setProgression] = useState([])
     const [customers, setCustomer] = useState([])
     const [employee, setEmployee] = useState([])
     const [currentEmployee, setCurrentEmployee] = useState([])
     const [dropDown, setDropDown] = useState(false)
+    const [buttonFilter, setButtonFilter] = useState(false)
+
 
     const navigate = useNavigate()
 
@@ -28,6 +31,11 @@ export const AppointmentList = () => {
     useEffect(() => {
         getEmployees()
             .then(data => { setEmployee(data) })
+    }, [])
+
+    useEffect(() => {
+        getAppointments()
+            .then(data => { setAppt(data) })
     }, [])
 
     // if a Admin/SuperUser or Employee/mCPressure is logged in update currentEmployee
@@ -55,11 +63,37 @@ export const AppointmentList = () => {
         getCustomers().then(setCustomer)
     }, [])
 
+    //? observe buttonFilter state
+    useEffect(
+        () => {
+            if (buttonFilter) {
+                const myFilteredAppointment = appt.filter(appointment => appointment.employee.some(emp => emp.id === currentEmployee.id))
+                setAppointments(myFilteredAppointment)
+            } else {
+                setAppointments(appt)
+            }
+
+        },
+        [buttonFilter, appt, currentEmployee]
+    )
+
     return <>
         <section className="mt-5 ml-5">
-            <h1 className="is-title mb-2">Appointments</h1>
-            <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
+            {buttonFilter ? <h1 className="is-title mb-2"><span className="is-italic">{currentEmployee.full_name}</span> Appointments</h1> : <h1 className="is-title mb-2">Appointments</h1>}
 
+            <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
+            <div className="btn__btn--section1 ">
+                <>
+                    {
+                        mCPressure
+                            ? <>
+                                {buttonFilter ? <button className="btn btn__appointments" onClick={() => setButtonFilter(false)}>All Appointments</button>
+                                    : <button className="btn btn__appointments" onClick={() => setButtonFilter(true)}>My Appointments</button>
+                                }
+                            </> : <></>
+                    }
+                </>
+            </div>
         </section>
         <article className="appointments  ">
             <section className="mt-5 ml-5">
@@ -87,6 +121,9 @@ export const AppointmentList = () => {
                             currentEmployee={currentEmployee}
                             dropDown={dropDown}
                             setDropDown={setDropDown}
+                            buttonFilter={buttonFilter}
+                            setButtonFilter={setButtonFilter}
+                            customer={customers.find(customer => customer.id === appointment.customerId)}
                         />)
                     }
 
@@ -95,3 +132,12 @@ export const AppointmentList = () => {
         </article >
     </>
 }
+
+// {
+//     appointments.map(appointment => <Appointment key={appointment.id} 
+//         appointment={appointment} 
+//         customer={customers.find(customer => customer.id === appointment.customerId)} 
+//         progression={progression.find(prog => prog.id === appointment.progressionId)} 
+//         employee={employee} 
+//         />)
+// }
