@@ -57,6 +57,12 @@ export const UpdateService = () => {
         widget.open()
     }
 
+    useEffect(() => {
+        const newCheckedOptions = new Set();
+        currentService.tools.forEach(tool => newCheckedOptions.add(tool.id));
+        setCheckedOptions(newCheckedOptions);
+    }, [currentService]);
+
     return <>
         <div className="mt-5" id="navbar__space">
 
@@ -180,25 +186,26 @@ export const UpdateService = () => {
                         <div className="field">
                             <div className="control">
                                 <label className="checkbox">
-                                    {/* <span className="">Update Tools:</span> */}
-                                    {
-                                        equipments.map(equip => (<div className="ml-2 mr-2" key={`equipment--${equip.id}`}>
+                                    {equipments.map(equip => (
+                                        <div className="ml-2 mr-2" key={`equipment--${equip.id}`}>
                                             <input
                                                 type="checkbox"
                                                 className="mr-2"
-                                                defaultChecked={currentService.tools.some(tool => tool.id === equip.id)}
+                                                checked={checkedOptions.has(equip.id)}
                                                 value={equip.id}
                                                 onChange={(e) => {
-                                                    const copy = new Set(checkedOptions)
+                                                    const copy = new Set(checkedOptions);
                                                     if (copy.has(equip.id)) {
-                                                        copy.delete(equip.id)
-                                                    } else { copy.add(equip.id) }
-                                                    setCheckedOptions(copy)
+                                                        copy.delete(equip.id);
+                                                    } else {
+                                                        copy.add(equip.id);
+                                                    }
+                                                    setCheckedOptions(copy);
                                                 }}
                                             />
                                             {equip.label}
-                                        </div>))
-                                    }
+                                        </div>
+                                    ))}
                                 </label>
                             </div>
                         </div>
