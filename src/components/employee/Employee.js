@@ -43,7 +43,7 @@ export const Employee = ({ emp, superUser, mCPressure, fetchEmployees }) => {
                                             {
                                                 emp.user.is_superuser
                                                     ? <div>
-                                                        <h3 className="has-text-danger">*</h3>
+                                                        <h3 className="has-text-danger is-title is-size-3">*</h3>
                                                     </div>
                                                     : <></>
                                             }
