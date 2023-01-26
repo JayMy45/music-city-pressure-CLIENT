@@ -64,13 +64,23 @@ export const AppointmentCreate = () => {
     }, [mCPressure])
 
     const changeAppointmentState = (domEvent) => {
-        // TODO: Complete the onChange function
+        // Get the selected date and check if it's a Sunday
+        const selectedDate = new Date(domEvent.target.value);
+        const day = selectedDate.getUTCDay();
+        if (day === 0) {
+            // Show an alert and prevent the selection
+            alert("You can't schedule an appointment on Sundays");
+            return;
+        }
+
+        // Update the state with the selected date
         const value = domEvent.target.value
         setNewAppointment({
             ...newAppointment,
             [domEvent.target.name]: value
         })
-    }
+    };
+
 
     // cloudinary widget
     const showWidget = (clickEvent) => {
@@ -89,6 +99,8 @@ export const AppointmentCreate = () => {
             });
         widget.open()
     }
+
+
 
     // handles change of Checked Options
     const handleClaimChange = (e) => {
@@ -226,6 +238,7 @@ export const AppointmentCreate = () => {
                     <div className="field">
                         <div className="control">
                             <input type="date" name="requestDate" required className="input"
+                                min={new Date(new Date().setDate(new Date().getDate() + 4)).toISOString().slice(0, 10)}
                                 value={newAppointment.requestDate}
                                 onChange={changeAppointmentState} />
                         </div>

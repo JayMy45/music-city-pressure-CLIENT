@@ -417,7 +417,10 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                             {
                                 mCPressure && appointment.progress.id < 3
                                     ? <div>
-                                        <input type="date" name="request_date" required className="center__text appt__calendar"
+                                        <input type="date"
+                                            name="request_date"
+                                            min={new Date(new Date().setDate(new Date().getDate() + 4)).toISOString().slice(0, 10)}
+                                            required className="center__text appt__calendar"
                                             onChange={changeProgressState} />
                                         <div>
                                             <button className="btn__appt-list button is-small is-black appt__calendar"
