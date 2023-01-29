@@ -123,9 +123,6 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
     }
 
 
-
-
-
     return <React.Fragment key={`appointment--${appointment.id}`}>
         <div className="appointment__request is-4-tablet is-4-desktop mx-1 mt-1 column">
             <div className="card ">
@@ -249,9 +246,10 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
 
                                                     // Send POST request to your API
                                                     saveEditedAppointment(employeeAssign)
-                                                        .then(fetchAppointments)
                                                         //* resets checkOptions to clear previous data to stop interference with new requests
                                                         .then(setCheckedOptions(new Set()))
+                                                        .then(fetchAppointments)
+                                                    console.log(appointment)
                                                 }}>Assign Technician</button>
                                                 <div>
                                                 </div>

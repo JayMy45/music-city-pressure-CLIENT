@@ -19,8 +19,8 @@ export const getAppointmentById = (appointmentId) => {
 }
 
 // GET single appointment by employee_id
-export const getAppointmentByEmployeeId = (employee) => {
-    return fetch(`http://localhost:8000/appointments?employee_id=${employee.id}`, {
+export const getAppointmentByEmployeeId = (employeeId) => {
+    return fetch(`http://localhost:8000/appointments?employee_id=${employeeId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("mc_token")}`
         }
