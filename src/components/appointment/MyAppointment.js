@@ -19,5 +19,11 @@ export const MyAppointment = () => {
         renderAppointmentByEmpId()
     }, [renderAppointmentByEmpId])
 
-    return <></>
+    return <>
+        <section >Hellow MyAppointment Worldie</section>
+
+
+
+
+        {myAppointments.map(ma => <h2 className="ml-4 mt-4" key={`appointment--${ma.id}`}>{ma.id}</h2>)}</>
 }
