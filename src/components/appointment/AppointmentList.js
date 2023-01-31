@@ -14,6 +14,7 @@ export const AppointmentList = () => {
     const [customers, setCustomer] = useState([])
     const [employee, setEmployee] = useState([])
     const [currentEmployee, setCurrentEmployee] = useState([])
+    const [selectedEmployee, setSelectedEmployee] = useState(currentEmployee.full_name);
     const [buttonFilter, setButtonFilter] = useState(false)
 
 
@@ -87,6 +88,7 @@ export const AppointmentList = () => {
                                         <div className="center mt-2">
                                             <select name='employee' className="dropdown my__appointment--dropdown" onChange={(e) => {
                                                 const selectedEmployeeId = e.target.value;
+                                                setSelectedEmployee(e.target.selectedOptions[0].text);
                                                 navigate({ pathname: `/appointments/my/${selectedEmployeeId}` });
                                             }} value={currentEmployee.full_name}>
                                                 <option>Select a Employee</option>
