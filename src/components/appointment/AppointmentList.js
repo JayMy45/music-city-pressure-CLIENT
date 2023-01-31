@@ -86,14 +86,9 @@ export const AppointmentList = () => {
                     {
                         mCPressure
                             ? <>
-                                {buttonFilter ? <button className="btn btn__appointments button is-small mt-2 is-ghost" onClick={async () => {
-                                    await setButtonFilter(false)
-                                    fetchAppointments()
-                                }}>All Appointments</button>
-                                    : <button className="btn btn__appointments button is-small mt-2 is-text" onClick={() => {
-                                        setButtonFilter(true)
-                                    }}>My Appointments</button>
-                                }
+
+                                <button className="btn btn__appointments button is-small mt-2 is-text" onClick={() => { navigate({ pathname: `/appointments/my/${currentEmployee.id}` }) }}>My Appointments</button>
+
                             </> : <></>
                     }
                 </>
