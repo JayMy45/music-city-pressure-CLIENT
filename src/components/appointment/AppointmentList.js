@@ -89,9 +89,12 @@ export const AppointmentList = () => {
                                                 const selectedEmployeeId = e.target.value;
                                                 navigate({ pathname: `/appointments/my/${selectedEmployeeId}` });
                                             }} value={currentEmployee.full_name}>
+                                                <option>Select a Employee</option>
                                                 {
                                                     employee.map(emp => {
-                                                        return <option value={`${emp.id}`} className="" key={`assignedEmployees--${emp.id}`} >{emp.full_name}</option>
+                                                        if (emp.id !== currentEmployee.id) {
+                                                            return <option value={`${emp.id}`} className="" key={`assignedEmployees--${emp.id}`}>{emp.full_name}</option>
+                                                        }
                                                     })
                                                 }
                                             </select>
