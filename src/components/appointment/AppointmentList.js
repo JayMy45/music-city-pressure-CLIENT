@@ -62,20 +62,6 @@ export const AppointmentList = () => {
         getCustomers().then(setCustomer)
     }, [])
 
-    //? observe buttonFilter state
-    useEffect(
-        () => {
-            if (buttonFilter) {
-                const myFilteredAppointment = appt.filter(appointment => appointment.employee.some(emp => emp.id === currentEmployee.id))
-                setAppointments(myFilteredAppointment)
-            } else {
-                setAppointments(appt)
-            }
-
-        },
-        [buttonFilter, appt, currentEmployee]
-    )
-
     return <>
         <section className="mt-5 ml-5">
             {buttonFilter ? <h1 className="is-title mb-2"><span className="is-italic">{currentEmployee.full_name}</span> Appointments</h1> : <h1 className="is-title mb-2">Appointments</h1>}
@@ -86,11 +72,35 @@ export const AppointmentList = () => {
                     {
                         mCPressure
                             ? <>
-
                                 <button className="btn btn__appointments button is-small mt-2 is-text" onClick={() => { navigate({ pathname: `/appointments/my/${currentEmployee.id}` }) }}>My Appointments</button>
-
                             </> : <></>
                     }
+                    <div>
+
+                        {
+                            superUser
+                                ? <>
+                                    <div className="box mt-3">
+                                        <div>
+                                            <h2>Filter by Employee</h2>
+                                        </div>
+                                        <div>
+                                            <select name='employee' className="" onChange={(e) => {
+                                                const selectedEmployeeId = e.target.value;
+                                                navigate({ pathname: `/appointments/my/${selectedEmployeeId}` });
+                                            }} value={currentEmployee.full_name}>
+                                                {
+                                                    employee.map(emp => {
+                                                        return <option value={`${emp.id}`} className="" key={`assignedEmployees--${emp.id}`} >{emp.full_name}</option>
+                                                    })
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </>
+                                : <></>
+                        }
+                    </div>
                 </>
             </div>
         </section>

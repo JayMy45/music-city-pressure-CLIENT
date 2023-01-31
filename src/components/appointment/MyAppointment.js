@@ -74,13 +74,40 @@ export const MyAppointment = () => {
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
             <div className="btn__btn--section1 ">
                 <>
-                    {
-                        mCPressure
-                            ? <>
-                                <button className="btn btn__appointments button is-small mt-2 is-ghost" onClick={() => { navigate({ pathname: "/appointments" }) }}>All Appointments</button>
+                    <div>
+                        {
+                            mCPressure
+                                ? <>
+                                    <button className="btn btn__appointments button is-small mt-2 is-ghost" onClick={() => { navigate({ pathname: "/appointments" }) }}>All Appointments</button>
 
-                            </> : <></>
-                    }
+                                </> : <></>
+                        }
+                    </div>
+                    <div>
+                        {
+                            superUser
+                                ? <>
+                                    <div className="box mt-3">
+                                        <div>
+                                            <h2>Filter by Employee</h2>
+                                        </div>
+                                        <div>
+                                            <select name='employee' className="" onChange={(e) => {
+                                                const selectedEmployeeId = e.target.value;
+                                                navigate({ pathname: `/appointments/my/${selectedEmployeeId}` });
+                                            }} value={currentEmployee.full_name}>
+                                                {
+                                                    employee.map(emp => {
+                                                        return <option value={`${emp.id}`} className="" key={`assignedEmployees--${emp.id}`} >{emp.full_name}</option>
+                                                    })
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </>
+                                : <></>
+                        }
+                    </div>
                 </>
             </div>
         </section>
