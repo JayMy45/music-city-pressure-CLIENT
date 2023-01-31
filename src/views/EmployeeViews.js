@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import { AppointmentCreate } from "../components/appointment/AppointmentCreate"
 import { AppointmentList } from "../components/appointment/AppointmentList"
+import { MyAppointment } from "../components/appointment/MyAppointment"
 import { UpdateAppointment } from "../components/appointment/UpdateAppointment"
 import { EmployeeDetails } from "../components/employee/EmployeeDetails"
 import { EmployeeList } from "../components/employee/EmployeeList"
@@ -24,6 +25,7 @@ export const EmployeeViews = () => {
             <Route path="/services/:serviceId" element={<ServiceDetails />} />
             <Route path="/services/update/:serviceId" element={<UpdateService />} />
             <Route path="/appointments" element={<AppointmentList />} />
+            <Route path="/appointments/my/:employeeId" element={<MyAppointment />} />
             <Route path="/appointments/create" element={<AppointmentCreate />} />
             <Route path="/appointments/update/:appointmentId" element={<UpdateAppointment />} />
         </Routes>

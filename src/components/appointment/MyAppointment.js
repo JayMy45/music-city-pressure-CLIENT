@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { getAppointments } from "../../managers/AppointmentManager"
+import { useCallback, useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+import { getAppointmentByEmployeeId } from "../../managers/AppointmentManager"
 import { getCustomers } from "../../managers/CustomerManager"
 import { getCurrentEmployee, getEmployees } from "../../managers/EmployeeManager"
 import { getProgressions } from "../../managers/ProgressManager"
 import { Appointment } from "./Appointment"
-import "./Appointment.css"
 
-export const AppointmentList = () => {
-    const [appointments, setAppointments] = useState([])
+export const MyAppointment = () => {
+
+    const { employeeId } = useParams()
+    const [myAppointments, setMyAppointments] = useState([])
+
+    //* Copy paste from AppointmentList  ALL STATE Except Appoinment
+
     const [appt, setAppt] = useState([])
     const [progression, setProgression] = useState([])
     const [customers, setCustomer] = useState([])
     const [employee, setEmployee] = useState([])
     const [currentEmployee, setCurrentEmployee] = useState([])
-    const [buttonFilter, setButtonFilter] = useState(false)
+    const [buttonFilter, setButtonFilter] = useState(true)
 
 
     const navigate = useNavigate()
@@ -32,11 +36,6 @@ export const AppointmentList = () => {
             .then(data => { setEmployee(data) })
     }, [])
 
-    useEffect(() => {
-        getAppointments()
-            .then(data => { setAppt(data) })
-    }, [])
-
     // if a Admin/SuperUser or Employee/mCPressure is logged in update currentEmployee
     useEffect(() => {
         if (superUser || mCPressure) {
@@ -45,14 +44,18 @@ export const AppointmentList = () => {
         }
     }, [superUser, mCPressure])
 
-    const fetchAppointments = () => {
-        getAppointments()
-            .then(data => setAppointments(data))
-    }
+
+    const fetchAppointments = useCallback(() => {
+        if (employeeId) {
+            getAppointmentByEmployeeId(employeeId).then((res) => {
+                setMyAppointments(res)
+            })
+        }
+    }, [employeeId])
 
     useEffect(() => {
         fetchAppointments()
-    }, [])
+    }, [fetchAppointments])
 
     useEffect(() => {
         getProgressions().then(data => setProgression(data))
@@ -62,21 +65,9 @@ export const AppointmentList = () => {
         getCustomers().then(setCustomer)
     }, [])
 
-    //? observe buttonFilter state
-    useEffect(
-        () => {
-            if (buttonFilter) {
-                const myFilteredAppointment = appt.filter(appointment => appointment.employee.some(emp => emp.id === currentEmployee.id))
-                setAppointments(myFilteredAppointment)
-            } else {
-                setAppointments(appt)
-            }
-
-        },
-        [buttonFilter, appt, currentEmployee]
-    )
-
     return <>
+
+
         <section className="mt-5 ml-5">
             {buttonFilter ? <h1 className="is-title mb-2"><span className="is-italic">{currentEmployee.full_name}</span> Appointments</h1> : <h1 className="is-title mb-2">Appointments</h1>}
 
@@ -86,8 +77,7 @@ export const AppointmentList = () => {
                     {
                         mCPressure
                             ? <>
-
-                                <button className="btn btn__appointments button is-small mt-2 is-text" onClick={() => { navigate({ pathname: `/appointments/my/${currentEmployee.id}` }) }}>My Appointments</button>
+                                <button className="btn btn__appointments button is-small mt-2 is-ghost" onClick={() => { navigate({ pathname: "/appointments" }) }}>All Appointments</button>
 
                             </> : <></>
                     }
@@ -110,7 +100,7 @@ export const AppointmentList = () => {
             <section className="mc__appointment--list">
                 <div className="columns is-multiline mt-5 is-3 is-variable is-centered">
                     {
-                        appointments.map(appointment => <Appointment key={`appointment--${appointment.id}`}
+                        myAppointments.map(appointment => <Appointment key={`appointment--${appointment.id}`}
                             appointment={appointment}
                             fetchAppointments={fetchAppointments}
                             employee={employee}
