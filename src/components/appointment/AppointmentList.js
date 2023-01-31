@@ -72,7 +72,7 @@ export const AppointmentList = () => {
                     {
                         mCPressure
                             ? <>
-                                <button className="btn btn__appointments button is-small mt-2 is-text" onClick={() => { navigate({ pathname: `/appointments/my/${currentEmployee.id}` }) }}>My Appointments</button>
+                                <button className="btn btn__appointments button mt-2 is-text" onClick={() => { navigate({ pathname: `/appointments/my/${currentEmployee.id}` }) }}>My Appointments</button>
                             </> : <></>
                     }
                     <div>
@@ -80,12 +80,12 @@ export const AppointmentList = () => {
                         {
                             superUser
                                 ? <>
-                                    <div className="box mt-3">
-                                        <div>
+                                    <div className="box mt-3 my__appointment--dropdown">
+                                        <div className="center">
                                             <h2>Filter by Employee</h2>
                                         </div>
-                                        <div>
-                                            <select name='employee' className="" onChange={(e) => {
+                                        <div className="center mt-2">
+                                            <select name='employee' className="dropdown my__appointment--dropdown" onChange={(e) => {
                                                 const selectedEmployeeId = e.target.value;
                                                 navigate({ pathname: `/appointments/my/${selectedEmployeeId}` });
                                             }} value={currentEmployee.full_name}>

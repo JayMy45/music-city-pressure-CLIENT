@@ -19,6 +19,7 @@ export const MyAppointment = () => {
     const [employee, setEmployee] = useState([])
     const [currentEmployee, setCurrentEmployee] = useState([])
     const [buttonFilter, setButtonFilter] = useState(true)
+    const [selectedEmployee, setSelectedEmployee] = useState(currentEmployee.full_name);
 
 
     const navigate = useNavigate()
@@ -69,7 +70,7 @@ export const MyAppointment = () => {
 
 
         <section className="mt-5 ml-5">
-            {buttonFilter ? <h1 className="is-title mb-2"><span className="is-italic">{currentEmployee.full_name}</span> Appointments</h1> : <h1 className="is-title mb-2">Appointments</h1>}
+            {buttonFilter ? <h1 className="is-title mb-2"><span className="is-italic">{selectedEmployee}</span> Appointments</h1> : <h1 className="is-title mb-2">Appointments</h1>}
 
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
             <div className="btn__btn--section1 ">
@@ -78,7 +79,7 @@ export const MyAppointment = () => {
                         {
                             mCPressure
                                 ? <>
-                                    <button className="btn btn__appointments button is-small mt-2 is-ghost" onClick={() => { navigate({ pathname: "/appointments" }) }}>All Appointments</button>
+                                    <button className="btn btn__appointments button  mt-2 is-ghost" onClick={() => { navigate({ pathname: "/appointments" }) }}>All Appointments</button>
 
                                 </> : <></>
                         }
@@ -87,18 +88,23 @@ export const MyAppointment = () => {
                         {
                             superUser
                                 ? <>
-                                    <div className="box mt-3">
-                                        <div>
+                                    <div className="box mt-3 my__appointment--dropdown">
+                                        <div className="center">
                                             <h2>Filter by Employee</h2>
                                         </div>
-                                        <div>
-                                            <select name='employee' className="" onChange={(e) => {
+                                        <div className="center mt-2">
+                                            <select name='employee' className="" value={selectedEmployee} onChange={(e) => {
                                                 const selectedEmployeeId = e.target.value;
+                                                setSelectedEmployee(e.target.selectedOptions[0].text);
                                                 navigate({ pathname: `/appointments/my/${selectedEmployeeId}` });
-                                            }} value={currentEmployee.full_name}>
+                                            }}>
+                                                <option>Select an Employee</option>
+                                                <option value={`${currentEmployee.id}`} className="" key={`assignedEmployees--${currentEmployee.id}`}>My</option>
                                                 {
                                                     employee.map(emp => {
-                                                        return <option value={`${emp.id}`} className="" key={`assignedEmployees--${emp.id}`} >{emp.full_name}</option>
+                                                        if (emp.id !== currentEmployee.id) {
+                                                            return <option value={`${emp.id}`} className="" key={`assignedEmployees--${emp.id}`}>{emp.full_name}</option>
+                                                        }
                                                     })
                                                 }
                                             </select>

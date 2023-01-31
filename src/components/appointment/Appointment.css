@@ -21,6 +21,11 @@
     grid-column: 2 / 3;
 }
 
+/* Dropdown for myAppointment */
+.my__appointment--dropdown {
+    width: 12rem;
+}
+
 /* separate items away from each other */
 .item {
     display: flex;
