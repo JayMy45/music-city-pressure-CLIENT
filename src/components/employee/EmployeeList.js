@@ -38,8 +38,12 @@ export const EmployeeList = () => {
 
         <div className="mt-5">
             {
-
-                employees.map(emp => <Employee key={`employee--${emp.id}`}
+                //sort employees by full_name before sending information as props
+                employees.sort((a, b) => {
+                    if (a.full_name < b.full_name) return -1;
+                    if (a.full_name > b.full_name) return 1;
+                    return 0;
+                }).map(emp => <Employee key={`employee--${emp.id}`}
                     emp={emp}
                     mCPressure={mCPressure}
                     superUser={superUser}
