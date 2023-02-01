@@ -107,8 +107,17 @@ export const EmployeeDetails = () => {
                                 }
                                 <div>
                                     <h2 className="center is-size-4"><strong><u>Specialties</u></strong></h2>
-                                    {
-                                        employee.specialty.map(special => {
+                                    {// Sort the `employee.specialty` array by the `label` property
+                                        employee.specialty.sort((a, b) => {
+                                            // Compare the `label` property of two objects in the array
+                                            // If `a.label` is lexicographically less than `b.label`, return -1
+                                            if (a.label < b.label) return -1;
+                                            // If `a.label` is lexicographically greater than `b.label`, return 1
+                                            if (a.label > b.label) return 1;
+                                            // If `a.label` is equal to `b.label`, return 0
+                                            return 0;
+                                        }).map(special => {
+                                            // Map over the sorted `employee.specialty` array
                                             return <div key={`specialty--${special.id}`}>
                                                 <p className="center">{special.label}</p>
                                             </div>

@@ -19,6 +19,7 @@ export const MyAppointment = () => {
     const [currentEmployee, setCurrentEmployee] = useState([])
     const [buttonFilter, setButtonFilter] = useState(true)
     const [selectedEmployee, setSelectedEmployee] = useState(currentEmployee.full_name);
+    const [selectedEmp, setSelectedEmp] = useState(currentEmployee.full_name);
 
 
     const navigate = useNavigate()
@@ -88,7 +89,7 @@ export const MyAppointment = () => {
                                                 setSelectedEmployee(e.target.selectedOptions[0].text);
                                                 navigate({ pathname: `/appointments/my/${selectedEmployeeId}` });
                                             }}>
-                                                <option>Select an Employee</option>
+                                                <option value={0}>Select an Employee</option>
                                                 <option value={`${currentEmployee.id}`} className="" key={`assignedEmployees--${currentEmployee.id}`}>My</option>
                                                 {
                                                     employee.map(emp => {
