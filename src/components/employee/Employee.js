@@ -70,25 +70,19 @@ export const Employee = ({ emp, superUser, mCPressure, fetchEmployees }) => {
                     <div className="employee__specialty--delete-btn column">
                         <div>
                             <h2 className="center is-size-7"><strong><u>Specialties</u></strong></h2>
-                            {emp.specialty.sort((a, b) => {
-                                if (a.label < b.label) return -1;
-                                if (a.label > b.label) return 1;
-                                return 0;
-                            }).map(special => {
-                                return <div key={`specialty--${special.id}`}>
-                                    <p className="center is-size-7">{special.label}</p>
-                                </div>
-                            })
-                            }
-
-                            {/* Old way to get specialties
                             {
-                                emp.specialty.map(special => {
+                                //see EmployeeDetails for comments on function
+                                emp.specialty.sort((a, b) => {
+                                    if (a.label < b.label) return -1;
+                                    if (a.label > b.label) return 1;
+                                    return 0;
+                                }).map(special => {
                                     return <div key={`specialty--${special.id}`}>
                                         <p className="center is-size-7">{special.label}</p>
                                     </div>
                                 })
-                            } */}
+                            }
+
                         </div>
                         <div className="center is-flex">
                             {
