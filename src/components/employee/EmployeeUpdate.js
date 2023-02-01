@@ -201,7 +201,6 @@ export const EmployeeUpdate = () => {
                                                             type="checkbox"
                                                             className="mr-2"
                                                             checked={checkedOptions.has(special.id)}
-                                                            // defaultChecked={employee.specialty.some(spec => spec.id === special.id)}
                                                             value={special.id}
                                                             onChange={(e) => {
                                                                 const copy = new Set(checkedOptions)

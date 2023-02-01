@@ -11,7 +11,7 @@ export const MyAppointment = () => {
     const { employeeId } = useParams()
     const [myAppointments, setMyAppointments] = useState([])
 
-    //* Copy paste from AppointmentList  ALL STATE Except Appoinment
+    //* Copy paste from AppointmentList  ALL STATE Except Appointment
 
     const [progression, setProgression] = useState([])
     const [customers, setCustomer] = useState([])
