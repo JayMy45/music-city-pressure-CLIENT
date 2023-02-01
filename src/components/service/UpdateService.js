@@ -57,6 +57,7 @@ export const UpdateService = () => {
         widget.open()
     }
 
+    // preloads CheckedOptions with tools for Service
     useEffect(() => {
         const newCheckedOptions = new Set();
         currentService.tools.forEach(tool => newCheckedOptions.add(tool.id));

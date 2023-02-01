@@ -14,6 +14,7 @@ export const AppointmentList = () => {
     const [customers, setCustomer] = useState([])
     const [employee, setEmployee] = useState([])
     const [currentEmployee, setCurrentEmployee] = useState([])
+    const [selectedEmployee, setSelectedEmployee] = useState(currentEmployee.full_name);
     const [buttonFilter, setButtonFilter] = useState(false)
 
 
@@ -62,20 +63,6 @@ export const AppointmentList = () => {
         getCustomers().then(setCustomer)
     }, [])
 
-    //? observe buttonFilter state
-    useEffect(
-        () => {
-            if (buttonFilter) {
-                const myFilteredAppointment = appt.filter(appointment => appointment.employee.some(emp => emp.id === currentEmployee.id))
-                setAppointments(myFilteredAppointment)
-            } else {
-                setAppointments(appt)
-            }
-
-        },
-        [buttonFilter, appt, currentEmployee]
-    )
-
     return <>
         <section className="mt-5 ml-5">
             {buttonFilter ? <h1 className="is-title mb-2"><span className="is-italic">{currentEmployee.full_name}</span> Appointments</h1> : <h1 className="is-title mb-2">Appointments</h1>}
@@ -83,14 +70,44 @@ export const AppointmentList = () => {
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
             <div className="btn__btn--section1 ">
                 <>
-                    {
-                        mCPressure
-                            ? <>
+                    <div>
 
-                                <button className="btn btn__appointments button is-small mt-2 is-text" onClick={() => { navigate({ pathname: `/appointments/my/${currentEmployee.id}` }) }}>My Appointments</button>
-
-                            </> : <></>
-                    }
+                        {
+                            superUser
+                                ? <>
+                                    <div className="box mt-3 ml-1 my__appointment--dropdown">
+                                        <div className="center">
+                                            <h2>Filter by Employee</h2>
+                                        </div>
+                                        <div className="center mt-2">
+                                            <select name='employee' className="dropdown my__appointment--dropdown" onChange={(e) => {
+                                                const selectedEmployeeId = e.target.value;
+                                                setSelectedEmployee(e.target.selectedOptions[0].text);
+                                                navigate({ pathname: `/appointments/my/${selectedEmployeeId}` });
+                                            }} value={currentEmployee.full_name}>
+                                                <option>Select a Employee</option>
+                                                {
+                                                    employee.map(emp => {
+                                                        if (emp.id !== currentEmployee.id) {
+                                                            return <option value={`${emp.id}`} className="" key={`assignedEmployees--${emp.id}`}>{emp.full_name}</option>
+                                                        }
+                                                    })
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </>
+                                : <></>
+                        }
+                    </div>
+                    <div>
+                        {
+                            mCPressure
+                                ? <>
+                                    <button className="btn btn__appointments button ml-4 mt-1 is-text" onClick={() => { navigate({ pathname: `/appointments/my/${currentEmployee.id}` }) }}>My Appointments</button>
+                                </> : <></>
+                        }
+                    </div>
                 </>
             </div>
         </section>

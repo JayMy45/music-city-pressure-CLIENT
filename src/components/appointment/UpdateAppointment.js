@@ -64,6 +64,11 @@ export const UpdateAppointment = () => {
     }
 
     return <>
+        <section className="mt-5 ml-5 mb-5">
+            <h1 className="is-title mb-2">Update Appointment</h1>
+            <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments" }) }}><span className="">Back to Appointments</span></button>
+        </section>
+
         <form className="mc__appointment--update box mt-5 mb-5 py-6 px-6">
             <div className="center">
                 <h2 className="title is-2">UPDATE Your Appointment</h2>
@@ -87,37 +92,6 @@ export const UpdateAppointment = () => {
                     </div>
                 </div>
             </div>
-
-            {/* update employees assigned to appointments */}
-            {/* <div className="field is-horizontal">
-                <div className="field-label is-normal mt-2">
-                    <label className="label">Employees</label>
-                    <h3 className="subtitle is-7"><em>Assign Employee(s) to an Appointment</em></h3>
-                </div>
-
-                <div className="field-body mt-4 mb-5">
-                    <div className="field">
-                        <div className="control">
-                            <label className="checkbox">
-                                {employees.map(emp => (<div className="ml-2 mr-2" key={`employee--${emp.id}`}>
-
-                                    <input className="mr-2" value={emp.id}
-                                        onChange={(e) => {
-                                            const copy = new Set(checkedOptions)
-                                            if (copy.has(emp.id)) {
-                                                copy.delete(emp.id)
-                                            } else { copy.add(emp.id) }
-                                            setCheckedOptions(copy)
-                                        }
-                                        } type="checkbox" />
-                                    {emp.full_name}
-                                </div>))
-                                }
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
 
             {/* Add Image cloudinary widget */}
             <div className="field is-horizontal mb-3 mt-3">

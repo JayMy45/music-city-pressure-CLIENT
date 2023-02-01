@@ -11,14 +11,14 @@ export const MyAppointment = () => {
     const { employeeId } = useParams()
     const [myAppointments, setMyAppointments] = useState([])
 
-    //* Copy paste from AppointmentList  ALL STATE Except Appoinment
+    //* Copy paste from AppointmentList  ALL STATE Except Appointment
 
-    const [appt, setAppt] = useState([])
     const [progression, setProgression] = useState([])
     const [customers, setCustomer] = useState([])
     const [employee, setEmployee] = useState([])
     const [currentEmployee, setCurrentEmployee] = useState([])
     const [buttonFilter, setButtonFilter] = useState(true)
+    const [selectedEmployee, setSelectedEmployee] = useState(currentEmployee.full_name);
 
 
     const navigate = useNavigate()
@@ -69,18 +69,50 @@ export const MyAppointment = () => {
 
 
         <section className="mt-5 ml-5">
-            {buttonFilter ? <h1 className="is-title mb-2"><span className="is-italic">{currentEmployee.full_name}</span> Appointments</h1> : <h1 className="is-title mb-2">Appointments</h1>}
+            {buttonFilter ? <h1 className="is-title mb-2"><span className="is-italic">{selectedEmployee}</span> Appointments</h1> : <h1 className="is-title mb-2">Appointments</h1>}
 
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
             <div className="btn__btn--section1 ">
                 <>
-                    {
-                        mCPressure
-                            ? <>
-                                <button className="btn btn__appointments button is-small mt-2 is-ghost" onClick={() => { navigate({ pathname: "/appointments" }) }}>All Appointments</button>
+                    <div>
+                        {
+                            superUser
+                                ? <>
+                                    <div className="box mt-3 ml-1 my__appointment--dropdown">
+                                        <div className="center">
+                                            <h2>Filter by Employee</h2>
+                                        </div>
+                                        <div className="center mt-2">
+                                            <select name='employee' className="drop__down" value={selectedEmployee} onChange={(e) => {
+                                                const selectedEmployeeId = e.target.value;
+                                                setSelectedEmployee(e.target.selectedOptions[0].text);
+                                                navigate({ pathname: `/appointments/my/${selectedEmployeeId}` });
+                                            }}>
+                                                <option>Select an Employee</option>
+                                                <option value={`${currentEmployee.id}`} className="" key={`assignedEmployees--${currentEmployee.id}`}>My</option>
+                                                {
+                                                    employee.map(emp => {
+                                                        if (emp.id !== currentEmployee.id) {
+                                                            return <option value={`${emp.id}`} className="" key={`assignedEmployees--${emp.id}`}>{emp.full_name}</option>
+                                                        }
+                                                    })
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </>
+                                : <></>
+                        }
+                    </div>
+                    <div>
+                        {
+                            mCPressure
+                                ? <>
+                                    <button className="btn btn__appointments button ml-4 mt-1 is-ghost" onClick={() => { navigate({ pathname: "/appointments" }) }}>All Appointments</button>
 
-                            </> : <></>
-                    }
+                                </> : <></>
+                        }
+                    </div>
                 </>
             </div>
         </section>

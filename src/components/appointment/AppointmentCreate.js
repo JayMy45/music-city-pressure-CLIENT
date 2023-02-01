@@ -132,12 +132,6 @@ export const AppointmentCreate = () => {
                 }
             </div>
 
-            {/* <div className="mb-5 mt-3 center">
-                <div>
-                    <h2 className="subtitle is-7">Hellow Creation Worldie</h2>
-                </div>
-            </div> */}
-
             {mCPressure ? <div className="field is-horizontal">
                 <div className="field-label is-normal">
                     <label>Choose a Customer</label>
