@@ -80,7 +80,12 @@ export const EmployeeUpdate = () => {
         widget.open()
     }
 
-
+    // preloads CheckedOptions with tools for Service
+    useEffect(() => {
+        const newCheckedOptions = new Set();
+        employee.specialty.forEach(special => newCheckedOptions.add(special.id));
+        setCheckedOptions(newCheckedOptions);
+    }, [employee]);
 
     return <>
         <div className="mt-5" id="navbar__space">
@@ -195,7 +200,8 @@ export const EmployeeUpdate = () => {
                                                         <input
                                                             type="checkbox"
                                                             className="mr-2"
-                                                            defaultChecked={employee.specialty.some(spec => spec.id === special.id)}
+                                                            checked={checkedOptions.has(special.id)}
+                                                            // defaultChecked={employee.specialty.some(spec => spec.id === special.id)}
                                                             value={special.id}
                                                             onChange={(e) => {
                                                                 const copy = new Set(checkedOptions)

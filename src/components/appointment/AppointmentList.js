@@ -70,18 +70,12 @@ export const AppointmentList = () => {
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
             <div className="btn__btn--section1 ">
                 <>
-                    {
-                        mCPressure
-                            ? <>
-                                <button className="btn btn__appointments button mt-2 is-text" onClick={() => { navigate({ pathname: `/appointments/my/${currentEmployee.id}` }) }}>My Appointments</button>
-                            </> : <></>
-                    }
                     <div>
 
                         {
                             superUser
                                 ? <>
-                                    <div className="box mt-3 my__appointment--dropdown">
+                                    <div className="box mt-3 ml-1 my__appointment--dropdown">
                                         <div className="center">
                                             <h2>Filter by Employee</h2>
                                         </div>
@@ -104,6 +98,14 @@ export const AppointmentList = () => {
                                     </div>
                                 </>
                                 : <></>
+                        }
+                    </div>
+                    <div>
+                        {
+                            mCPressure
+                                ? <>
+                                    <button className="btn btn__appointments button ml-4 mt-1 is-text" onClick={() => { navigate({ pathname: `/appointments/my/${currentEmployee.id}` }) }}>My Appointments</button>
+                                </> : <></>
                         }
                     </div>
                 </>

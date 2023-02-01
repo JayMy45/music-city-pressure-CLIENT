@@ -13,7 +13,6 @@ export const MyAppointment = () => {
 
     //* Copy paste from AppointmentList  ALL STATE Except Appoinment
 
-    const [appt, setAppt] = useState([])
     const [progression, setProgression] = useState([])
     const [customers, setCustomer] = useState([])
     const [employee, setEmployee] = useState([])
@@ -77,23 +76,14 @@ export const MyAppointment = () => {
                 <>
                     <div>
                         {
-                            mCPressure
-                                ? <>
-                                    <button className="btn btn__appointments button  mt-2 is-ghost" onClick={() => { navigate({ pathname: "/appointments" }) }}>All Appointments</button>
-
-                                </> : <></>
-                        }
-                    </div>
-                    <div>
-                        {
                             superUser
                                 ? <>
-                                    <div className="box mt-3 my__appointment--dropdown">
+                                    <div className="box mt-3 ml-1 my__appointment--dropdown">
                                         <div className="center">
                                             <h2>Filter by Employee</h2>
                                         </div>
                                         <div className="center mt-2">
-                                            <select name='employee' className="" value={selectedEmployee} onChange={(e) => {
+                                            <select name='employee' className="drop__down" value={selectedEmployee} onChange={(e) => {
                                                 const selectedEmployeeId = e.target.value;
                                                 setSelectedEmployee(e.target.selectedOptions[0].text);
                                                 navigate({ pathname: `/appointments/my/${selectedEmployeeId}` });
@@ -112,6 +102,15 @@ export const MyAppointment = () => {
                                     </div>
                                 </>
                                 : <></>
+                        }
+                    </div>
+                    <div>
+                        {
+                            mCPressure
+                                ? <>
+                                    <button className="btn btn__appointments button ml-4 mt-1 is-ghost" onClick={() => { navigate({ pathname: "/appointments" }) }}>All Appointments</button>
+
+                                </> : <></>
                         }
                     </div>
                 </>

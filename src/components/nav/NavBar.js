@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { getCurrentCustomer } from "../../managers/CustomerManager"
+import { getCurrentEmployee } from "../../managers/EmployeeManager"
 import "./NavBar.css"
 
 export const NavBar = () => {
@@ -9,6 +10,7 @@ export const NavBar = () => {
     const [activeDropDown1, setActiveDropDown1] = useState(false)
     const [activeDropDown2, setActiveDropDown2] = useState(false)
     const [currentCustomer, setCurrentCustomer] = useState([])
+    const [currentEmployee, setCurrentEmployee] = useState([])
 
 
     const mCToken = localStorage.getItem("mc_token")
@@ -60,6 +62,15 @@ export const NavBar = () => {
                 .then(data => { setCurrentCustomer(data) })
 
     }, [mCPressure])
+
+    // if a Admin/SuperUser or Employee/mCPressure is logged in update currentEmployee
+    useEffect(() => {
+        if (superUser || mCPressure && mCToken) {
+            getCurrentEmployee()
+                .then(data => { setCurrentEmployee(data) })
+        }
+    }, [superUser, mCPressure])
+
 
     return (
         <nav className="navbar has-shadow is-dark mb-5 is-fixed-top" role="navigation" aria-label="dropdown navigation">
@@ -116,6 +127,9 @@ export const NavBar = () => {
                                                 </li>
                                                 <li className="navbar-item">
                                                     <Link to="/appointments/create" onClick={closeAll1} className="">Schedule Appointments</Link>
+                                                </li>
+                                                <li className="navbar-item">
+                                                    <Link to={`/appointments/my/${currentEmployee.id}`} onClick={closeAll1} className="">myAppointments</Link>
                                                 </li>
                                             </div>
                                         </div>
