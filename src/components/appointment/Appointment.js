@@ -117,7 +117,7 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                 .then(setCheckedOptions(new Set()))
 
         } else {
-            alert("No employees were chosen to unassign. Please select an employee.");
+            alert("No employees were chosen. Please select an employee to remove from this assignment.");
             updateAssignClick(false)
         }
     }

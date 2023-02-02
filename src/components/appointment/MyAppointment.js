@@ -19,8 +19,6 @@ export const MyAppointment = () => {
     const [currentEmployee, setCurrentEmployee] = useState([])
     const [buttonFilter, setButtonFilter] = useState(true)
     const [selectedEmployee, setSelectedEmployee] = useState(currentEmployee.full_name);
-    const [selectedEmp, setSelectedEmp] = useState(currentEmployee.full_name);
-
 
     const navigate = useNavigate()
 
@@ -41,9 +39,14 @@ export const MyAppointment = () => {
     useEffect(() => {
         if (superUser || mCPressure) {
             getCurrentEmployee()
-                .then(data => { setCurrentEmployee(data) })
+                .then(data => {
+                    setCurrentEmployee(data);
+                    if (currentEmployee.id === employeeId) {
+                        setSelectedEmployee(data);
+                    }
+                });
         }
-    }, [superUser, mCPressure])
+    }, [superUser, mCPressure]);
 
 
     const fetchAppointments = useCallback(() => {
@@ -92,7 +95,12 @@ export const MyAppointment = () => {
                                                 <option value={0}>Select an Employee</option>
                                                 <option value={`${currentEmployee.id}`} className="" key={`assignedEmployees--${currentEmployee.id}`}>My</option>
                                                 {
-                                                    employee.map(emp => {
+                                                    // alphabetize employees by full_name
+                                                    employee.sort((a, b) => {
+                                                        if (a.full_name < b.full_name) return -1;
+                                                        if (a.full_name > b.full_name) return 1;
+                                                        return 0;
+                                                    }).map(emp => {
                                                         if (emp.id !== currentEmployee.id) {
                                                             return <option value={`${emp.id}`} className="" key={`assignedEmployees--${emp.id}`}>{emp.full_name}</option>
                                                         }

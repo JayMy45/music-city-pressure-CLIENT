@@ -87,7 +87,12 @@ export const AppointmentList = () => {
                                             }} value={currentEmployee.full_name}>
                                                 <option>Select a Employee</option>
                                                 {
-                                                    employee.map(emp => {
+                                                    // alphabetize employees by full_name
+                                                    employee.sort((a, b) => {
+                                                        if (a.full_name < b.full_name) return -1;
+                                                        if (a.full_name > b.full_name) return 1;
+                                                        return 0;
+                                                    }).map(emp => {
                                                         if (emp.id !== currentEmployee.id) {
                                                             return <option value={`${emp.id}`} className="" key={`assignedEmployees--${emp.id}`}>{emp.full_name}</option>
                                                         }
