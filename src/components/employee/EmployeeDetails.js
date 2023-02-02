@@ -61,8 +61,10 @@ export const EmployeeDetails = () => {
     return <>
         <div className=" mt-5" id="navbar__space">
             <h1 className=" ml-5 mt-3">Employee Details</h1>
-            <h4 className="ml-5 is-size-7 is-italic"><span className="has-text-danger">*</span> denotes supervisor</h4>
-        </div>
+            {superUser
+                ? <h4 className="ml-5 is-size-7 is-italic"><span className="has-text-danger">*</span> denotes supervisor</h4>
+                : <></>
+            }        </div>
         <div className="mt-5 mb-5 ml-5 ">
             <div><button className="btn__employee--update__1 button is-dark ml-5" onClick={() => navigate(`/employees`)}>Back to Employees</button></div>
             <div><button className="btn__employee--update__1 button is-dark ml-5 mt-1" onClick={() => navigate(`/appointments`)}>Appointments</button></div>
@@ -76,8 +78,13 @@ export const EmployeeDetails = () => {
                                 <header className="center__left mb-4">
                                     <h1 className="">
                                         {
-                                            employee?.user?.is_superuser
-                                                ? <>{employee.full_name}<span className="has-text-danger">*</span></>
+                                            superUser
+                                                ? <>{
+
+                                                    employee?.user?.is_superuser
+                                                        ? <>{employee.full_name}<span className="has-text-danger">*</span></>
+                                                        : <>{employee.full_name}</>
+                                                }</>
                                                 : <>{employee.full_name}</>
                                         }
                                     </h1>
