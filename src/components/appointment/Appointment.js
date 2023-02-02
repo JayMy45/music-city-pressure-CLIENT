@@ -211,21 +211,33 @@ export const Appointment = ({ appointment, fetchAppointments, progression, emplo
                                     : superUser
                                         ? <>
 
-                                            {employee.map(special =>
-                                            (
-                                                <div className="ml-2 mr-2" key={`specialty--${special.id}`}>
-                                                    <input className="mr-2" value={special.id}
-                                                        onChange={(e) => {
-                                                            const copy = new Set(checkedOptions)
-                                                            if (copy.has(special.id)) {
-                                                                copy.delete(special.id)
-                                                            } else { copy.add(special.id) }
-                                                            setCheckedOptions(copy)
-                                                        }
-                                                        } type="checkbox" />
-                                                    <span><Link to={`/employees/${special.id}`}>{special.user.first_name}</Link></span>
-                                                </div>
-                                            ))
+                                            {
+
+                                                employee.sort((a, b) => {
+                                                    if (a.full_name < b.full_name) return -1;
+                                                    if (a.full_name > b.full_name) return 1;
+                                                    return 0;
+                                                }).map(emp =>
+                                                (
+                                                    <div className="ml-2 mr-2" key={`employee--${emp.id}`}>
+                                                        <input className="mr-2" value={emp.id}
+                                                            onChange={(e) => {
+                                                                const copy = new Set(checkedOptions)
+                                                                if (copy.has(emp.id)) {
+                                                                    copy.delete(emp.id)
+                                                                } else { copy.add(emp.id) }
+                                                                setCheckedOptions(copy)
+                                                            }
+                                                            } type="checkbox" />
+                                                        <span><Link to={`/employees/${emp.id}`}>
+                                                            {
+                                                                emp.user.is_superuser
+                                                                    ? <>{emp.user.first_name}<span>*</span></>
+                                                                    : <>{emp.user.first_name}</>
+                                                            }
+                                                        </Link></span>
+                                                    </div>
+                                                ))
                                             }
                                             <div>
                                                 <button type="submit" className="button has-background-grey-light has-text-link is-small ml-2 mb-1 mt-2" onClick={(evt) => {
