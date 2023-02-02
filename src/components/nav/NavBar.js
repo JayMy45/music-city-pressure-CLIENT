@@ -128,9 +128,9 @@ export const NavBar = () => {
                                                 <li className="navbar-item">
                                                     <Link to="/appointments/create" onClick={closeAll1} className="">Schedule Appointments</Link>
                                                 </li>
-                                                <li className="navbar-item">
+                                                {mCPressure ? <li className="navbar-item">
                                                     <Link to={`/appointments/my/${currentEmployee.id}`} onClick={closeAll1} className="">myAppointments</Link>
-                                                </li>
+                                                </li> : <></>}
                                             </div>
                                         </div>
                                         {
