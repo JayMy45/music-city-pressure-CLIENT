@@ -18,7 +18,7 @@ export const MyAppointment = () => {
     const [employee, setEmployee] = useState([])
     const [currentEmployee, setCurrentEmployee] = useState([])
     const [buttonFilter, setButtonFilter] = useState(true)
-    const [selectedEmployee, setSelectedEmployee] = useState(currentEmployee.full_name);
+    const [selectedEmployee, setSelectedEmployee] = useState("My");
 
     const navigate = useNavigate()
 
@@ -41,12 +41,24 @@ export const MyAppointment = () => {
             getCurrentEmployee()
                 .then(data => {
                     setCurrentEmployee(data);
-                    if (currentEmployee.id === employeeId) {
-                        setSelectedEmployee(data);
+                })
+        }
+    }, [superUser, mCPressure]);
+
+
+
+    useEffect(() => {
+        if (superUser || mCPressure) {
+            getCurrentEmployee()
+                .then(data => {
+                    console.log(data.full_name)
+                    if (data.id === employeeId) {
+                        setSelectedEmployee(data.full_name);
                     }
                 });
         }
-    }, [superUser, mCPressure]);
+    }, [currentEmployee, employeeId]);
+    console.log(selectedEmployee)
 
 
     const fetchAppointments = useCallback(() => {
@@ -68,6 +80,7 @@ export const MyAppointment = () => {
     useEffect(() => {
         getCustomers().then(setCustomer)
     }, [])
+
 
     return <>
 
@@ -102,7 +115,13 @@ export const MyAppointment = () => {
                                                         return 0;
                                                     }).map(emp => {
                                                         if (emp.id !== currentEmployee.id) {
-                                                            return <option value={`${emp.id}`} className="" key={`assignedEmployees--${emp.id}`}>{emp.full_name}</option>
+                                                            return <option value={`${emp.id}`} className="" key={`assignedEmployees--${emp.id}`}>
+                                                                {
+                                                                    emp?.user?.is_superuser
+                                                                        ? <>{emp.full_name}*</>
+                                                                        : <>{emp.full_name}</>
+                                                                }
+                                                            </option>
                                                         }
                                                     })
                                                 }
