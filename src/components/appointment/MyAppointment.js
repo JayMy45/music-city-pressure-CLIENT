@@ -18,7 +18,7 @@ export const MyAppointment = () => {
     const [employee, setEmployee] = useState([])
     const [currentEmployee, setCurrentEmployee] = useState([])
     const [buttonFilter, setButtonFilter] = useState(true)
-    const [selectedEmployee, setSelectedEmployee] = useState("My");
+    const [selectedEmployee, setSelectedEmployee] = useState("");
 
     const navigate = useNavigate()
 
@@ -44,22 +44,6 @@ export const MyAppointment = () => {
                 })
         }
     }, [superUser, mCPressure]);
-
-
-
-    useEffect(() => {
-        if (superUser || mCPressure) {
-            getCurrentEmployee()
-                .then(data => {
-                    console.log(data.full_name)
-                    if (data.id === employeeId) {
-                        setSelectedEmployee(data.full_name);
-                    }
-                });
-        }
-    }, [currentEmployee, employeeId]);
-    console.log(selectedEmployee)
-
 
     const fetchAppointments = useCallback(() => {
         if (employeeId) {
