@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getAppointmentByEmployeeId } from "../../managers/AppointmentManager"
+import { getAppointmentByCustomerId, getAppointmentByEmployeeId } from "../../managers/AppointmentManager"
 import { getCustomers } from "../../managers/CustomerManager"
 import { getCurrentEmployee, getEmployees } from "../../managers/EmployeeManager"
 import { getProgressions } from "../../managers/ProgressManager"
@@ -9,6 +9,7 @@ import { Appointment } from "./Appointment"
 export const MyAppointment = () => {
 
     const { employeeId } = useParams()
+    const { customerId } = useParams()
     const [myAppointments, setMyAppointments] = useState([])
 
     //* Copy paste from AppointmentList  ALL STATE Except Appointment
@@ -18,6 +19,7 @@ export const MyAppointment = () => {
     const [employee, setEmployee] = useState([])
     const [currentEmployee, setCurrentEmployee] = useState([])
     const [buttonFilter, setButtonFilter] = useState(true)
+    const [customerButton, setCustomerButton] = useState(false)
     const [selectedEmployee, setSelectedEmployee] = useState("");
 
     const navigate = useNavigate()
@@ -50,8 +52,14 @@ export const MyAppointment = () => {
             getAppointmentByEmployeeId(employeeId).then((res) => {
                 setMyAppointments(res)
             })
+        } else if (customerId) {
+            getAppointmentByCustomerId(customerId)
+                .then((res) => {
+                    setMyAppointments(res);
+                    setCustomerButton(true)
+                })
         }
-    }, [employeeId])
+    }, [employeeId, customerId])
 
     useEffect(() => {
         fetchAppointments()
@@ -121,6 +129,9 @@ export const MyAppointment = () => {
                             mCPressure
                                 ? <>
                                     <button className="btn btn__appointments button ml-4 mt-1 is-ghost" onClick={() => { navigate({ pathname: "/appointments" }) }}>All Appointments</button>
+                                    <div className="ml-4">
+                                        {customerButton ? <><button className="button ml-3 is_ghost is-small" onClick={() => { navigate({ pathname: "/customers" }) }}>Back to Customers</button></> : <></>}
+                                    </div>
 
                                 </> : <></>
                         }

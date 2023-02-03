@@ -28,6 +28,16 @@ export const getAppointmentByEmployeeId = (employeeId) => {
         .then(response => response.json())
 }
 
+// GET single appointment by customer_id
+export const getAppointmentByCustomerId = (customerId) => {
+    return fetch(`http://localhost:8000/appointments?customer_id=${customerId}`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("mc_token")}`
+        }
+    })
+        .then(response => response.json())
+}
+
 // POST new appointments
 export const createAppointment = (appointment) => {
     return fetch("http://localhost:8000/appointments", {

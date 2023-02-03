@@ -3,7 +3,6 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteCustomer } from "../../managers/CustomerManager"
 import "./Customer.css"
-import { CustomerDetails } from "./CustomerDetails"
 
 export const Customer = ({ customer, superUser, mCPressure, fetchCustomers }) => {
 
@@ -46,7 +45,7 @@ export const Customer = ({ customer, superUser, mCPressure, fetchCustomers }) =>
                                         <div className="btn__customer--div is-align-content-space-between">
                                             <div className="">
                                                 <div>
-                                                    <button className="btn__customers button is-small is-link" onClick={() => navigate(`/appointments`)}>Appts</button>
+                                                    <button className="btn__customers button is-small is-link" onClick={() => navigate(`/appointments/customer/${customer.id}`)}>Appts</button>
                                                 </div>
                                             </div>
                                             <div className="">

@@ -26,6 +26,7 @@ export const EmployeeViews = () => {
             <Route path="/services/update/:serviceId" element={<UpdateService />} />
             <Route path="/appointments" element={<AppointmentList />} />
             <Route path="/appointments/my/:employeeId" element={<MyAppointment />} />
+            <Route path="/appointments//customer/:customerId" element={<MyAppointment />} />
             <Route path="/appointments/create" element={<AppointmentCreate />} />
             <Route path="/appointments/update/:appointmentId" element={<UpdateAppointment />} />
         </Routes>
