@@ -26,3 +26,9 @@
     margin: auto;
     width: 50rem;
 }
+
+.service__list--btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

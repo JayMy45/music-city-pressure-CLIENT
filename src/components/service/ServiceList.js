@@ -54,17 +54,19 @@ export const ServiceList = () => {
                                 <div><h2><Link to={`/services/${service.id}`}>{service.name}</Link></h2></div>
                                 <div className="service__description has-text-left" style={{ textAlign: 'justify' }}><em>Brief Description: </em>{service.description}</div>
                             </section>
-                            <div className="">
-                                {
-                                    mCPressure
-                                        ? <>
-                                            <button className="button is-uppercase is-small" onClick={() => navigate(`/services/update/${service.id}`)}>Update</button>
-                                            <button className="button is-uppercase is-small is-danger" onClick={(evt) => confirmDelete(evt, service)}>Delete</button>
-                                        </>
-                                        : <></>
-                                }
+                            <div className="service__list--btn mr-1">
                                 <div className="">
-                                    <h3 className="mt-5 is-italic">Price Starting at ${service.price}</h3>
+                                    {
+                                        mCPressure
+                                            ? <>
+                                                <button className="button is-uppercase is-small" onClick={() => navigate(`/services/update/${service.id}`)}>Update</button>
+                                                <button className="button is-uppercase is-small is-danger" onClick={(evt) => confirmDelete(evt, service)}>Delete</button>
+                                            </>
+                                            : <></>
+                                    }
+                                </div>
+                                <div className="">
+                                    <h3 className="center mt-5 is-italic">Starting at ${service.price}</h3>
                                 </div>
                             </div>
                         </div>
