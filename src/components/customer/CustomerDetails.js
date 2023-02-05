@@ -75,8 +75,8 @@ export const CustomerDetails = () => {
 
                             </div>
                         </div>
-                        <div>
-                            <div className="column">
+                        <div className="column">
+                            <div className="center">
                                 {
                                     superUser
                                         ? <div className="mb-4">

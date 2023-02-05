@@ -17,5 +17,9 @@
 }
 
 .mc__customer--details {
-    width: 40rem;
+    width: 30rem;
+}
+
+.btn__customer-details {
+    width: 7rem;
 }
