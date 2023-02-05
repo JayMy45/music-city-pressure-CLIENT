@@ -49,7 +49,7 @@ export const CustomerList = () => {
     return <>
         <section className="mt-5 ml-5">
             <h1 className="is-title">Customers</h1>
-            <div className="mb-3"><h3 className="is-italic"><span className="has-text-primary">†</span> denotes multiple properties</h3></div>
+            <div className="mb-3"><h3 className="is-italic"><span className="has-text-success-dark">†</span> denotes multiple properties</h3></div>
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/customers/create" }) }}><span className="">Schedule Customer</span></button>
 
         </section>
