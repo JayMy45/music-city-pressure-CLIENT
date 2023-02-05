@@ -64,6 +64,7 @@ export const ServiceList = () => {
                                             </>
                                             : <></>
                                     }
+
                                 </div>
                                 <div className="">
                                     <h3 className="center mt-5 is-italic">Starting at ${service.price}</h3>
