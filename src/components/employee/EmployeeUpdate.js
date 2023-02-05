@@ -10,7 +10,6 @@ export const EmployeeUpdate = () => {
     const { employeeId } = useParams()
     const [checkedOptions, setCheckedOptions] = useState(new Set())
     const [specialty, setSpecialty] = useState([])
-    // const [currentSpecialty, setCurrentSpecialty] = useState([])
     const [employee, setEmployee] = useState({
         address: "",
         bio: "",
@@ -19,12 +18,6 @@ export const EmployeeUpdate = () => {
         salary: "",
         specialty: []
     })
-
-
-    // useEffect(() => {
-    //     getSpecialtyById(employeeId)
-    //         .then(setCurrentSpecialty)
-    // }, [employeeId])
 
     const navigate = useNavigate()
 

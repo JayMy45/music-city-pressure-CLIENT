@@ -11,6 +11,7 @@ export const CustomerDetails = () => {
         address: "",
         bio: "",
         phone_number: "",
+        location: []
     })
 
     const navigate = useNavigate()
@@ -57,7 +58,7 @@ export const CustomerDetails = () => {
                         <div className="mr-3 column center is-8">
                             <div className="">
                                 <header className="center__left mb-4">
-                                    <h1 className="">{customer.full_name}</h1>
+                                    <h1 className="">{customer.full_name}<sup className="has-text-success-dark is-size-5 ml-1">{customer.location.length > 1 ? <>†</> : <></>}</sup></h1>
                                 </header>
                                 <figure>
                                     <img src={customer.image} alt={`A portrait of ${customer.first_name}`} />
@@ -66,7 +67,20 @@ export const CustomerDetails = () => {
                                     {
                                         mCPressure || superUser
                                             ? <>
-                                                <p>Address: {customer.address}</p>
+                                                <div>
+                                                    {
+                                                        customer.location.length > 1
+                                                            ? <>
+                                                                <div className="mb-1">
+                                                                    Address:
+                                                                    {
+                                                                        customer.location.map((locate, index) => (<div key={`location--${locate.id}`} className="ml-5">{locate.street}<sup className="is-size-7 has-text-success-dark ml-1">{index + 1}</sup></div>))
+                                                                    }
+                                                                </div>
+                                                            </>
+                                                            : <> <p className="mt-2">Address: {customer.address}</p></>
+                                                    }
+                                                </div>
                                                 <p>Phone: {customer.phone_number}</p>
                                             </>
                                             : <></>

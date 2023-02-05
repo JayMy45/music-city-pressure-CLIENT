@@ -21,12 +21,14 @@ export const Customer = ({ customer, superUser, mCPressure, fetchCustomers }) =>
     return <>
 
         <div className="is-4-tablet is-4-desktop column center ml-1 mt-5">
+
             <section className=" center box mt-3 mb-3">
+
                 <div className="columns" style={{ width: 400, height: 175 }}>
                     <div className="column is-8 center">
                         <div className="">
                             <header className="center__left mb-2">
-                                <h2 className="title"><Link to={`/customers/${customer.id}`}>{customer.full_name}</Link><span className="has-text-primary">{customer.location.length > 1 ? <>†</> : <></>}</span></h2>
+                                <h2 className="title"><Link to={`/customers/${customer.id}`}>{customer.full_name}</Link><sup className="has-text-success-dark is-size-5">{customer.location.length > 1 ? <>†<span className="is-size-7">{customer.location.length}</span></> : <></>}</sup></h2>
                             </header>
                             <div className="">
                                 {superUser ? <p>a: {customer.address}</p> : <></>}

@@ -17,9 +17,13 @@
 }
 
 .mc__customer--details {
-    width: 30rem;
+    width: 32rem;
 }
 
 .btn__customer-details {
     width: 7rem;
+}
+
+.btn__customer--update__1 {
+    width: 12rem;
 }
