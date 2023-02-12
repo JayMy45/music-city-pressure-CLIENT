@@ -64,11 +64,11 @@ export const AppointmentList = () => {
     }, [])
 
     return <>
-        <section className="mt-5 ml-5">
-            {buttonFilter ? <h1 className="is-title mb-2"><span className="is-italic">{currentEmployee.full_name}</span> Appointments</h1> : <h1 className="is-title mb-2">Appointments</h1>}
+        <section className="mt-5 ml-5 mc__appointment--list">
+            {buttonFilter ? <h1 className="is-title is-size-3 mb-2"><span className="is-italic">{currentEmployee.full_name}</span> Appointments</h1> : <h1 className="is-title is-size-3 mb-2">Appointments</h1>}
 
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
-            <div className="btn__btn--section1 ">
+            <div className="btn__btn--section1">
                 <>
                     <div>
 
@@ -82,7 +82,7 @@ export const AppointmentList = () => {
                                         <div className="center mt-2">
                                             <select name='employee' className="dropdown my__appointment--dropdown" onChange={(e) => {
                                                 const selectedEmployeeId = e.target.value;
-                                                setSelectedEmployee(e.target.selectedOptions[0].text);
+                                                setSelectedEmployee(e.target.value);
                                                 navigate({ pathname: `/appointments/my/${selectedEmployeeId}` });
                                             }} value={currentEmployee.full_name}>
                                                 <option>Select a Employee</option>
