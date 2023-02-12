@@ -48,14 +48,14 @@ export const CustomerList = () => {
 
     return <>
         <section className="mt-5 ml-5">
-            <h1 className="is-title">Customers</h1>
+            <h1 className="is-title is-size-3 customer__list">Customers</h1>
             <div className="mb-3"><h3 className="is-italic"><span className="has-text-success-dark">†</span> denotes multiple properties</h3></div>
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/customers/create" }) }}><span className="">Schedule Customer</span></button>
 
         </section>
         <article className="customer__list customers">
 
-            <section className="mc__customer--list">
+            <section className="">
                 <div className="columns is-multiline mt-5 is-3 is-variable is-centered">
                     {
                         customers.map(customer => <Customer key={`customer--${customer.id}`}

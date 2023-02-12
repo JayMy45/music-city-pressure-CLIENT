@@ -44,14 +44,14 @@ export const CustomerDetails = () => {
     }, [renderCustomer])
 
     return <>
-        <div className=" mt-5" id="navbar__space">
-            <h1 className=" ml-5 mt-3">Customer Details</h1>
+        <div className=" mt-5 customer__list" id="navbar__space">
+            <h1 className="is-title is-size-3 ml-5 mt-3">Customer Details</h1>
         </div>
         <div className="mt-4 mb-5 ml-5 ">
             <div><button className="btn__customer--details button is-dark ml-5" onClick={() => navigate(`/customers`)}>Back to Customers</button></div>
             <div><button className="btn__customer--details button is-dark ml-5 mt-1" onClick={() => navigate(`/appointments`)}>Appointments</button></div>
         </div>
-        <div className="mc__customer center">
+        <div className="mc__customer center customer__list">
             <section className="mc__customer--details box is-centered mb-2 section">
                 <div className="container">
                     <div className="columns">

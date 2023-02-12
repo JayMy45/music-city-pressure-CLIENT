@@ -1,5 +1,6 @@
+#navbar__space,
 .customer__list {
-    margin-top: 5rem;
+    margin-top: 2rem;
 }
 
 .btn__customers {
@@ -18,6 +19,10 @@
 
 .mc__customer--details {
     width: 32rem;
+}
+
+.mc__customer--list {
+    width: 25rem;
 }
 
 .btn__customer-details {
