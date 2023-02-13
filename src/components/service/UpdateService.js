@@ -97,6 +97,7 @@ export const UpdateService = () => {
                         </div>
                     </div>
                 </div>
+
                 <div className="field is-horizontal">
                     <div className="field-label is-normal mt-3">
                         <label>Description</label>
