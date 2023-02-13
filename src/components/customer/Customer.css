@@ -21,6 +21,11 @@
     width: 32rem;
 }
 
+.mc__customer--update {
+    margin: auto;
+    width: 40rem;
+}
+
 .mc__customer--list {
     width: 25rem;
 }

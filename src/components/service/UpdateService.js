@@ -74,9 +74,8 @@ export const UpdateService = () => {
                 <button className="btn__service--details button is-small is-dark ml-5" onClick={() => navigate(`/services`)}>Back to Services</button>
             </div>
         </div>
+
         <form className="mc__service--update box px-6 py-6 mt-5 mb-5">
-
-
             <div className="">
                 <div className="mb-5 mt-3 center">
                     <div>
@@ -241,7 +240,6 @@ export const UpdateService = () => {
                     {/* <h1 className="title is-4 ml-3">Level UP</h1> */}
                 </a>
             </div>
-
         </form>
     </>
 
