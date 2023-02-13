@@ -51,7 +51,8 @@ export const CustomerDetails = () => {
             <div><button className="btn__customer--details button is-dark ml-5" onClick={() => navigate(`/customers`)}>Back to Customers</button></div>
             <div><button className="btn__customer--details button is-dark ml-5 mt-1" onClick={() => navigate(`/appointments`)}>Appointments</button></div>
         </div>
-        <div className="mc__customer center customer__list">
+
+        <div className="mc__customer center customer__list mb-3">
             <section className="mc__customer--details box is-centered mb-2 section">
                 <div className="container">
                     <div className="columns">
@@ -63,29 +64,6 @@ export const CustomerDetails = () => {
                                 <figure>
                                     <img src={customer.image} alt={`A portrait of ${customer.first_name}`} />
                                 </figure>
-                                <div>
-                                    {
-                                        mCPressure || superUser
-                                            ? <>
-                                                <div>
-                                                    {
-                                                        customer.location.length > 1
-                                                            ? <>
-                                                                <div className="mb-1">
-                                                                    Address:
-                                                                    {
-                                                                        customer.location.map((locate, index) => (<div key={`location--${locate.id}`} className="ml-5">{locate.street}<sup className="is-size-7 has-text-success-dark ml-1">{index + 1}</sup></div>))
-                                                                    }
-                                                                </div>
-                                                            </>
-                                                            : <> <p className="mt-2">Address: {customer.address}</p></>
-                                                    }
-                                                </div>
-                                                <p>Phone: {customer.phone_number}</p>
-                                            </>
-                                            : <></>
-                                    }
-                                </div>
 
                             </div>
                         </div>
@@ -102,6 +80,51 @@ export const CustomerDetails = () => {
                         </div>
                     </div>
                     <div>
+
+                        <div>
+                            {
+                                mCPressure || superUser
+                                    ? <>
+                                        <div>
+                                            {
+                                                customer.location.length > 1
+                                                    ? <>
+                                                        <div className="field is-horizontal mt-5">
+                                                            <div className="field-label is-normal">
+                                                                <label>Address:</label>
+                                                            </div>
+
+                                                            <div className="field-body">
+                                                                <div className="field">
+                                                                    <div className="control mt-2">
+                                                                        {
+                                                                            customer.location.map((locate, index) => (<div key={`location--${locate.id}`}>{locate.street}<sup className="is-size-7 has-text-success-dark ml-1">{index + 1}</sup></div>))
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                    : <> <p className="mt-2">Address: {customer.address}</p></>
+                                            }
+                                        </div>
+                                        <div className="field is-horizontal mt-5">
+                                            <div className="field-label is-normal">
+                                                <label>Phone:</label>
+                                            </div>
+
+                                            <div className="field-body mt-2 mb-4">
+                                                <div className="field">
+                                                    <div className="control">
+                                                        {customer.phone_number}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </>
+                                    : <></>
+                            }
+                        </div>
                         <div>
                             <p><strong>About {customer?.user?.first_name}</strong></p>
                             <p style={{ textAlign: 'justify' }}>{customer.bio}</p>
@@ -110,5 +133,6 @@ export const CustomerDetails = () => {
                 </div>
             </section>
         </div>
+
     </>
 }

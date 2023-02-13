@@ -56,12 +56,12 @@ export const CustomerUpdate = () => {
     }
 
     return <>
-        <section>
-            <div className="mt-5 customer__list" id="navbar__space">
-                <h1 className="title is-size-3 ml-5 mt-5">Update Customer</h1>
+        <section className="customer__list">
+            <div>
+                <h1 className="title is-size-3 ml-3">Update Customer</h1>
             </div>
             <div>
-                <div className="mt-5 mb-5 ml-5 ">
+                <div className="mt-5 mb-5 ml-5">
                     <div>
                         <button className="btn__customer--update__1 button is-small has-background-light has-text-link-dark ml-5" onClick={() => navigate(`/customers`)}>Back to Customers</button>
                     </div>
@@ -72,15 +72,20 @@ export const CustomerUpdate = () => {
             </div>
         </section>
 
-        <form className="box px-6 py-6 mc__customer--update customer__list">
+        <form className="box px-6 py-6 mc__customer--update">
             <div className="">
-                <div className="mb-5 mt-3 center">
+                <div className="center">
                     <div>
-                        <h2 className="title is-3"><span><strong>Update {customer?.user?.first_name}'s Information</strong> {customer.name}</span></h2>
+                        <h2 className="title is-3">
+                            <span>
+                                <strong>Update {customer?.user?.first_name}'s Information</strong>
+                                {customer.name}
+                            </span>
+                        </h2>
                     </div>
                 </div>
 
-                <div className="field is-horizontal">
+                <div className="field is-horizontal mt-4">
                     <div className="field-label is-normal mt-3">
                         <button
                             onClick={(clickEvent) => showWidget(clickEvent)}
@@ -98,7 +103,9 @@ export const CustomerUpdate = () => {
                                         ? <>
                                             <div className="box">
                                                 <figure className="service__image is-size-4"><img src={customer.image} alt="preview" /></figure>
-                                                <div className="center"><h4 className="subtitle is-7">image preview</h4></div>
+                                                <div className="center">
+                                                    <h4 className="subtitle is-7">image preview</h4>
+                                                </div>
                                             </div>
                                         </>
                                         : <>Image Will Preview Here</>
@@ -109,9 +116,9 @@ export const CustomerUpdate = () => {
                     </div>
                 </div>
 
-                <div className="field is-horizontal">
+                <div className="field is-horizontal mt-5">
                     <div className="field-label is-normal">
-                        <label>Address</label>
+                        <label><strong>Address:</strong></label>
                     </div>
                     <div className="field-body">
                         <div className="field">
@@ -119,13 +126,27 @@ export const CustomerUpdate = () => {
                                 {
                                     customer.location.map((locate, index) => (
                                         <div key={`address--${locate.id}`} className="mt-2 center">
-                                            <div><span className="mr-2"><ion-icon name="home"></ion-icon><sup>{index + 1}</sup></span><input type="text" name="label" required style={{ width: 250 }} className="input"
-                                                value={locate.street}
-                                                onChange={changeCustomerState} />
+                                            <div className="">
+                                                <span className="mr-1">
+                                                    <ion-icon name="home"></ion-icon>
+                                                    <sup>{index + 1}</sup>
+                                                </span>
+                                                <input type="text"
+                                                    name="label"
+                                                    required
+                                                    style={{ width: 250 }}
+                                                    className="input mr-2"
+                                                    value={locate.street}
+                                                    onChange={changeCustomerState} />
+                                                <button className="button is-small mr-1 is-link">Update</button>
+                                                <button className="button is-small is-danger">Remove</button>
                                             </div>
                                         </div>
                                     ))
                                 }
+                            </div>
+                            <div className="center mt-4">
+                                <button className="button is-dark">Add New Address</button>
                             </div>
                         </div>
                     </div>
