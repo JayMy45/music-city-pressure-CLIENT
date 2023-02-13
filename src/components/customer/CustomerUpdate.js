@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getCustomerById } from "../../managers/CustomerManager"
+import "./Customer.css"
 
 export const CustomerUpdate = () => {
 
@@ -28,25 +29,109 @@ export const CustomerUpdate = () => {
         renderCustomer()
     }, [renderCustomer])
 
+    const showWidget = (clickEvent) => {
+        clickEvent.preventDefault()
+        let widget = window.cloudinary.createUploadWidget({
+            cloudName: `dp04hh5pz`,
+            uploadPreset: `gv9plrcj`
+        },
+            (error, result) => {
+                if (!error && result && result.event === "success") {
+                    console.log(result.info.url)
+                    const copy = structuredClone(customer)
+                    copy.image = result.info.url
+                    setCustomer(copy)
+                }
+            });
+        widget.open()
+    }
+
+    const changeCustomerState = (domEvent) => {
+        // TODO: Complete the onChange function
+        const value = domEvent.target.value
+        setCustomer({
+            ...customer,
+            [domEvent.target.name]: value
+        })
+    }
+
     return <>
-        <div className="mt-5" id="navbar__space">
-            <h1 className=" ml-5 mt-5">Update Customer</h1>
-        </div>
-        <div>
-            <div className="mt-5 mb-5 ml-5 ">
-                <div>
-                    <button className="btn__customer--update__1 button is-small has-background-light has-text-link-dark ml-5" onClick={() => navigate(`/customers`)}>Back to Customers</button>
-                </div>
-                <div>
-                    <button className="btn__customer--update__1 button is-small has-background-light has-text-link-dark ml-5 mt-1" onClick={() => navigate(`/appointments`)}>Back to Appointments</button>
+        <section>
+            <div className="mt-5 customer__list" id="navbar__space">
+                <h1 className="title is-size-3 ml-5 mt-5">Update Customer</h1>
+            </div>
+            <div>
+                <div className="mt-5 mb-5 ml-5 ">
+                    <div>
+                        <button className="btn__customer--update__1 button is-small has-background-light has-text-link-dark ml-5" onClick={() => navigate(`/customers`)}>Back to Customers</button>
+                    </div>
+                    <div>
+                        <button className="btn__customer--update__1 button is-small has-background-light has-text-link-dark ml-5 mt-1" onClick={() => navigate(`/appointments`)}>Back to Appointments</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <form>
-            Hellow Customer Update Worldie
-            {console.log(`${customer.full_name}`)}
-            <h2>{customer.full_name}</h2>
+        <form className="box px-6 py-6 mc__customer--update customer__list">
+            <div className="">
+                <div className="mb-5 mt-3 center">
+                    <div>
+                        <h2 className="title is-3"><span><strong>Update {customer?.user?.first_name}'s Information</strong> {customer.name}</span></h2>
+                    </div>
+                </div>
+
+                <div className="field is-horizontal">
+                    <div className="field-label is-normal mt-3">
+                        <button
+                            onClick={(clickEvent) => showWidget(clickEvent)}
+                            className="button is-primary is-small">
+                            Update Image
+                        </button>
+                    </div>
+
+                    <div className="field-body">
+                        <div className="field">
+                            <div className="control mt-4"></div>
+                            <div className="center">
+                                {
+                                    customer.image !== ""
+                                        ? <>
+                                            <div className="box">
+                                                <figure className="service__image is-size-4"><img src={customer.image} alt="preview" /></figure>
+                                                <div className="center"><h4 className="subtitle is-7">image preview</h4></div>
+                                            </div>
+                                        </>
+                                        : <>Image Will Preview Here</>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div className="field is-horizontal">
+                    <div className="field-label is-normal">
+                        <label>Address</label>
+                    </div>
+                    <div className="field-body">
+                        <div className="field">
+                            <div className="control">
+                                {
+                                    customer.location.map((locate, index) => (
+                                        <div key={`address--${locate.id}`} className="mt-2 center">
+                                            <div><span className="mr-2"><ion-icon name="home"></ion-icon><sup>{index + 1}</sup></span><input type="text" name="label" required style={{ width: 250 }} className="input"
+                                                value={locate.street}
+                                                onChange={changeCustomerState} />
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </form>
     </>
 }
