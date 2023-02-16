@@ -30,9 +30,9 @@ export const ServiceList = () => {
     }
 
     return <>
-        <header className="mt-5" id="navbar__space">
+        <header id="navbar__space">
             <div className="mt-5">
-                <h1 className="ml-5 mt-5">Services</h1>
+                <h1 className="title ml-5 mt-5">Services</h1>
             </div>
             <div className="ml-5 mt-3">
                 <div>

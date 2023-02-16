@@ -65,9 +65,9 @@ export const UpdateService = () => {
     }, [currentService]);
 
     return <>
-        <div className="mt-5" id="navbar__space">
+        <div id="navbar__space">
 
-            <h1 className=" ml-5 mt-5">Update Service </h1>
+            <h1 className="title ml-5 mt-5">Update Service </h1>
         </div>
         <div className="mt-1 mb-5 ml-5 ">
             <div>

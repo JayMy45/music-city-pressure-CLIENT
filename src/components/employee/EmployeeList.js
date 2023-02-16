@@ -28,11 +28,11 @@ export const EmployeeList = () => {
     }, [])
 
     return <>
-        <div className="mt-5" id="navbar__space">
+        <div id="navbar__space">
             {
                 mCPressure || superUser
                     ? <>
-                        <h1 className="mb-3 ml-5 mt-3">Employees</h1>
+                        <h1 className="title mb-3 ml-5 mt-3">Employees</h1>
 
                         {superUser
                             ? <h4 className="ml-5 is-size-7 is-italic"><span className="has-text-danger">*</span> denotes supervisor</h4>

@@ -75,10 +75,8 @@ export const MyAppointment = () => {
 
 
     return <>
-
-
-        <section className="mt-5 ml-5">
-            <h1 className="is-title is-size-3 mb-2">Appointments</h1>
+        <section className="ml-5" id="navbar__space">
+            <h1 className="is-title is-size-2 mb-2">Appointments</h1>
 
             <button className="button is-info is-default" onClick={() => { navigate({ pathname: "/appointments/create" }) }}><span className="">Schedule Appointment</span></button>
             <div className="btn__btn--section1 ">
