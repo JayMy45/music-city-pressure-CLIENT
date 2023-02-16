@@ -51,10 +51,10 @@ export const ServiceCreate = () => {
 
 
     return <>
-        <div className="mt-5" id="navbar__space">
-            <h1 className=" ml-5 mt-5">Create Service </h1>
+        <div id="navbar__space">
+            <h1 className="title ml-5 mt-5">Create Service </h1>
         </div>
-        <div className="mt-1 mb-5 ml-5 ">
+        <div className="mt-2 mb-5 ml-5 ">
             <div>
                 <button className="btn__service--details button is-small is-dark ml-5" onClick={() => navigate(`/services`)}>Back to Services</button>
             </div>
