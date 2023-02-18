@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getCustomerById } from "../../managers/CustomerManager"
+import { deleteLocation } from "../../managers/LocationManager"
 import "./Customer.css"
 
 export const CustomerUpdate = () => {
@@ -53,6 +54,16 @@ export const CustomerUpdate = () => {
             ...customer,
             [domEvent.target.name]: value
         })
+    }
+
+    //  handles confirmation of deletion via a popup
+    const confirmLocationDelete = (evt, location) => {
+        // whenever confirmed by clicking OK/Cancel window.confirm() returns boolean 
+        let text = 'Are you sure you want to delete'
+        window.confirm(text)
+            ? deleteLocation(location.id)
+                .then(renderCustomer)
+            : <></>
     }
 
     return <>
@@ -139,7 +150,7 @@ export const CustomerUpdate = () => {
                                                     value={locate.street}
                                                     onChange={changeCustomerState} />
                                                 <button className="button is-small mr-1 is-link">Update</button>
-                                                <button className="button is-small is-danger">Remove</button>
+                                                <button className="button is-small is-danger" onClick={(evt) => confirmLocationDelete(evt, locate)}>Remove</button>
                                             </div>
                                         </div>
                                     ))
