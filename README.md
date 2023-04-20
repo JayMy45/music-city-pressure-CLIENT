@@ -18,7 +18,7 @@ One side-effect of Nashville's explosive growth is the dust and debris from cons
  
  - Realtime tracking of appointment progress
  
-```
+```py
 Customer Credentials
 username: jaymy45 
 password: django
@@ -43,7 +43,7 @@ password: django
  
  -
  
- ```
+```py
 Employee Credentials
 username: jam 
 password: me
@@ -72,10 +72,11 @@ password: me
  
  - Approve appointment date or reschedule an appointment for later time.
  
-  ```
+```py
 Admin Credentials
 username: ja 
 password: me
+
 ```
  
 <h2>Demo</h2>
