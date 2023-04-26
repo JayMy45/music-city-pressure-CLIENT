@@ -40,8 +40,7 @@ password: django
  - Delete an Appointment.
  
  - Approve appointment date or reschedule an appointment for later time.
- 
- -
+
  
 ```py
 Employee Credentials
