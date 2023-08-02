@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+<h1> Music City Pressure </h1>
+One side-effect of Nashville's explosive growth is the dust and debris from constant construction and demolition. Aside from the occasional power washing every other year nowadays the accumulation of grim and dirt is almost immediate.   Music City Pressure is determined to save customers time with ease by scheduling an appointment.  We offer all sorts of services with competitive prices from customizable to budget conscious options.  This app will allow those in need of power-washing, and/or soft-washing, to get in touch with a skilled professional and track their progress before and throughout the cleaning process.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h2>Features</h2>
+- There are 3 separate views dedicated for Customers, Employees, and Admins.
+    
+- Each view has different functionality and visual  aspects
+    
+ <h3>Customer View</h3>
+ 
+ - Create an Appointment.
+ 
+ - Update an Appointment.
+ 
+ - Delete an Appointment.
+ 
+ - Approve appointment date or reschedule an appointment for later time.
+ 
+ - Realtime tracking of appointment progress
+ 
+```py
+Customer Credentials
+username: jaymy45 
+password: django
+```
 
-## Available Scripts
+ 
+ <h3>Employee View</h3>
+ 
+ - Claim/UnClaim an appointment to work on for self.
+ 
+ - Update appointment progress.
+ 
+ - Update personal Information.
+ 
+ - Create an Appointment.
+ 
+ - Update an Appointment.
+ 
+ - Delete an Appointment.
+ 
+ - Approve appointment date or reschedule an appointment for later time.
 
-In the project directory, you can run:
+ 
+```py
+Employee Credentials
+username: jam 
+password: me
+```
+ 
 
-### `npm start`
+ <h3>Admin View</h3>
+ 
+ - Assign/Unassign all employees to any Appointment.
+ 
+ - Filter appointments by employee.
+ 
+ - Claim/UnClaim an appointment to work on for self.
+ 
+ - Update appointment progress.
+ 
+ - Update personal Information or all Employees.
+ 
+ - Delete/Fire an Employee(s)
+ 
+ - Create an Appointment.
+ 
+ - Update an Appointment.
+ 
+ - Delete an Appointment.
+ 
+ - Approve appointment date or reschedule an appointment for later time.
+ 
+```py
+Admin Credentials
+username: ja 
+password: me
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+ 
+<h2>Demo</h2>
+<em>Coming Soon</em>
+ 
+<h2>Entity Relationship Diagram</h2>
+https://drawsql.app/teams/jeremys-team-1/diagrams/music-city-pressure
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<h2>Initial Wireframe</h2>
+https://www.canva.com/design/DAFTiMg8ICs/1uz2tot4KAeew0dwbdT8jw/edit?utm_content=DAFTiMg8ICs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<h2>Technologies used:</h2>
 
-### `npm run build`
+- Javascript
+- React
+- Python
+- Django
+- DrawSQL (Entity relationship Diagram)
+- Canva (Logo Design & Wireframe)
+- Bulma
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<h2>Author Info</h2>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Created by Jeremy Myers
+- LinkedIn: https://www.linkedin.com/in/jeremynmyers/
